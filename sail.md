@@ -1,5 +1,5 @@
 ---
-git: 3a8bc7fa4eaf942a9e1793e12db1b7b530c1b063
+git: 34ce2334289e77fb46bbf05f7089852d39217e40
 ---
 
 # Laravel Sail
@@ -153,7 +153,7 @@ sail php script.php
 
 Команды Composer могут быть выполнены с помощью команды `composer`. Контейнер приложения Laravel Sail содержит Composer:
 
-```nothing
+```shell
 sail composer require laravel/sanctum
 ```
 
