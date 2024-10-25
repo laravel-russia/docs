@@ -1,5 +1,5 @@
 ---
-git: b744d060e795703c95a56576c63011f68101020e
+git: 34ce2334289e77fb46bbf05f7089852d39217e40
 ---
 
 # Отправка электронной почты
@@ -167,7 +167,7 @@ composer require mailersend/laravel-driver
 
 После установки пакета добавьте переменную окружения `MAILERSEND_API_KEY` в файл `.env` вашего приложения. Кроме того, переменная окружения `MAIL_MAILER` должна быть определена как `mailersend`:
 
-```shell
+```ini
 MAIL_MAILER=mailersend
 MAIL_FROM_ADDRESS=app@yourdomain.com
 MAIL_FROM_NAME="Имя приложения"
