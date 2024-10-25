@@ -1,5 +1,5 @@
 ---
-git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
+git: 339648899df6c796dc63dd3b614986af451ea493
 ---
 
 # Laravel Octane
@@ -115,6 +115,8 @@ services:
     volumes:
       - .:/app
 ```
+
+Если опция `--log-level` явно передана команде `php artisan octane:start`, Octane будет использовать собственный регистратор FrankenPHP и, если не настроено иначе, будет создавать структурированные журналы JSON.
 
 Дополнительную информацию о запуске FrankenPHP с Docker можно найти в [официальной документации FrankenPHP](https://frankenphp.dev/docs/docker/).
 
