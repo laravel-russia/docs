@@ -1,5 +1,5 @@
 ---
-git: ce6cf0e289dff0b42a9c2a1e2206200498d50018
+git: 34ce2334289e77fb46bbf05f7089852d39217e40
 ---
 
 # Laravel Scout
@@ -115,7 +115,7 @@ composer require typesense/typesense-php
 
 Затем установите переменную среды `SCOUT_DRIVER`, а также укажите адрес вашего Typesense и ключ API в файле `.env` вашего приложения:
 
-```env
+```ini
 SCOUT_DRIVER=typesense
 TYPESENSE_API_KEY=masterKey
 TYPESENSE_HOST=localhost
@@ -123,7 +123,7 @@ TYPESENSE_HOST=localhost
 
 Если вы используете [Laravel Sail](/docs/{{version}}/sail), вам может потребоваться настроить переменную среды `TYPESENSE_HOST`, чтобы она соответствовала имени контейнера Docker. Вы также можете указать порт, путь и протокол вашей установки:
 
-```env
+```ini
 TYPESENSE_PORT=8108
 TYPESENSE_PATH=
 TYPESENSE_PROTOCOL=http
