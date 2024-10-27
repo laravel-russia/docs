@@ -1,5 +1,5 @@
 ---
-git: d62fe02f06606bc5696999e03f42008ce950801c
+git: 2f56a79462e97db0fa5072c92d0bb1f1197eff2f
 ---
 
 # Строки
@@ -33,6 +33,7 @@ Laravel включает в себя различные функции для р
 - [Str::charAt](#method-char-at)
 - [Str::contains](#method-str-contains)
 - [Str::containsAll](#method-str-contains-all)
+- [Str::doesntContain](#method-str-doesnt-contain)
 - [Str::deduplicate](#method-deduplicate)
 - [Str::endsWith](#method-ends-with)
 - [Str::excerpt](#method-excerpt)
@@ -444,6 +445,33 @@ Laravel включает в себя различные функции для р
     use Illuminate\Support\Str;
 
     $containsAll = Str::containsAll('This is my name', ['MY', 'NAME'], ignoreCase: true);
+
+    // true
+
+<a name="method-str-doesnt-contain"></a>
+#### `Str::doesntContain()`
+
+Метод `Str::doesntContain` определяет, не содержит ли данная строка заданное значение. По умолчанию этот метод чувствителен к регистру:
+
+    use Illuminate\Support\Str;
+
+    $doesntContain = Str::doesntContain('This is name', 'my');
+
+    // true
+
+Вы также можете передать массив значений, чтобы определить, не содержит ли данная строка каких-либо значений в массиве:
+
+    use Illuminate\Support\Str;
+
+    $doesntContain = Str::doesntContain('This is name', ['my', 'foo']);
+
+    // true
+
+Вы можете отключить чувствительность к регистру, установив для аргумента `ignoreCase` значение `true`:
+
+    use Illuminate\Support\Str;
+
+    $doesntContain = Str::doesntContain('This is name', 'MY', ignoreCase: true);
 
     // true
 
