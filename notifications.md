@@ -1,5 +1,5 @@
 ---
-git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
+git: e589c65973ef8668df016fc27f4f37e07d8abf26
 ---
 
 # Уведомления
@@ -1094,7 +1094,7 @@ composer require laravel/slack-notification-channel
 
 Дополнительно, вы должны создать [Slack приложение](https://api.slack.com/apps?new_app=1) для вашего рабочего пространства Slack.
 
-Если вам нужно отправлять уведомления только в то же рабочее пространство Slack, в котором создано приложение, убедитесь, что ваше приложение имеет разрешения `chat:write`, `chat:write.public` и `chat:write.customize`. Эти разрешения можно добавить на вкладке "OAuth & Permissions" в управлении приложениями Slack.
+Если вам нужно отправлять уведомления только в то же рабочее пространство Slack, в котором создано приложение, убедитесь, что ваше приложение имеет разрешения `chat:write`, `chat:write.public` и `chat:write.customize`. Если вы хотите отправлять сообщения в качестве приложения Slack, вам следует убедиться, что ваше приложение также имеет область действия `chat:write:bot`. Эти разрешения можно добавить на вкладке "OAuth & Permissions" в управлении приложениями Slack.
 
 Далее, скопируйте "Bot User OAuth Token" вашего приложения и поместите его в массив конфигурации `slack` в файле конфигурации `services.php` вашего приложения. Этот токен можно найти на вкладке "OAuth & Permissions" в Slack:
 
@@ -1142,6 +1142,44 @@ composer require laravel/slack-notification-channel
                 ->sectionBlock(function (SectionBlock $block) {
                     $block->text('Congratulations!');
                 });
+    }
+
+<a name="using-slacks-block-kit-builder-template"></a>
+#### Использование шаблона Block Kit Builder Slack
+
+Вместо использования методов построителя сообщений для создания сообщения Block Kit вы можете передать необработанный JSON, сгенерированный Block Kit Builder Slack, методу usingBlockKitTemplate:
+
+    use Illuminate\Notifications\Slack\SlackMessage;
+    use Illuminate\Support\Str;
+
+    /**
+     * Get the Slack representation of the notification.
+     */
+    public function toSlack(object $notifiable): SlackMessage
+    {
+        $template = <<<JSON
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Team Announcement"
+                  }
+                }, 
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "We are hiring!"
+                  }
+                }
+              ]
+            }
+        JSON;
+
+        return (new SlackMessage)
+                ->usingBlockKitTemplate($template);
     }
 
 <a name="slack-interactivity"></a>
