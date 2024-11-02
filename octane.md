@@ -1,5 +1,5 @@
 ---
-git: 339648899df6c796dc63dd3b614986af451ea493
+git: 0fb74b53ead24933cdc2024aa979675b45e6e821
 ---
 
 # Laravel Octane
@@ -59,7 +59,7 @@ php artisan octane:install
 services:
   laravel.test:
     environment:
-      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=frankenphp --host=0.0.0.0 --admin-port=2019 --port=80" # [tl! add]
+      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=frankenphp --host=0.0.0.0 --admin-port=2019 --port='${APP_PORT:-80}'" # [tl! add]
       XDG_CONFIG_HOME:  /var/www/html/config # [tl! add]
       XDG_DATA_HOME:  /var/www/html/data # [tl! add]
 ```
@@ -151,7 +151,7 @@ services:
 services:
   laravel.test:
     environment:
-      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=roadrunner --host=0.0.0.0 --rpc-port=6001 --port=80" # [tl! add]
+      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=roadrunner --host=0.0.0.0 --rpc-port=6001 --port='${APP_PORT:-80}'" # [tl! add]
 ```
 
 Наконец, убедитесь, что двоичный файл `rr` исполняется, и создайте свои образы Sail:
@@ -196,7 +196,7 @@ pecl install openswoole
 services:
   laravel.test:
     environment:
-      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=swoole --host=0.0.0.0 --port=80" # [tl! add]
+      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=swoole --host=0.0.0.0 --port='${APP_PORT:-80}'" # [tl! add]
 ```
 
 Наконец, создайте свои образы Sail:
