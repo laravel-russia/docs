@@ -1,5 +1,5 @@
 ---
-git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
+git: e81073dfdf1af87568007014abe72aaa235c61b1
 ---
 
 # Тестирование · База данных
@@ -193,6 +193,13 @@ Laravel содержит несколько утверждений базы да
 Утверждает, что таблица в базе данных содержит указанное количество записей:
 
     $this->assertDatabaseCount('users', 5);
+
+<a name="assert-database-empty"></a>
+#### assertDatabaseEmpty
+
+Утверждает, что таблица в базе данных не содержит записей:
+
+    $this->assertDatabaseEmpty('users');
 
 <a name="assert-database-has"></a>
 #### assertDatabaseHas
