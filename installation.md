@@ -1,5 +1,5 @@
 ---
-git: da497fd5e0d1b0fd9f0715bcc50b7524abaec7bd
+git: 47f34bd8ee4cbec55ad5c3b3e2dddb7a3a563628
 ---
 
 # Установка
@@ -83,7 +83,7 @@ laravel new example-app
 
 ```shell
 cd example-app
-
+npm install && npm run build
 composer run dev
 ```
 
