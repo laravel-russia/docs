@@ -1,5 +1,5 @@
 ---
-git: 8205b55a6e20c0ceecc9fa606f03b7a58c32095a
+git: 690175ad7106a7b8ce6e6e8420872ca932622e84
 ---
 
 # Контейнер служб (service container)
@@ -156,6 +156,12 @@ $this->app->singletonIf(Transistor::class, function (Application $app) {
     use Illuminate\Contracts\Foundation\Application;
 
     $this->app->scoped(Transistor::class, function (Application $app) {
+        return new Transistor($app->make(PodcastParser::class));
+    });
+
+Вы можете использовать метод `scopedIf` для регистрации привязки контейнера с ограниченной областью действия, только если привязка еще не зарегистрирована для данного типа:
+
+    $this->app->scopedIf(Transistor::class, function (Application $app) {
         return new Transistor($app->make(PodcastParser::class));
     });
 
@@ -558,6 +564,28 @@ Route::get('/user', function (#[CurrentUser] User $user) {
     });
 
 Как видите, извлекаемый объект будет передан в замыкание, что позволит вам установить любые дополнительные свойства объекта до того, как он будет передан его получателю.
+
+<a name="rebinding"></a>
+### Перепривязка
+
+Метод `rebinding` позволяет вам прослушивать, когда служба повторно привязывается к контейнеру, то есть она снова регистрируется или переопределяется после первоначальной привязки. Это может быть полезно, когда вам нужно обновить зависимости или изменить поведение каждый раз при обновлении определенной привязки:
+
+    use App\Contracts\PodcastPublisher;
+    use App\Services\SpotifyPublisher;
+    use App\Services\TransistorPublisher;
+    use Illuminate\Contracts\Foundation\Application;
+
+    $this->app->bind(PodcastPublisher::class, SpotifyPublisher::class);
+
+    $this->app->rebinding(
+        PodcastPublisher::class,
+        function (Application $app, PodcastPublisher $newInstance) {
+            //
+        },
+    );
+
+    // New binding will trigger rebinding closure...
+    $this->app->bind(PodcastPublisher::class, TransistorPublisher::class);
 
 <a name="psr-11"></a>
 ## PSR-11
