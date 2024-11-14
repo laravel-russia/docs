@@ -1,5 +1,5 @@
 ---
-git: ead3a5b4b11c267f20ee1065eb3f9aa98fc986e1
+git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 ---
 
 # Кэширование
@@ -98,6 +98,13 @@ composer require aws/aws-sdk-php
     'endpoint' => env('DYNAMODB_ENDPOINT'),
 ],
 ```
+
+<a name="mongodb"></a>
+#### MongoDB
+
+Если вы используете MongoDB, драйвер кэша  `mongodb` предоставляется официальным пакетом `mongodb/laravel-mongodb` и может быть настроен с помощью подключения к базе данных `mongodb`. MongoDB поддерживает индексы TTL, которые можно использовать для автоматической очистки элементов кэша с истекшим сроком действия.
+
+Для получения дополнительной информации о настройке MongoDB обратитесь к [документации по кэшу и блокировкам MongoDB](https://www.mongodb.com/docs/drivers/php/laravel-mongodb/current/cache/).
 
 <a name="cache-usage"></a>
 ## Управление кешем приложения
