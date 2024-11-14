@@ -1,5 +1,5 @@
 ---
-git: 47f34bd8ee4cbec55ad5c3b3e2dddb7a3a563628
+git: 73a37c89e6d04bc6941cd9d623b2150710556b25
 ---
 
 # Установка
@@ -43,7 +43,7 @@ Laravel объединяет лучшие пакеты в экосистеме P
 <a name="installing-php"></a>
 ### Установка PHP и установщика Laravel
 
-Прежде чем создавать свое первое приложение Laravel, убедитесь, что на вашем локальном компьютере установлены [PHP](https://php.net), [Composer](https://getcomposer.org) и [установщик Laravel](https:/ /github.com/laravel/installer). Кроме того, вам следует установить [Node и NPM](https://nodejs.org), чтобы вы могли скомпилировать ресурсы внешнего интерфейса вашего приложения.
+Прежде чем создавать свое первое приложение Laravel, убедитесь, что на вашем локальном компьютере установлены [PHP](https://php.net), [Composer](https://getcomposer.org) и [установщик Laravel](https:/ /github.com/laravel/installer). Кроме того, вам следует установить либо [Node и NPM](https://nodejs.org), либо [Bun](https://bun.sh/), чтобы вы могли скомпилировать ресурсы внешнего интерфейса вашего приложения.
 
 Если на вашем локальном компьютере не установлены PHP и Composer, следующие команды установят PHP, Composer и установщик Laravel в macOS, Windows или Linux:
 
@@ -52,6 +52,7 @@ Laravel объединяет лучшие пакеты в экосистеме P
 ```
 
 ```shell tab=Windows PowerShell
+# Запуск от имени администратора...
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows'))
 ```
 
