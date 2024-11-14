@@ -1,5 +1,5 @@
 ---
-git: 8f1a3d074d960178fc00bc91760324336e898822
+git: 1e8496c232c2e3f17179c7ad8d751f9c795ce16a
 ---
 
 # Глобальные помощники (helpers)
@@ -2465,6 +2465,53 @@ protected $middleware = [
     \App\Http\Middleware\TrustProxies::class,
     // ...
 ];
+```
+
+<a name="disabling-deferred-functions-in-tests"></a>
+#### Отключение отложенных функций в тестах
+
+При написании тестов может быть полезно отключить отложенные функции. Вы можете вызвать `withoutDefer` в своем тесте, чтобы указать Laravel немедленно вызвать все отложенные функции:
+
+```php tab=Pest
+test('without defer', function () {
+    $this->withoutDefer();
+
+    // ...
+});
+```
+
+```php tab=PHPUnit
+use Tests\TestCase;
+
+class ExampleTest extends TestCase
+{
+    public function test_without_defer(): void
+    {
+        $this->withoutDefer();
+
+        // ...
+    }
+}
+```
+
+Если вы хотите отключить отложенные функции для всех тестов в тестовом примере, вы можете вызвать метод `withoutDefer` из метода `setUp` вашего базового класса `TestCase`:
+
+```php
+<?php
+
+namespace Tests;
+
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
+{
+    protected function setUp(): void// [tl! add:start]
+    {
+        parent::setUp();
+
+        $this->withoutDefer();
+    }// [tl! add:end]
+}
 ```
 
 <a name="lottery"></a>
