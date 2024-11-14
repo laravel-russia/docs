@@ -1,5 +1,5 @@
 ---
-git: 75b35258183385b5f2e7e018f58808512901185c
+git: 137c84001cb546324e63327cb0c08ca67d3cd5fc
 ---
 
 <a name="introduction"></a>
@@ -219,6 +219,18 @@ $data = Context::only(['first_key', 'second_key']);
 $value = Context::pull('key');
 ```
 
+Если контекстные данные хранятся в [стеке](#stacks), вы можете извлекать элементы из стека, используя метод `pop`:
+
+```php
+Context::push('breadcrumbs', 'first_value', 'second_value');
+
+Context::pop('breadcrumbs')
+// second_value
+
+Context::get('breadcrumbs');
+// ['first_value'] 
+```
+
 Если вы хотите получить всю информацию, хранящуюся в контексте, вы можете вызвать метод `all`:
 
 ```php
@@ -295,6 +307,7 @@ Context::addHiddenIf(/* ... */);
 Context::pushHidden(/* ... */);
 Context::getHidden(/* ... */);
 Context::pullHidden(/* ... */);
+Context::popHidden(/* ... */);
 Context::onlyHidden(/* ... */);
 Context::allHidden(/* ... */);
 Context::hasHidden(/* ... */);
