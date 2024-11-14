@@ -1,5 +1,5 @@
 ---
-git: ead3a5b4b11c267f20ee1065eb3f9aa98fc986e1
+git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 ---
 
 # Очереди
@@ -99,7 +99,8 @@ php artisan migrate
 
 - Amazon SQS: `aws/aws-sdk-php ~3.0`
 - Beanstalkd: `pda/pheanstalk ~5.0`
-- Redis: `predis/predis ~2.0` or phpredis PHP extension
+- Redis: `predis/predis ~2.0` или PHP-расширение phpredis
+- [MongoDB](https://www.mongodb.com/docs/drivers/php/laravel-mongodb/current/queues/): `mongodb/laravel-mongodb`
 
 <!-- </div> -->
 
