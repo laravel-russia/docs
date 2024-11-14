@@ -1,5 +1,5 @@
 ---
-git: 03cecc6287a59cfed872ee77de67e61ac1706e25
+git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 ---
 
 # Аутентификация
@@ -28,7 +28,9 @@ git: 03cecc6287a59cfed872ee77de67e61ac1706e25
 <a name="introduction-database-considerations"></a>
 ### Рекомендации по базе данных
 
-По умолчанию Laravel содержит [модель Eloquent](/docs/{{version}}/eloquent) `App\Models\User` в вашем каталоге `app/Models`. Эта модель использует по умолчанию драйвер аутентификации `eloquent`. Если ваше приложение не использует Eloquent, то вы можете использовать драйвер аутентификации `database`, основанный на построителе запросов Laravel.
+По умолчанию Laravel содержит [модель Eloquent](/docs/{{version}}/eloquent) `App\Models\User` в вашем каталоге `app/Models`. Эта модель использует по умолчанию драйвер аутентификации Eloquent.
+
+Если ваше приложение не использует Eloquent, то вы можете использовать драйвер аутентификации `database`, основанный на построителе запросов Laravel. Если ваше приложение использует MongoDB, ознакомьтесь с официальной [документацией MongoDB по аутентификации пользователя Laravel](https://www.mongodb.com/docs/drivers/php/laravel-mongodb/current/user-authentication/).
 
 При построении схемы базы данных для модели `App\Models\User` убедитесь, что длина столбца `password` не менее 60 символов. Конечно, миграция таблицы пользователей, включенная в новые приложения Laravel, уже содержит столбец, длина которого превышает эту длину.
 
