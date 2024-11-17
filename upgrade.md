@@ -1,5 +1,5 @@
 ---
-git: 08fbb4d3aa9a28ea0aaf294bbb1a465046067286
+git: 1ae07b0e1cb7539b7c9c0f4a69eabbb93d50a3a0
 ---
 
 # Руководство по обновлению
@@ -183,6 +183,20 @@ public function getAuthPasswordName()
 ```php
 if ($e instanceof AuthenticationException) {
     $path = $e->redirectTo($request);
+}
+```
+
+<a name="email-verification-notification-on-registration"></a>
+#### Уведомление о проверке электронной почты при регистрации
+
+**Вероятность воздействия: Очень низкая**
+
+Слушатель `SendEmailVerificationNotification` теперь автоматически регистрируется для события `Registered`, если он еще не зарегистрирован в `EventServiceProvider` вашего приложения. Если `EventServiceProvider` вашего приложения не регистрирует этого слушателя и вы не хотите, чтобы Laravel автоматически регистрировал его для вас, вам следует определить пустой метод `configureEmailVerification` в `EventServiceProvider` вашего приложения:
+
+```php
+protected function configureEmailVerification()
+{
+    // ...
 }
 ```
 
