@@ -1,5 +1,5 @@
 ---
-git: e1f9a340efffc94646db3d4b70925bbbb8458f12
+git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 ---
 
 # База данных · Начало работы
@@ -17,6 +17,8 @@ git: e1f9a340efffc94646db3d4b70925bbbb8458f12
 - SQLite 3.26.0+
 - SQL Server 2017+ ([Version Policy](https://docs.microsoft.com/en-us/lifecycle/products/?products=sql-server))
 <!-- </div> -->
+
+Кроме того, MongoDB поддерживается через пакет `mongodb/laravel-mongodb`, который официально поддерживается MongoDB. Дополнительную информацию можно найти в документации [Laravel MongoDB](https://www.mongodb.com/docs/drivers/php/laravel-mongodb/).
 
 <a name="configuration"></a>
 ### Конфигурирование
