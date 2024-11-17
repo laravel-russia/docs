@@ -1,5 +1,5 @@
 ---
-git: 77569f35d47752c3ae19c88f8c6cb47366b89905
+git: d973103c480300debe835bf11748435e5af58bfb
 ---
 
 # Eloquent · Начало работы
@@ -817,7 +817,7 @@ Eloquent содержит методы `isDirty`, `isClean` и `wasChanged` дл
         /**
          * Атрибуты, для которых разрешено массовое присвоение значений.
          *
-         * @var array
+         * @var array<int, string>
          */
         protected $fillable = ['name'];
     }
@@ -838,7 +838,7 @@ Eloquent содержит методы `isDirty`, `isClean` и `wasChanged` дл
     /**
      * Атрибуты, для которых разрешено массовое присвоение значений.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'options->enabled',
@@ -852,7 +852,7 @@ Eloquent содержит методы `isDirty`, `isClean` и `wasChanged` дл
     /**
      * Атрибуты, для которых НЕ разрешено массовое присвоение значений.
      *
-     * @var array
+     * @var array<string>|bool
      */
     protected $guarded = [];
 
