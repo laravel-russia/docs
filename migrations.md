@@ -1,5 +1,5 @@
 ---
-git: 3e699863690de91ec3ea7b002cf52f0e80e62442
+git: dde9f07b782ba5a3ff93e34471bf2b1a581b0a76
 ---
 
 # База данных · Миграции
@@ -425,6 +425,7 @@ Schema::create('calculations', function (Blueprint $table) {
 - [uuidMorphs](#column-method-uuidMorphs)
 - [ulid](#column-method-ulid)
 - [uuid](#column-method-uuid)
+- [vector](#column-method-vector)
 - [year](#column-method-year)
 
 </div>
@@ -891,6 +892,13 @@ $table->ulid('id');
 Метод `uuid` создает эквивалент столбца `UUID`:
 
     $table->uuid('id');
+
+<a name="column-method-vector"></a>
+#### `vector()`
+
+Метод `vector` создает эквивалент столбца `vector`:
+
+    $table->vector('embedding', dimensions: 100);
 
 <a name="column-method-year"></a>
 #### `year()`
