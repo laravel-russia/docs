@@ -1,5 +1,5 @@
 ---
-git: 18dbb77df4a537e4f515d0f9ac9fbd8af4b11624
+git: 63ffde91d51bd2be64036899966496461423f6b1
 ---
 
 # Eloquent · Сериализация
@@ -81,9 +81,9 @@ git: 18dbb77df4a537e4f515d0f9ac9fbd8af4b11624
     class User extends Model
     {
         /**
-         * Атрибуты, которые должны быть скрыты из массивов.
+         * Атрибуты, которые должны быть скрыты для сериализации.
          *
-         * @var array
+         * @var array<string>
          */
         protected $hidden = ['password'];
     }
