@@ -1,5 +1,5 @@
 ---
-git: 681e1f1beea1aae88c75d5a6b10df2b8fc4bce8c
+git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 ---
 
 - ## Пролог
@@ -68,6 +68,7 @@ git: 681e1f1beea1aae88c75d5a6b10df2b8fc4bce8c
     - [Миграции](/docs/{{version}}/migrations)
     - [Загрузка начальных данных](/docs/{{version}}/seeding)
     - [Redis](/docs/{{version}}/redis)
+    - [MongoDB](/docs/{{version}}/mongodb)
 - ## Eloquent ORM
     - [Начало работы](/docs/{{version}}/eloquent)
     - [Отношения](/docs/{{version}}/eloquent-relationships)
