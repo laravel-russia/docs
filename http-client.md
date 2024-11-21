@@ -1,5 +1,5 @@
 ---
-git: 6441ead7d4b19a8c39576b9f8e52452f7b075b64
+git: c0b77dd72e27ab1f37a4ba9284fffaad1aa999c8
 ---
 
 # HTTP-клиент
@@ -517,6 +517,15 @@ $response = Http::github()->get('/');
 
         // Заглушка строкового ответа для всех остальных адресов ...
         '*' => Http::response('Hello World', 200, ['Headers']),
+    ]);
+
+<a name="faking-connection-exceptions"></a>
+#### Имитация исключений соединения
+
+Иногда вам может потребоваться проверить поведение вашего приложения, если HTTP-клиент обнаруживает исключение `Illuminate\Http\Client\ConnectionException` при попытке сделать запрос. Вы можете указать HTTP-клиенту генерировать исключение соединения, используя метод `failedConnection`:
+
+    Http::fake([
+        'github.com/*' => Http::failedConnection(),
     ]);
 
 <a name="faking-response-sequences"></a>
