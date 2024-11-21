@@ -1,5 +1,5 @@
 ---
-git: f04003eccc61f9f05e291305d66f73cd10dbb1da
+git: fe38158e2fe3b32feb9f9ec238d0161373162f9c
 ---
 
 
@@ -1005,7 +1005,7 @@ class RedisFeatureDriver implements Driver
 
 Теперь нам просто нужно реализовать каждый из этих методов, используя соединение с Redis. Для примера того, как реализовать каждый из этих методов, посмотрите на `Laravel\Pennant\Drivers\DatabaseDriver` в [исходном коде Pennant](https://github.com/laravel/pennant/blob/1.x/src/Drivers/DatabaseDriver.php).
 
-> [!NOTE]  
+> [!NOTE]
 > Laravel не поставляется с каталогом для размещения ваших расширений. Вы можете разместить их где угодно. В этом примере мы создали каталог `Extensions`, чтобы разместить `RedisFeatureDriver`.
 
 <a name="registering-the-driver"></a>
@@ -1057,6 +1057,32 @@ class AppServiceProvider extends ServiceProvider
         // ...
 
     ],
+
+<a name="defining-features-externally"></a>
+### Внешнее определение объектов
+
+Если ваш драйвер является оболочкой сторонней платформы с флагами функций, вы, скорее всего, будете определять функции на платформе, а не использовать метод Pennant `Feature::define`. В этом случае ваш собственный драйвер должен также реализовать интерфейс `Laravel\Pennant\Contracts\DefinesFeaturesExternally`:
+
+```php
+<?php
+
+namespace App\Extensions;
+
+use Laravel\Pennant\Contracts\Driver;
+use Laravel\Pennant\Contracts\DefinesFeaturesExternally;
+
+class FeatureFlagServiceDriver implements Driver, DefinesFeaturesExternally
+{
+    /**
+     * Получение функции, определенные для данной области.
+     */
+    public function definedFeaturesForScope(mixed $scope): array {}
+
+    /* ... */
+}
+```
+
+Метод `definedFeaturesForScope` должен возвращать список имен функций, определенных для предоставленной области.
 
 <a name="events"></a>
 ## События
