@@ -1,5 +1,5 @@
 ---
-git: 4fb89ead0f2fb36c7deda672befa00d4be008c44
+git: 3e3ecda52ed7aac946f9338e9e9a848d58f565a1
 ---
 
 # HTTP-запросы
@@ -327,6 +327,12 @@ composer require nyholm/psr7
     use App\Enums\Status;
 
     $status = $request->enum('status', Status::class);
+
+Если входное значение представляет собой массив значений, соответствующих перечислению PHP, вы можете использовать метод `enums` для получения массива значений в виде экземпляров перечисления:
+
+    use App\Enums\Product;
+
+    $products = $request->enums('products', Product::class);
 
 <a name="retrieving-input-via-dynamic-properties"></a>
 #### Получение данных через динамические свойства
