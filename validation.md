@@ -1,5 +1,5 @@
 ---
-git: 413397108dceec51289541a1b899a0783646d84a
+git: c4151f0848b5fb1188b7d8349196f7817fcc510f
 ---
 
 # Валидация
@@ -1316,7 +1316,7 @@ Rule::enum(ServerStatus::class)
         'email' => [
             'required',
             Rule::exists('staff')->where(function (Builder $query) {
-                return $query->where('account_id', 1);
+                $query->where('account_id', 1);
             }),
         ],
     ]);
