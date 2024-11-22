@@ -1,5 +1,5 @@
 ---
-git: 690175ad7106a7b8ce6e6e8420872ca932622e84
+git: 0db6ab246107750937a39f29489a0af33be7266b
 ---
 
 # Контейнер служб (service container)
@@ -254,15 +254,17 @@ class PhotoController extends Controller
 
 namespace App\Http\Controllers;
 
+use App\Models\Photo;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Container\Attributes\Cache;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Container\Attributes\DB;
 use Illuminate\Container\Attributes\Log;
+use Illuminate\Container\Attributes\RouteParameter;
 use Illuminate\Container\Attributes\Tag;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Contracts\Database\Connection;
+use Illuminate\Database\Connection;
 use Psr\Log\LoggerInterface;
 
 class PhotoController extends Controller
@@ -273,6 +275,7 @@ class PhotoController extends Controller
         #[Config('app.timezone')] protected string $timezone,
         #[DB('mysql')] protected Connection $connection,
         #[Log('daily')] protected LoggerInterface $log,
+        #[RouteParameter('photo')] protected Photo $photo,
         #[Tag('reports')] protected iterable $reports,
     )
     {
