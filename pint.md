@@ -1,5 +1,5 @@
 ---
-git: c92f80d37444c1574ec525db8830bff189087fe0
+git: 3dfff31349118d0a1a3e413336baf19b02ced97e
 ---
 
 # Laravel Pint
@@ -105,15 +105,15 @@ Pint отобразит подробный список всех файлов, �
 
 ```json
 {
-  "preset": "laravel",
-  "rules": {
-    "simplified_null_return": true,
-    "braces": false,
-    "new_with_braces": {
-      "anonymous_class": false,
-      "named_class": false
+    "preset": "laravel",
+    "rules": {
+        "simplified_null_return": true,
+        "array_indentation": false,
+        "new_with_parentheses": {
+            "anonymous_class": true,
+            "named_class": true
+        }
     }
-  }
 }
 ```
 
