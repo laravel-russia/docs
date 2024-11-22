@@ -1,5 +1,5 @@
 ---
-git: f6318a64440b85473c46b2b4789412f7a5202564
+git: 3ed0888fdb29edbb04d290707a2819f739dc5b7b
 ---
 
 # Маршрутизация
@@ -712,9 +712,6 @@ Route::get('/categories/{category}', function (Category $category) {
     Route::fallback(function () {
         // ...
     });
-
-> [!WARNING]
-> Резервный маршрут всегда должен быть последним зарегистрированным маршрутом в вашем приложении.
 
 <a name="rate-limiting"></a>
 ## Ограничение частоты запросов
