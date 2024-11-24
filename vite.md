@@ -727,7 +727,7 @@ php artisan inertia:start-ssr
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Laravel, SSR Inertia и Vite. Ознакомьтесь с [Laravel Breeze](/docs/{{version}}/starter-kits#breeze-and-inertia) для самого быстрого способа начать работу с Laravel, SSR Inertia и Vite.
 
 <a name="script-and-style-attributes"></a>
-## Атрибуты тегов Style b Script
+## Атрибуты тегов Style и Script
 
 <a name="content-security-policy-csp-nonce"></a>
 ### Content Security Policy (CSP) Nonce
