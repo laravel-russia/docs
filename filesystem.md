@@ -1,5 +1,5 @@
 ---
-git: 81330e871dd01be123c39846b8f4a46c023c4476
+git: ea8c67bb179ffd41616900519f17f2e9c58e5e47
 ---
 
 # Файловое хранилище
@@ -678,15 +678,18 @@ test('albums can be uploaded', function () {
         UploadedFile::fake()->image('photo2.jpg')
     ]);
 
-    // Assert one or more files were stored...
+    // Проверка, что один или несколько файлов были сохранены...
     Storage::disk('photos')->assertExists('photo1.jpg');
     Storage::disk('photos')->assertExists(['photo1.jpg', 'photo2.jpg']);
 
-    // Assert one or more files were not stored...
+    // Проверка, что один или несколько файлов не были сохранены...
     Storage::disk('photos')->assertMissing('missing.jpg');
     Storage::disk('photos')->assertMissing(['missing.jpg', 'non-existing.jpg']);
-    
-    // Assert that a given directory is empty...
+
+    // Проверка, что количество файлов в данном каталоге соответствует ожидаемому количеству...
+    Storage::disk('photos')->assertCount('/wallpapers', 2);
+
+    // Проверка, что данный каталог пуст...
     Storage::disk('photos')->assertDirectoryEmpty('/wallpapers');
 });
 ```
@@ -718,6 +721,9 @@ class ExampleTest extends TestCase
         // Проверка, что один или несколько файлов не были сохранены...
         Storage::disk('photos')->assertMissing('missing.jpg');
         Storage::disk('photos')->assertMissing(['missing.jpg', 'non-existing.jpg']);
+
+        // Проверка, что количество файлов в данном каталоге соответствует ожидаемому количеству...
+        Storage::disk('photos')->assertCount('/wallpapers', 2);
 
         // Проверка, что указанная директория пуста...
         Storage::disk('photos')->assertDirectoryEmpty('/wallpapers');
