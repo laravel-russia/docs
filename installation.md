@@ -1,5 +1,5 @@
 ---
-git: 73a37c89e6d04bc6941cd9d623b2150710556b25
+git: f821f3d559de9f57121dc5b6530eb088d988aa00
 ---
 
 # Установка
@@ -48,16 +48,16 @@ Laravel объединяет лучшие пакеты в экосистеме P
 Если на вашем локальном компьютере не установлены PHP и Composer, следующие команды установят PHP, Composer и установщик Laravel в macOS, Windows или Linux:
 
 ```shell tab=macOS
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
+/bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.3)"
 ```
 
 ```shell tab=Windows PowerShell
 # Запуск от имени администратора...
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.3'))
 ```
 
 ```shell tab=Linux
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.3)"
 ```
 
 После выполнения одной из приведенных выше команд вам следует перезапустить сеанс терминала. Чтобы обновить PHP, Composer и установщик Laravel после их установки через `php.new`, вы можете повторно запустить команду в своем терминале.
