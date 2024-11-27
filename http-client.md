@@ -1,5 +1,5 @@
 ---
-git: c0b77dd72e27ab1f37a4ba9284fffaad1aa999c8
+git: 65a9f2e285fad310d2a3de756877b375232ff9fc
 ---
 
 # HTTP-клиент
@@ -517,6 +517,14 @@ $response = Http::github()->get('/');
 
         // Заглушка строкового ответа для всех остальных адресов ...
         '*' => Http::response('Hello World', 200, ['Headers']),
+    ]);
+
+Для удобства можно сгенерировать простую строку, JSON и пустые ответы, указав в качестве ответа строку, массив или целое число:
+
+    Http::fake([
+        'google.com/*' => 'Hello World',
+        'github.com/*' => ['foo' => 'bar'],
+        'chatgpt.com/*' => 200,
     ]);
 
 <a name="faking-connection-exceptions"></a>
