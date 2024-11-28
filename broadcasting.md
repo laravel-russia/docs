@@ -104,7 +104,7 @@ BROADCAST_CONNECTION=pusher
 <a name="ably"></a>
 ### Ably
 
-> [!NOTE]  
+> [!NOTE]
 > Ниже приведено описание того, как использовать Ably в режиме "совместимости с Pusher". Однако команда Ably рекомендует и поддерживает вещатель и клиент Echo, способные использовать уникальные возможности, предлагаемые Ably. Для получения дополнительной информации о использовании поддерживаемых Ably драйверов обратитесь к [документации Ably по Laravel broadcaster](https://github.com/ably/laravel-broadcaster).
 
 Если вы планируете транслировать свои события с помощью [Ably](https://ably.io), то вам следует установить PHP SDK Ably с помощью менеджера пакетов Composer:
@@ -164,7 +164,7 @@ window.Echo = new Echo({
 npm run build
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Для трансляции Laravel Echo `reverb` требуется laravel-echo v1.16.0+.
 
 <a name="client-pusher-channels"></a>
@@ -184,7 +184,7 @@ npm install --save-dev laravel-echo pusher-js
 import Echo from 'laravel-echo';
 
 import Pusher from 'pusher-js';
-window.Pusher = require('pusher-js');
+window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -245,7 +245,7 @@ window.Echo = new Echo({
 <a name="client-ably"></a>
 ### Ably
 
-> [!NOTE]  
+> [!NOTE]
 > Ниже приведено описание того, как использовать Ably в режиме "совместимости с Pusher". Однако команда Ably рекомендует и поддерживает вещатель и клиент Echo, способные использовать уникальные возможности, предлагаемые Ably. Для получения дополнительной информации о использовании поддерживаемых Ably драйверов обратитесь к [документации Ably по Laravel broadcaster](https://github.com/ably/laravel-broadcaster).
 
 [Laravel Echo](https://github.com/laravel/echo) — это JavaScript-библиотека, которая позволяет без труда подписываться на каналы и прослушивать события, транслируемые вашим серверным драйвером трансляции. Echo также использует пакет NPM `pusher-js` для реализации протокола Pusher для подписок, каналов и сообщений WebSocket.
@@ -284,7 +284,7 @@ window.Echo = new Echo({
 npm run dev
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Чтобы узнать больше о компиляции JavaScript-исходников вашего приложения, обратитесь к документации [Vite](/docs/{{version}}/vite).
 
 <a name="concept-overview"></a>
@@ -318,7 +318,6 @@ npm run dev
     use Illuminate\Broadcasting\Channel;
     use Illuminate\Broadcasting\InteractsWithSockets;
     use Illuminate\Broadcasting\PresenceChannel;
-    use Illuminate\Broadcasting\PrivateChannel;
     use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
     use Illuminate\Queue\SerializesModels;
 
@@ -597,8 +596,7 @@ php artisan channel:list
         return $user->id === $order->user_id;
     });
 
-
-> [!WARNING]  
+> [!WARNING]
 > В отличие от привязки модели к HTTP-маршруту, привязка модели канала не поддерживает [ограничение неявной привязки модели](/docs/{{version}}/routing#implicit-model-binding-scoping). Однако это редко представляет собой проблему, потому что большинство каналов можно ограничить на основе уникального первичного ключа одной модели.
 
 <a name="authorization-callback-authentication"></a>
@@ -650,8 +648,7 @@ php artisan make:channel OrderChannel
         }
     }
 
-
-> [!NOTE]  
+> [!NOTE]
 > Как и многие другие классы в Laravel, классы каналов будут автоматически разрешены [контейнером служб](/docs/{{version}}/container). Таким образом, вы можете указать любые зависимости, необходимые для вашего канала, в его конструкторе.
 
 <a name="broadcasting-events"></a>
@@ -680,9 +677,10 @@ axios.post('/task', task)
         this.tasks.push(response.data);
     });
 ```
+
 Однако помните, что мы также транслируем создание задачи. Если ваше JavaScript-приложение также прослушивает это событие, чтобы добавить задачи в список задач, у вас будут дублирующиеся задачи в вашем списке: одна из конечной точки и одна из трансляции. Вы можете решить эту проблему, используя метод `toOthers`, чтобы указать вещателю не транслировать событие текущему пользователю.
 
-> [!WARNING]  
+> [!WARNING]
 > Ваше событие должно использовать трейт `Illuminate\Broadcasting\InteractsWithSockets` для вызова метода `toOthers`.
 
 <a name="only-to-others-configuration"></a>
@@ -916,7 +914,9 @@ Echo.join(`chat.${roomId}`)
      */
     public function broadcastOn(): array
     {
-        return new PresenceChannel('room.'.$this->message->room_id);
+        return [
+            new PresenceChannel('chat.'.$this->message->room_id),
+        ];
     }
 
 Как и в случае с другими событиями, вы можете использовать помощник `broadcast` и метод `toOthers`, чтобы исключить текущего пользователя из приема трансляции:
@@ -940,7 +940,7 @@ Echo.join(`chat.${roomId}`)
 <a name="model-broadcasting"></a>
 ## Трансляция моделей
 
-> [!WARNING]  
+> [!WARNING]
 > Прежде чем читать следующую документацию о трансляции моделей, мы рекомендуем вам ознакомиться с общими концепциями модельных широковещательных служб Laravel, а также с тем, как вручную создавать и прослушивать широковещательные события.
 
 Обычно транслируются события, когда [модели Eloquent](/docs/{{version}}/eloquent) создаются, обновляются или удаляются. Конечно, это легко можно сделать вручную, [определив пользовательские события для изменений состояния модели Eloquent](/docs/{{version}}/eloquent#events) и пометив эти события с помощью интерфейса `ShouldBroadcast`.
@@ -959,6 +959,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
@@ -992,7 +993,7 @@ class Post extends Model
 /**
  * Получите каналы, по которым должны транслироваться события модели.
  *
-* @return array<string, array<int, \Illuminate\Broadcasting\Channel|\Illuminate\Database\Eloquent\Model>>
+ * @return array<string, array<int, \Illuminate\Broadcasting\Channel|\Illuminate\Database\Eloquent\Model>>
  */
 public function broadcastOn(string $event): array
 {
@@ -1038,7 +1039,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 /**
  * Получите каналы, по которым должны транслироваться события модели.
  *
-* @return array<int, \Illuminate\Broadcasting\Channel>
+ * @return array<int, \Illuminate\Broadcasting\Channel>
  */
 public function broadcastOn(string $event): array
 {
@@ -1098,7 +1099,7 @@ public function broadcastAs(string $event): string|null
 /**
  * Get the data to broadcast for the model.
  *
-* @return array<string, mixed>
+ * @return array<string, mixed>
  */
 public function broadcastWith(string $event): array
 {
