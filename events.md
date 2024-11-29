@@ -22,7 +22,6 @@ php artisan make:event PodcastProcessed
 php artisan make:listener SendPodcastNotification --event=PodcastProcessed
 ```
 
-For convenience, you may also invoke the `make:event` and `make:listener` Artisan commands without additional arguments. When you do so, Laravel will automatically prompt you for the class name and, when creating a listener, the event it should listen to:
 Для удобства вы также можете вызывать команды Artisan `make:event` и `make:listener` без дополнительных аргументов. Когда вы это сделаете, Laravel автоматически предложит вам ввести имя класса и, при создании слушателя, событие, которое он должен прослушивать:
 
 ```shell
@@ -158,7 +157,7 @@ php artisan event:list
     Event::listen(queueable(function (PodcastProcessed $event) {
         // ...
     })->catch(function (PodcastProcessed $event, Throwable $e) {
-        // Событие в очереди завершилось неудачно ...
+        // Событие в очереди завершилось неудачно...
     }));
 
 <a name="wildcard-event-listeners"></a>
@@ -225,7 +224,7 @@ php artisan event:list
         }
     }
 
-> [!NOTE]   
+> [!NOTE]
 > В конструкторе ваших слушателей событий могут быть объявлены любые необходимые типы зависимостей. Все слушатели событий разрешаются через [контейнер служб](/docs/{{version}}/container) Laravel, поэтому зависимости будут внедрены автоматически.
 
 <a name="stopping-the-propagation-of-an-event"></a>
@@ -394,7 +393,7 @@ php artisan event:list
         use InteractsWithQueue;
     }
 
-> [!NOTE]   
+> [!NOTE]
 > Чтобы узнать больше о том, как обойти эти проблемы, просмотрите документацию, касающуюся [заданий в очереди и транзакций базы данных](/docs/{{version}}/queues#jobs-and-database-transactions).
 
 <a name="handling-failed-jobs"></a>
@@ -465,8 +464,6 @@ php artisan event:list
 
     /**
      * Определить время, через которое слушатель должен отключиться.
-     *
-     * @return \DateTime
      */
     public function retryUntil(): DateTime
     {
@@ -507,13 +504,11 @@ php artisan event:list
 
 Если вы хотите условно отправить событие, вы можете использовать методы `dispatchIf` и `dispatchUnless`:
 
-```php
-OrderShipped::dispatchIf($condition, $order);
+    OrderShipped::dispatchIf($condition, $order);
 
-OrderShipped::dispatchUnless($condition, $order);
-```
+    OrderShipped::dispatchUnless($condition, $order);
 
-> [!NOTE]    
+> [!NOTE]
 > При тестировании может быть полезным утверждать, что определенные события были отправлены, не активируя их слушателей. В Laravel это легко сделать с помощью [встроенных средств тестирования](#testing).
 
 <a name="dispatching-events-after-database-transactions"></a>
@@ -559,6 +554,7 @@ OrderShipped::dispatchUnless($condition, $order);
 
     use Illuminate\Auth\Events\Login;
     use Illuminate\Auth\Events\Logout;
+    use Illuminate\Events\Dispatcher;
 
     class UserEventSubscriber
     {
@@ -574,9 +570,6 @@ OrderShipped::dispatchUnless($condition, $order);
 
         /**
          * Зарегистрировать слушателей для подписчика.
-         *
-         * @param  \Illuminate\Events\Dispatcher  $events
-         * @return void
          */
         public function subscribe(Dispatcher $events): void
         {
@@ -616,6 +609,8 @@ OrderShipped::dispatchUnless($condition, $order);
 
         /**
          * Register the listeners for the subscriber.
+         *
+         * @return array<string, string>
          */
         public function subscribe(Dispatcher $events): array
         {
@@ -721,20 +716,16 @@ class ExampleTest extends TestCase
 
 Вы можете передать замыкание в методы `assertDispatched` или `assertNotDispatched`, чтобы утверждать, что было отправлено событие, которое проходит заданный "тест истинности". Если хотя бы одно событие было отправлено и прошло заданный тест истинности, то утверждение будет успешным:
 
-```php
-Event::assertDispatched(function (OrderShipped $event) use ($order) {
-    return $event->order->id === $order->id;
-});
-```
+    Event::assertDispatched(function (OrderShipped $event) use ($order) {
+        return $event->order->id === $order->id;
+    });
 
 Если вы хотите просто утвердить, что слушатель события слушает определенное событие, вы можете использовать метод `assertListening`:
 
-```php
-Event::assertListening(
-    OrderShipped::class,
-    SendShipmentNotification::class
-);
-```
+    Event::assertListening(
+        OrderShipped::class,
+        SendShipmentNotification::class
+    );
 
 > [!WARNING]
 > После вызова `Event::fake()`, слушатели событий не будут выполнены. Поэтому, если ваши тесты используют фабрики моделей, которые зависят от событий, например, создание UUID во время события `creating` модели, вы должны вызвать `Event::fake()` **после** использования ваших фабрик.
@@ -780,11 +771,9 @@ public function test_orders_can_be_processed(): void
 
 Вы можете подменить все события, кроме указанных событий, используя метод `except`:
 
-```php
-Event::fake()->except([
-    OrderCreated::class,
-]);
-```
+    Event::fake()->except([
+        OrderCreated::class,
+    ]);
 
 <a name="scoped-event-fakes"></a>
 ### Подмена событий в ограниченной области видимости
