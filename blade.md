@@ -31,14 +31,18 @@ Blade – это простой, но мощный движок шаблонов
 
 Вы можете отобразить содержимое переменной `name` следующим образом:
 
-    Hello, {{ $name }}.
+```html
+Hello, {{ $name }}.
+```
 
 > [!NOTE]
 > Выражения вывода `{{ }}` Blade автоматически отправляются через функцию `htmlspecialchars` PHP для предотвращения XSS-атак.
 
 Вы не ограничены отображением содержимого переменных, переданных в шаблон. Вы также можете вывести результаты любой функции PHP. Фактически, вы можете поместить любой PHP-код в выражение вывода Blade:
 
-    The current UNIX timestamp is {{ time() }}.
+```html
+The current UNIX timestamp is {{ time() }}.
+```
 
 <a name="html-entity-encoding"></a>
 ### Преобразование в HTML-сущности
@@ -68,9 +72,11 @@ Blade – это простой, но мощный движок шаблонов
 
 По умолчанию, выражения вывода `{{ }}` Blade автоматически отправляются через функцию `htmlspecialchars` PHP для предотвращения XSS-атак. Если вы не хотите, чтобы ваши данные были экранированы, вы можете использовать следующий синтаксис:
 
-    Hello, {!! $name !!}.
+```html
+Hello, {!! $name !!}.
+```
 
-> [!WARNING] 
+> [!WARNING]
 > Будьте очень осторожны при выводе содержимого, полученного от пользователей вашего приложения. Обычно следует использовать экранированный синтаксис двойных фигурных скобок для предотвращения атак XSS при отображении данных, предоставленных пользователем.
 
 <a name="blade-and-javascript-frameworks"></a>
@@ -78,42 +84,52 @@ Blade – это простой, но мощный движок шаблонов
 
 Поскольку во многих фреймворках JavaScript также используются «фигурные» скобки, чтобы указать, что данное выражение должно отобразиться в браузере, вы можете использовать символ `@`, чтобы сообщить движку Blade, что выражение должно остаться нетронутым. Например:
 
-    <h1>Laravel</h1>
+```html
+<h1>Laravel</h1>
 
-    Hello, @{{ name }}.
+Hello, @{{ name }}.
+```
 
 В этом примере Blade удалит символ `@`; однако выражение `{{ name }}` останется нетронутым движком Blade, что позволит обработать его вашим фреймворком JavaScript.
 
 Символ `@` также используется для исключения из обработки директив Blade:
 
-    {{-- Шаблон Blade --}}
-    @@if()
+```html
+{{-- Шаблон Blade --}}
+@@if()
 
-    <!-- Вывод HTML -->
-    @if()
+<!-- Вывод HTML -->
+@if()
+```
 
 <a name="rendering-json"></a>
 #### Вывод JSON
 
 Иногда вы можете передать массив вашему шаблону с намерением отобразить его как JSON, чтобы инициализировать переменную JavaScript. Например:
 
-    <script>
-        var app = <?php echo json_encode($array); ?>;
-    </script>
+```html
+<script>
+    var app = <?php echo json_encode($array); ?>;
+</script>
+```
 
 Однако вместо ручного вызова `json_encode`, вы можете использовать метод `Illuminate\Support\Js::from`. Метод `from` принимает те же аргументы, что и функция PHP `json_encode`; однако это гарантирует, что полученный JSON будет правильно экранирован для включения в кавычки HTML. Метод `from` вернет строковый оператор JavaScript `JSON.parse`, который преобразует данный объект или массив в допустимый объект:
 
-    <script>
-        var app = {{ Illuminate\Support\Js::from($array) }};
-    </script>
+```html
+<script>
+    var app = {{ Illuminate\Support\Js::from($array) }};
+</script>
+```
 
 Последние версии приложения Laravel включают фасад `Js`, который обеспечивает удобный доступ к этой функции в ваших шаблонах Blade:
 
-    <script>
-        var app = {{ Js::from($array) }};
-    </script>
+```html
+<script>
+    var app = {{ Js::from($array) }};
+</script>
+```
 
-> [!WARNING] 
+> [!WARNING]
 > Вы должны использовать директиву `Js::from` только для отображения существующих переменных как JSON. Шаблонизатор Blade основан на регулярных выражениях, и попытки передать сложное выражение в директиву могут вызвать неожиданные сбои.
 
 <a name="the-at-verbatim-directive"></a>
@@ -121,11 +137,13 @@ Blade – это простой, но мощный движок шаблонов
 
 Если вы отображаете переменные JavaScript в крупной части своего шаблона, вы можете заключить HTML в директиву `@verbatim`, чтобы вам не приходилось добавлять префикс `@` к каждому выражению вывода Blade:
 
-    @verbatim
-        <div class="container">
-            Hello, {{ name }}.
-        </div>
-    @endverbatim
+```html
+@verbatim
+    <div class="container">
+        Hello, {{ name }}.
+    </div>
+@endverbatim
+```
 
 <a name="blade-directives"></a>
 ## Директивы Blade
@@ -137,71 +155,85 @@ Blade – это простой, но мощный движок шаблонов
 
 Вы можете создавать операторы `if`, используя директивы `@if`, `@elseif`, `@else`, и `@endif`. Эти директивы работают так же, как и их аналоги в PHP:
 
-    @if (count($records) === 1)
-        I have one record!
-    @elseif (count($records) > 1)
-        I have multiple records!
-    @else
-        I don't have any records!
-    @endif
+```html
+@if (count($records) === 1)
+    I have one record!
+@elseif (count($records) > 1)
+    I have multiple records!
+@else
+    I don't have any records!
+@endif
+```
 
 Для удобства Blade также содержит директиву `@unless`:
 
-    @unless (Auth::check())
-        You are not signed in.
-    @endunless
+```html
+@unless (Auth::check())
+    You are not signed in.
+@endunless
+```
 
 В дополнение к уже обсужденным условным директивам, директивы `@isset` и `@empty` могут использоваться в качестве удобных ярлыков для соответствующих функций PHP:
 
-    @isset($records)
-        // Переменная $records определена и не равна `null` ...
-    @endisset
+```html
+@isset($records)
+    // Переменная $records определена и не равна `null` ...
+@endisset
 
-    @empty($records)
-        // Переменная $records считается «пустой» ...
-    @endempty
+@empty($records)
+    // Переменная $records считается «пустой» ...
+@endempty
+```
 
 <a name="authentication-directives"></a>
 #### Директивы аутентификации
 
 Директивы `@auth` и `@guest` могут использоваться для быстрого определения, является ли текущий пользователь [аутентифицированным](authentication) или считается гостем:
 
-    @auth
-        // Пользователь аутентифицирован ...
-    @endauth
+```html
+@auth
+    // Пользователь аутентифицирован...
+@endauth
 
-    @guest
-        // Пользователь не аутентифицирован ...
-    @endguest
+@guest
+    // Пользователь не аутентифицирован...
+@endguest
+```
 
 При необходимости вы можете указать охранника аутентификации для проверки при использовании директив `@auth` и `@guest`:
 
-    @auth('admin')
-        // Пользователь аутентифицирован ...
-    @endauth
+```html
+@auth('admin')
+    // Пользователь аутентифицирован ...
+@endauth
 
-    @guest('admin')
-        // Пользователь не аутентифицирован ...
-    @endguest
+@guest('admin')
+    // Пользователь не аутентифицирован ...
+@endguest
+```
 
 <a name="environment-directives"></a>
 #### Директивы окружения
 
 Вы можете проверить, запущено ли приложение в эксплуатационном окружении, с помощью директивы `@production`:
 
-    @production
-        // Содержимое, отображаемое только в эксплуатационном окружении ...
-    @endproduction
+```html
+@production
+    // Содержимое, отображаемое только в эксплуатационном окружении ...
+@endproduction
+```
 
 Или вы можете определить, работает ли приложение в конкретной среде, с помощью директивы `@env`:
 
-    @env('staging')
-        // Приложение запущено в «переходном» окружении ...
-    @endenv
+```html
+@env('staging')
+    // Приложение запущено в «переходном» окружении ...
+@endenv
 
-    @env(['staging', 'production'])
-        // Приложение запущено в «переходном» или «рабочем» окружении ...
-    @endenv
+@env(['staging', 'production'])
+    // Приложение запущено в «переходном» или «рабочем» окружении ...
+@endenv
+```
 
 <a name="section-directives"></a>
 #### Директивы секций
@@ -246,95 +278,107 @@ Blade – это простой, но мощный движок шаблонов
 
 Операторы Switch могут быть созданы с использованием директив `@switch`, `@case`, `@break`, `@default` и `@endswitch`:
 
-    @switch($i)
-        @case(1)
-            First case...
-            @break
+```html
+@switch($i)
+    @case(1)
+        First case...
+        @break
 
-        @case(2)
-            Second case...
-            @break
+    @case(2)
+        Second case...
+        @break
 
-        @default
-            Default case...
-    @endswitch
+    @default
+        Default case...
+@endswitch
+```
 
 <a name="loops"></a>
 ### Циклы
 
 В дополнение к условным операторам, Blade содержит простые директивы для работы со структурами циклов PHP. Опять же, каждая из этих директив работает так же, как и их аналоги в PHP:
 
-    @for ($i = 0; $i < 10; $i++)
-        The current value is {{ $i }}
-    @endfor
+```html
+@for ($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
+@endfor
 
-    @foreach ($users as $user)
-        <p>This is user {{ $user->id }}</p>
-    @endforeach
+@foreach ($users as $user)
+    <p>This is user {{ $user->id }}</p>
+@endforeach
 
-    @forelse ($users as $user)
-        <li>{{ $user->name }}</li>
-    @empty
-        <p>No users</p>
-    @endforelse
+@forelse ($users as $user)
+    <li>{{ $user->name }}</li>
+@empty
+    <p>No users</p>
+@endforelse
 
-    @while (true)
-        <p>I'm looping forever.</p>
-    @endwhile
+@while (true)
+    <p>I'm looping forever.</p>
+@endwhile
+```
 
-> [!NOTE] 
+> [!NOTE]
 > Во время повторения цикла 'foreach' вы можете использовать [переменную Loop](#the-loop-variable), чтобы получить информацию о цикле, например, находитесь ли вы в первой или последней итерации цикла.
 
 При использовании циклов вы также можете пропустить текущую итерацию или завершить цикл, используя директивы `@continue` и `@break`:
 
-    @foreach ($users as $user)
-        @if ($user->type == 1)
-            @continue
-        @endif
+```html
+@foreach ($users as $user)
+    @if ($user->type == 1)
+        @continue
+    @endif
 
-        <li>{{ $user->name }}</li>
+    <li>{{ $user->name }}</li>
 
-        @if ($user->number == 5)
-            @break
-        @endif
-    @endforeach
+    @if ($user->number == 5)
+        @break
+    @endif
+@endforeach
+```
 
 Вы также можете включить в объявление директивы условие продолжения или прерывания:
 
-    @foreach ($users as $user)
-        @continue($user->type == 1)
+```html
+@foreach ($users as $user)
+    @continue($user->type == 1)
 
-        <li>{{ $user->name }}</li>
+    <li>{{ $user->name }}</li>
 
-        @break($user->number == 5)
-    @endforeach
+    @break($user->number == 5)
+@endforeach
+```
 
 <a name="the-loop-variable"></a>
 ### Переменная Loop
 
 Во время повторения цикла `foreach` доступна переменная `$loop`. Она обеспечивает доступ к некоторой полезной информации, например, индекс текущего цикла, первая это или последняя итерация цикла:
 
-    @foreach ($users as $user)
-        @if ($loop->first)
-            This is the first iteration.
-        @endif
+```html
+@foreach ($users as $user)
+    @if ($loop->first)
+        This is the first iteration.
+    @endif
 
-        @if ($loop->last)
-            This is the last iteration.
-        @endif
+    @if ($loop->last)
+        This is the last iteration.
+    @endif
 
-        <p>This is user {{ $user->id }}</p>
-    @endforeach
+    <p>This is user {{ $user->id }}</p>
+@endforeach
+```
 
 При нахождении во вложенном цикле, вы можете получить доступ к переменной `$loop` родительского цикла через свойство `parent`:
 
-    @foreach ($users as $user)
-        @foreach ($user->posts as $post)
-            @if ($loop->parent->first)
-                This is the first iteration of the parent loop.
-            @endif
-        @endforeach
+```html
+@foreach ($users as $user)
+    @foreach ($user->posts as $post)
+        @if ($loop->parent->first)
+            This is the first iteration of the parent loop.
+        @endif
     @endforeach
+@endforeach
+```
 
 Переменная `$loop` также содержит множество других полезных свойств:
 
@@ -356,19 +400,21 @@ Blade – это простой, но мощный движок шаблонов
 
 Директива `@class` осуществляет построение строки css-классов исходя из заданных условий. Директива принимает массив классов, где ключ массива содержит класс или классы, которые вы хотите добавить, а значение является булевым выражением. Если элемент массива имеет числовой ключ, он всегда будет включен в отрисованный список классов:
 
-    @php
-        $isActive = false;
-        $hasError = true;
-    @endphp
+```html
+@php
+    $isActive = false;
+    $hasError = true;
+@endphp
 
-    <span @class([
-        'p-4',
-        'font-bold' => $isActive,
-        'text-gray-500' => ! $isActive,
-        'bg-red' => $hasError,
-    ])></span>
+<span @class([
+    'p-4',
+    'font-bold' => $isActive,
+    'text-gray-500' => ! $isActive,
+    'bg-red' => $hasError,
+])></span>
 
-    <span class="p-4 text-gray-500 bg-red"></span>
+<span class="p-4 text-gray-500 bg-red"></span>
+```
 
 Также, директива `@style` может использоваться, чтобы условно добавлять встроенные стили CSS к HTML-элементу:
 
@@ -376,10 +422,12 @@ Blade – это простой, но мощный движок шаблонов
 @php
     $isActive = true;
 @endphp
+
 <span @style([
     'background-color: red',
     'font-weight: bold' => $isActive,
 ])></span>
+
 <span style="background-color: red; font-weight: bold;"></span>
 ```
 
@@ -440,7 +488,7 @@ Blade – это простой, но мощный движок шаблонов
 <a name="including-subviews"></a>
 ### Подключение дочерних шаблонов
 
-> [!NOTE]  
+> [!NOTE]
 > Хотя вы можете использовать директиву `@include`, [компоненты](#components) Blade содержат аналогичный функционал и предлагают несколько преимуществ по сравнению с директивой `@include`, например привязку данных и атрибутов.
 
 Директива `@include` Blade позволяет вам включать шаблоны из другого шаблона. Все переменные, доступные для родительского шаблона, будут доступны для включенного шаблона:
@@ -457,23 +505,31 @@ Blade – это простой, но мощный движок шаблонов
 
 Включенный шаблон унаследует все данные, доступные в родительском шаблоне, но вы также можете передать массив дополнительных данных, которые должны быть доступны для включенного шаблона:
 
-    @include('view.name', ['status' => 'complete'])
+```html
+@include('view.name', ['status' => 'complete'])
+```
 
 Если вы попытаетесь включить несуществующий шаблон, Laravel выдаст ошибку. Если вы хотите включить шаблон, который может присутствовать или отсутствовать, вам следует использовать директиву `@includeIf`:
 
-    @includeIf('view.name', ['status' => 'complete'])
+```html
+@includeIf('view.name', ['status' => 'complete'])
+```
 
 Если вы хотите включить шаблон в зависимости от результата логического выражения, возвращающего либо `true`, либо `false`, то используйте директивы `@includeWhen` и `@includeUnless`:
 
-    @includeWhen($boolean, 'view.name', ['status' => 'complete'])
+```html
+@includeWhen($boolean, 'view.name', ['status' => 'complete'])
 
-    @includeUnless($boolean, 'view.name', ['status' => 'complete'])
+@includeUnless($boolean, 'view.name', ['status' => 'complete'])
+```
 
 Чтобы включить первый существующий шаблон из переданного массива шаблонов, вы можете использовать директиву `includeFirst`:
 
-    @includeFirst(['custom.admin', 'admin'], ['status' => 'complete'])
+```html
+@includeFirst(['custom.admin', 'admin'], ['status' => 'complete'])
+```
 
-> [!WARNING]  
+> [!WARNING]
 > Вам следует избегать использования в ваших шаблонах Blade констант `__DIR__` и `__FILE__`, поскольку они будут ссылаться на расположение кешированного, скомпилированного шаблона.
 
 <a name="rendering-views-for-collections"></a>
@@ -481,15 +537,19 @@ Blade – это простой, но мощный движок шаблонов
 
 Вы можете скомбинировать циклы и подключение шаблона в одну строку с помощью директивы Blade `@each`:
 
-    @each('view.name', $jobs, 'job')
+```html
+@each('view.name', $jobs, 'job')
+```
 
 Первый аргумент директивы `@each` – это шаблон, отображаемый для каждого элемента в массиве или коллекции. Второй аргумент – это массив или коллекция, которую вы хотите перебрать. Третий аргумент – это имя переменной, которая будет присвоена текущей итерации в шаблоне. Так, например, если вы выполняете итерацию по массиву `jobs`, обычно вам нужно обращаться к каждому элементу как к переменной `job` в шаблоне. Ключ массива для текущей итерации будет доступен как переменная `key` в шаблоне.
 
 Вы можете передать четвертый аргумент директиве `@each`. Этот аргумент определяет шаблон, который будет отображаться, если переданный массив пуст.
 
-    @each('view.name', $jobs, 'job', 'view.empty')
+```html
+@each('view.name', $jobs, 'job', 'view.empty')
+```
 
-> [!WARNING]  
+> [!WARNING]
 > Шаблоны, отображаемые с помощью `@each`, не наследуют переменные родительского шаблона. Если дочернему шаблону требуются эти переменные, вам следует использовать вместо них директивы `@foreach` и `@include`.
 
 <a name="the-once-directive"></a>
@@ -497,13 +557,15 @@ Blade – это простой, но мощный движок шаблонов
 
 Директива `@once` позволяет вам определить часть шаблона, которая будет проанализирована только один раз за цикл визуализации. Это может быть полезно для вставки переданного фрагмента JavaScript в подвал страницы с помощью [стеков](#stacks). Например, если вы отображаете переданный [компонент](#components) в цикле, то бывает необходимо разместить JavaScript в подвале при визуализации компонента только единожды:
 
-    @once
-        @push('scripts')
-            <script>
-                // Ваш JavaScript...
-            </script>
-        @endpush
-    @endonce
+```html
+@once
+    @push('scripts')
+        <script>
+            // Ваш JavaScript...
+        </script>
+    @endpush
+@endonce
+```
 
 Поскольку директива `@once` часто используется в сочетании с директивами `@push` или `@prepend`, для удобства доступны директивы `@pushOnce` и `@prependOnce`:
 
@@ -515,15 +577,16 @@ Blade – это простой, но мощный движок шаблонов
 @endPushOnce
 ```
 
-
 <a name="raw-php"></a>
 ### Необработанный PHP
 
 В крайних ситуациях можно встроить PHP-код в ваши шаблоны. Вы можете использовать директиву `@php` Blade для размещения блока простого PHP в вашем шаблоне:
 
-    @php
-        $counter = 1;
-    @endphp
+```blade
+@php
+    $counter = 1;
+@endphp
+```
 
 Или, если вам нужно использовать только PHP для импорта класса, вы можете использовать директиву `@use`:
 
@@ -542,7 +605,9 @@ Blade – это простой, но мощный движок шаблонов
 
 Blade также позволяет вам определять комментарии в ваших шаблонах. Однако, в отличие от комментариев HTML, комментарии Blade не будут включены в результирующий HTML, возвращаемый вашим приложением:
 
-    {{-- This comment will not be present in the rendered HTML --}}
+```blade
+{{-- This comment will not be present in the rendered HTML --}}
+```
 
 <a name="components"></a>
 ## Компоненты
@@ -592,7 +657,9 @@ php artisan make:component forms.input --view
 
 После того как ваш компонент был зарегистрирован, он может быть отображен с использованием псевдонима тега:
 
-    <x-package-alert/>
+```html
+<x-package-alert/>
+```
 
 Как вариант, вы можете использовать метод `componentNamespace` для автоматической загрузки классов компонентов по соглашению. Например, пакет `Nightshade` может иметь компоненты `Calendar` и `ColorPicker`, которые находятся в пространстве имен `Package\Views\Components`:
 
@@ -608,8 +675,10 @@ php artisan make:component forms.input --view
 
 Это позволит использовать компоненты пакета в пространстве имен их поставщиков, используя синтаксис `x-package-name::`:
 
-    <x-nightshade::calendar />
-    <x-nightshade::color-picker />
+```html
+<x-nightshade::calendar />
+<x-nightshade::color-picker />
+```
 
 Blade автоматически обнаружит класс, связанный с этим компонентом, используя «верблюжий регистр» имени компонента. Подкаталоги также поддерживаются с использованием «точечной» нотации.
 
@@ -618,27 +687,29 @@ Blade автоматически обнаружит класс, связанны
 
 Для отображения компонента вы можете использовать тег компонента Blade в одном из ваших шаблонов Blade. Теги компонентов Blade начинаются со строки `x-`, за которой следует имя в «шашлычном регистре» класса компонента:
 
-    <x-alert/>
+```html
+<x-alert/>
 
-    <x-user-profile/>
+<x-user-profile/>
+```
 
 Если класс компонента имеет вложенность в каталоге `app/View/Components`, то вы можете использовать символ `.` для обозначения вложенности каталогов. Например, если мы предполагаем, что компонент находится в `app/View/Components/Inputs/Button.php`, то мы можем отобразить его так:
 
-    <x-inputs.button/>
+```html
+<x-inputs.button/>
+```
 
 Если вы хотите выборочно отображать ваш компонент, вы можете указать метод `shouldRender` в классе вашего компонента. Если результат метода `shouldRender` равен `false`, то компонент не будет отображаться:
 
-```php
-use Illuminate\Support\Str;
+    use Illuminate\Support\Str;
 
-/**
- * Определяет, должен ли компонент отображаться
- */
-public function shouldRender(): bool
-{
-    return Str::length($this->message) > 0;
-}
-```
+    /**
+     * Определяет, должен ли компонент отображаться
+     */
+    public function shouldRender(): bool
+    {
+        return Str::length($this->message) > 0;
+    }
 
 <a name="index-components"></a>
 ### Индексация компонентов
@@ -665,7 +736,9 @@ App\Views\Components\Card\Body
 
 Вы можете передавать данные в компоненты Blade, используя атрибуты HTML. Жестко запрограммированные примитивные значения могут быть переданы компоненту с помощью простых строк атрибутов HTML. Выражения и переменные PHP следует передавать компоненту через атрибуты, которые используют символ `:` в качестве префикса:
 
-    <x-alert type="error" :message="$message"/>
+```blade
+<x-alert type="error" :message="$message"/>
+```
 
 Вы должны определить необходимые данные компонента в его конструкторе класса. Все общедоступные свойства компонента будут автоматически доступны в шаблоне компонента. Нет необходимости передавать данные в шаблон из метода `render` компонента:
 
@@ -678,7 +751,10 @@ App\Views\Components\Card\Body
 
     class Alert extends Component
     {
-       public function __construct(
+        /**
+         * Создать экземпляр компонента.
+         */
+        public function __construct(
             public string $type,
             public string $message,
         ) {}
@@ -714,7 +790,9 @@ App\Views\Components\Card\Body
 
 Аргумент `$alertType` может быть передан компоненту следующим образом:
 
-    <x-alert alert-type="danger" />
+```html
+<x-alert alert-type="danger" />
+```
 
 <a name="short-attribute-syntax"></a>
 #### Сокращенный синтаксис атрибутов
@@ -724,25 +802,29 @@ App\Views\Components\Card\Body
 ```html
 {{-- Сокращенный синтаксис атрибутов... --}}
 <x-profile :$userId :$name />
+
 {{-- Эквивалентно... --}}
 <x-profile :user-id="$userId" :name="$name" />
 ```
-
 
 <a name="escaping-attribute-rendering"></a>
 #### Экранирование атрибутов от синтаксического анализа
 
 Поскольку некоторые фреймворки JavaScript, такие, как Alpine.js, также используют атрибуты с префиксом двоеточия, вы можете использовать префикс с двойным двоеточием (`::`), чтобы сообщить Blade, что атрибут не является выражением PHP. Например, учитывая следующий компонент:
 
-    <x-button ::class="{ danger: isDeleting }">
-        Submit
-    </x-button>
+```html
+<x-button ::class="{ danger: isDeleting }">
+    Submit
+</x-button>
+```
 
 Blade отобразит следующий HTML-код:
 
-    <button :class="{ danger: isDeleting }">
-        Submit
-    </button>
+```html
+<button :class="{ danger: isDeleting }">
+    Submit
+</button>
+```
 
 <a name="component-methods"></a>
 #### Методы компонента
@@ -759,9 +841,11 @@ Blade отобразит следующий HTML-код:
 
 Вы можете выполнить этот метод из своего шаблона компонента, вызвав переменную, соответствующую имени метода:
 
-    <option {{ $isSelected($value) ? 'selected="selected"' : '' }} value="{{ $value }}">
-        {{ $label }}
-    </option>
+```html
+<option {{ $isSelected($value) ? 'selected' : '' }} value="{{ $value }}">
+    {{ $label }}
+</option>
+```
 
 <a name="using-attributes-slots-within-component-class"></a>
 #### Доступ к атрибутам и слотам в классах компонентов
@@ -802,16 +886,18 @@ Blade отобразит следующий HTML-код:
 
 Если вашему компоненту требуются зависимости из [контейнера служб](/docs/{{version}}/container) Laravel, то вы можете указать их перед любыми атрибутами данных компонента, и они будут автоматически внедрены контейнером:
 
-    use App\Services\AlertCreator
+```php
+use App\Services\AlertCreator;
 
-    /**
-     * Создать экземпляр компонента.
-     */
-    public function __construct(
-        public AlertCreator $creator,
-        public string $type,
-        public string $message,
-    ) {}
+/**
+ * Создать экземпляр компонента.
+ */
+public function __construct(
+    public AlertCreator $creator,
+    public string $type,
+    public string $message,
+) {}
+```
 
 <a name="hiding-attributes-and-methods"></a>
 #### Скрытие атрибутов / методов
@@ -846,15 +932,19 @@ Blade отобразит следующий HTML-код:
 
 Мы уже рассмотрели, как передавать атрибуты данных в компонент; иногда требуется указать дополнительные атрибуты HTML, такие, как `class`, которые не являются частью данных, необходимых для функционирования компонента. Как правило, вы хотите передать эти дополнительные атрибуты корневому элементу шаблона компонента. Например, представьте, что мы хотим отобразить компонент `alert` следующим образом:
 
-    <x-alert type="error" :message="$message" class="mt-4"/>
+```html
+<x-alert type="error" :message="$message" class="mt-4"/>
+```
 
 Все атрибуты, которые не являются частью конструктора компонента, будут автоматически добавлены в «коллекцию атрибутов» компонента. Эта коллекция атрибутов автоматически становится доступной для компонента через переменную `$attributes`. Все атрибуты могут отображаться в компоненте путем вывода этой переменной:
 
-    <div {{ $attributes }}>
-        <!-- Component content -->
-    </div>
+```html
+<div {{ $attributes }}>
+    <!-- Component content -->
+</div>
+```
 
-> [!WARNING]  
+> [!WARNING]
 > Использование таких директив, как `@env` в тегах компонентов в настоящее время не поддерживается. Например, `<x-alert :live="@env('production')"/>` не будет компилироваться.
 
 <a name="default-merged-attributes"></a>
@@ -862,13 +952,17 @@ Blade отобразит следующий HTML-код:
 
 Иногда требуется указать значения по умолчанию для атрибутов или добавить дополнительные значения в некоторые атрибуты компонента. Для этого вы можете использовать метод `merge` коллекции атрибутов. Этот метод особенно полезен для определения набора CSS-классов по умолчанию, которые всегда должны применяться к компоненту:
 
-    <div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
-        {{ $message }}
-    </div>
+```html
+<div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
+    {{ $message }}
+</div>
+```
 
 Если предположить,
 
-    <x-alert type="error" :message="$message" class="mb-4"/>
+```html
+<x-alert type="error" :message="$message" class="mb-4"/>
+```
 
 Окончательный обработанный HTML-код компонента будет выглядеть следующим образом:
 
@@ -883,17 +977,21 @@ Blade отобразит следующий HTML-код:
 
 По желанию можно объединить классы, если указанное условие истинно. Вы можете сделать это с помощью метода `class`, принимающий массив классов, где ключ массива содержит класс или классы, которые вы хотите добавить, а значение является логическим выражением. Если элемент массива имеет числовой ключ, то он всегда будет добавлен в конечный список классов:
 
-    <div {{ $attributes->class(['p-4', 'bg-red' => $hasError]) }}>
-        {{ $message }}
-    </div>
+```html
+<div {{ $attributes->class(['p-4', 'bg-red' => $hasError]) }}>
+    {{ $message }}
+</div>
+```
 
 Если вам нужно объединить другие атрибуты в свой компонент, вы можете связать метод `merge` с методом `class`:
 
-    <button {{ $attributes->class(['p-4'])->merge(['type' => 'button']) }}>
-        {{ $slot }}
-    </button>
+```html
+<button {{ $attributes->class(['p-4'])->merge(['type' => 'button']) }}>
+    {{ $slot }}
+</button>
+```
 
-> [!NOTE]   
+> [!NOTE]
 > Если вам нужно условно скомпилировать классы для других элементов HTML, которые не должны получать объединенные атрибуты, вы можете использовать директиву [`@class`](#conditional-classes).
 
 <a name="non-class-attribute-merging"></a>
@@ -901,46 +999,62 @@ Blade отобразит следующий HTML-код:
 
 При слиянии атрибутов, которые не являются атрибутами класса, значения, предоставленные методу `merge`, будут считаться значениями атрибута по умолчанию. Однако, в отличие от атрибута `class`, эти атрибуты не будут объединены с указанными значениями атрибутов. Вместо этого они будут перезаписаны. Например, реализация компонента `button` может выглядеть следующим образом:
 
-    <button {{ $attributes->merge(['type' => 'button']) }}>
-        {{ $slot }}
-    </button>
+```html
+<button {{ $attributes->merge(['type' => 'button']) }}>
+    {{ $slot }}
+</button>
+```
 
 Чтобы отобразить компонент кнопки с настраиваемым `type`, его можно указать при использовании компонента. Если тип не указан, будет использоваться тип `button`, определенный по умолчанию:
 
-    <x-button type="submit">
-        Submit
-    </x-button>
+```html
+<x-button type="submit">
+    Submit
+</x-button>
+```
 
 Обработанный HTML-код компонента `button` в этом примере будет:
 
-    <button type="submit">
-        Submit
-    </button>
+```html
+<button type="submit">
+    Submit
+</button>
+```
 
 Если вы хотите, чтобы атрибут, отличный от `class`, имел значение по умолчанию и указанное значение, объединенные вместе, вы можете использовать метод `prepends`. В этом примере атрибут `data-controller` всегда будет начинаться с `profile-controller`, а любые дополнительные указанные значения `data-controller` будут помещены после этого значения по умолчанию:
 
-    <div {{ $attributes->merge(['data-controller' => $attributes->prepends('profile-controller')]) }}>
-        {{ $slot }}
-    </div>
+```html
+<div {{ $attributes->merge(['data-controller' => $attributes->prepends('profile-controller')]) }}>
+    {{ $slot }}
+</div>
+```
 
 <a name="filtering-attributes"></a>
 #### Получение и фильтрация атрибутов
 
 Вы можете фильтровать атрибуты, используя метод `filter`. Этот метод принимает замыкание, которое должно возвращать `true`, если вы хотите сохранить атрибут в коллекции атрибутов:
 
-    {{ $attributes->filter(fn ($value, $key) => $key == 'foo') }}
+```html
+{{ $attributes->filter(fn (string $value, string $key) => $key == 'foo') }}
+```
 
 Для удобства вы можете использовать метод `whereStartsWith` для получения всех атрибутов, ключи которых начинаются с указанной строки:
 
-    {{ $attributes->whereStartsWith('wire:model') }}
+```html
+{{ $attributes->whereStartsWith('wire:model') }}
+```
 
 И наоборот, метод `whereDoesntStartWith` может быть использован для исключения всех атрибутов, ключи которых начинаются с указанной строки:
 
-    {{ $attributes->whereDoesntStartWith('wire:model') }}
+```html
+{{ $attributes->whereDoesntStartWith('wire:model') }}
+```
 
 Используя метод `first`, вы можете отобразить первый атрибут в указанной коллекции атрибутов:
 
-    {{ $attributes->whereStartsWith('wire:model')->first() }}
+```html
+{{ $attributes->whereStartsWith('wire:model')->first() }}
+```
 
 Если вы хотите проверить, присутствует ли атрибут в компоненте, вы можете использовать метод `has`. Этот метод принимает имя атрибута в качестве единственного аргумента и возвращает логическое значение, указывающее, присутствует ли атрибут:
 
@@ -968,7 +1082,9 @@ Blade отобразит следующий HTML-код:
 
 Вы можете получить значение конкретного атрибута, используя метод `get`:
 
-    {{ $attributes->get('class') }}
+```html
+{{ $attributes->get('class') }}
+```
 
 <a name="reserved-keywords"></a>
 ### Зарезервированные ключевые слова
@@ -1036,6 +1152,7 @@ Blade отобразит следующий HTML-код:
 
 ```blade
 <span class="alert-title">{{ $title }}</span>
+
 <div class="alert alert-danger">
     @if ($slot->isEmpty())
         This is default content if the slot is empty.
@@ -1089,7 +1206,7 @@ Blade отобразит следующий HTML-код:
 
 Чтобы взаимодействовать с атрибутами слота, можно обратиться к свойству `attributes` переменной слота. Для получения дополнительной информации о том, как взаимодействовать с атрибутами, обратитесь к документации по [атрибутам компонентов](#component-attributes):
 
-```php
+```html
 @props([
     'heading',
     'footer',
@@ -1141,14 +1258,16 @@ php artisan make:component Alert --inline
 
 ```html
 // $componentName = "secondary-button";
+
 <x-dynamic-component :component="$componentName" class="mt-4" />
 ```
 
 <a name="manually-registering-components"></a>
 ### Ручная регистрация компонентов
 
-> [!WARNING]  
+> [!WARNING]
 > Следующая документация по ручной регистрации компонентов в основном применима к тем, кто пишет пакеты Laravel, включающие компоненты отображения. Если вы не пишете пакет, эта часть документации по компонентам может быть неактуальной для вас.
+
 Когда вы создаете компоненты для своего приложения, они автоматически обнаруживаются в каталоге `app/View/Components` и каталоге `resources/views/components`.
 
 Однако, если вы создаете пакет, использующий компоненты Blade, или помещаете компоненты в нестандартные каталоги, вам потребуется вручную зарегистрировать класс вашего компонента и его псевдоним HTML-тега, чтобы Laravel знал, где найти компонент. Обычно вы регистрируете свои компоненты в методе `boot` сервис-провайдера вашего пакета:
@@ -1198,11 +1317,15 @@ Blade автоматически обнаружит класс, связанны
 
 Подобно встроенным компонентам, анонимные компоненты предоставляют механизм для управления компонентом через один файл. Однако анонимные компоненты используют один файл шаблона, но не имеют связанного с компонентом класса. Чтобы определить анонимный компонент, вам нужно только разместить шаблон Blade в вашем каталоге `resources/views/components`. Например, если вы определили компонент в `resources/views/components/alert.blade.php`, вы можете просто отобразить его так:
 
-    <x-alert/>
+```html
+<x-alert/>
+```
 
 Вы можете использовать символ `.`, чтобы указать, вложен ли компонент в каталоге `components`. Например, если компонент определен в `resources/views/components/inputs/button.blade.php`, вы можете отобразить его так:
 
-    <x-inputs.button/>
+```html
+<x-inputs.button/>
+```
 
 <a name="anonymous-index-components"></a>
 ### Анонимные Index Компоненты
@@ -1240,49 +1363,59 @@ Blade автоматически обнаружит класс, связанны
 
 Вы можете указать, какие атрибуты следует рассматривать как переменные данных, используя директиву `@props` в верхней части шаблона Blade вашего компонента. Все остальные атрибуты компонента будут доступны через коллекцию атрибутов компонента. Если вы хотите присвоить переменной данных значение по умолчанию, вы можете указать имя переменной в качестве ключа массива и значение по умолчанию в качестве значения массива:
 
-    <!-- /resources/views/components/alert.blade.php -->
+```html
+<!-- /resources/views/components/alert.blade.php -->
 
-    @props(['type' => 'info', 'message'])
+@props(['type' => 'info', 'message'])
 
-    <div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
-        {{ $message }}
-    </div>
+<div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
+    {{ $message }}
+</div>
+```
 
 Учитывая приведенное выше определение компонента, мы можем отобразить компонент следующим образом:
 
-    <x-alert type="error" :message="$message" class="mb-4"/>
+```html
+<x-alert type="error" :message="$message" class="mb-4"/>
+```
 
 <a name="accessing-parent-data"></a>
 ### Доступ к родительским данным
 
 Иногда вам может потребоваться доступ к данным из родительского компонента внутри дочернего компонента. В этих случаях вы можете использовать директиву `@aware`. Например, представьте, что мы создаем сложный компонент меню, состоящий из родительского `<x-menu>` и дочернего `<x-menu.item>`:
 
-    <x-menu color="purple">
-        <x-menu.item>...</x-menu.item>
-        <x-menu.item>...</x-menu.item>
-    </x-menu>
+```html
+<x-menu color="purple">
+    <x-menu.item>...</x-menu.item>
+    <x-menu.item>...</x-menu.item>
+</x-menu>
+```
 
 Компонент `<x-menu>` может иметь следующую реализацию:
 
-    <!-- /resources/views/components/menu/index.blade.php -->
+```html
+<!-- /resources/views/components/menu/index.blade.php -->
 
-    @props(['color' => 'gray'])
+@props(['color' => 'gray'])
 
-    <ul {{ $attributes->merge(['class' => 'bg-'.$color.'-200']) }}>
-        {{ $slot }}
-    </ul>
+<ul {{ $attributes->merge(['class' => 'bg-'.$color.'-200']) }}>
+    {{ $slot }}
+</ul>
+```
 
 Поскольку свойство `color` было передано только родительскому элементу (`<x-menu>`), оно не будет доступно внутри `<x-menu.item>`. Однако, если мы воспользуемся директивой `@aware`, мы можем сделать ее доступной и внутри `<x-menu.item>`:
 
-    <!-- /resources/views/components/menu/item.blade.php -->
+```html
+<!-- /resources/views/components/menu/item.blade.php -->
 
-    @aware(['color' => 'gray'])
+@aware(['color' => 'gray'])
 
-    <li {{ $attributes->merge(['class' => 'text-'.$color.'-800']) }}>
-        {{ $slot }}
-    </li>
+<li {{ $attributes->merge(['class' => 'text-'.$color.'-800']) }}>
+    {{ $slot }}
+</li>
+```
 
-> [!WARNING]    
+> [!WARNING]
 > Директива `@aware` не может обращаться к родительским данным, которые не явно передаются в родительский компонент через HTML-атрибуты. Значения `@props`, которые не явно передаются в родительский компонент, не могут быть доступны директиве `@aware`.
 
 <a name="anonymous-component-paths"></a>
@@ -1333,14 +1466,14 @@ Blade автоматически обнаружит класс, связанны
 <!-- resources/views/components/layout.blade.php -->
 
 <html>
-<head>
-    <title>{{ $title ?? 'Todo Manager' }}</title>
-</head>
-<body>
-    <h1>Todos</h1>
-    <hr/>
-    {{ $slot }}
-</body>
+    <head>
+        <title>{{ $title ?? 'Todo Manager' }}</title>
+    </head>
+    <body>
+        <h1>Todos</h1>
+        <hr/>
+        {{ $slot }}
+    </body>
 </html>
 ```
 
@@ -1365,7 +1498,7 @@ Blade автоматически обнаружит класс, связанны
 <!-- resources/views/tasks.blade.php -->
 
 <x-layout>
-    <x-slot name="title">
+    <x-slot:title>
         Custom Title
     </x-slot>
 
@@ -1377,11 +1510,11 @@ Blade автоматически обнаружит класс, связанны
 
 Теперь, когда мы определили наш макет и шаблоны списка задач, нам просто нужно вернуть представление `task` из маршрута:
 
-use App\Models\Task;
+    use App\Models\Task;
 
-Route::get('/tasks', function () {
-    return view('tasks', ['tasks' => Task::all()]);
-});
+    Route::get('/tasks', function () {
+        return view('tasks', ['tasks' => Task::all()]);
+    });
 
 <a name="layouts-using-template-inheritance"></a>
 ### Макеты с использованием наследования шаблонов
@@ -1397,18 +1530,18 @@ Route::get('/tasks', function () {
 <!-- resources/views/layouts/app.blade.php -->
 
 <html>
-<head>
-    <title>App Name - @yield('title')</title>
-</head>
-<body>
-    @section('sidebar')
-        This is the master sidebar.
-    @show
+    <head>
+        <title>App Name - @yield('title')</title>
+    </head>
+    <body>
+        @section('sidebar')
+            This is the master sidebar.
+        @show
 
-    <div class="container">
-        @yield('content')
-    </div>
-</body>
+        <div class="container">
+            @yield('content')
+        </div>
+    </body>
 </html>
 ```
 
@@ -1429,24 +1562,26 @@ Route::get('/tasks', function () {
 @section('title', 'Page Title')
 
 @section('sidebar')
-@@parent
+    @@parent
 
-<p>This is appended to the master sidebar.</p>
+    <p>This is appended to the master sidebar.</p>
 @endsection
 
 @section('content')
-<p>This is my body content.</p>
+    <p>This is my body content.</p>
 @endsection
 ```
 
 В этом примере секция `sidebar` использует директиву `@@parent` для добавления (а не перезаписи) содержимого к боковой панели макета. Директива `@@parent` будет заменена содержимым макета при визуализации представления.
 
-> [!NOTE]  
+> [!NOTE]
 > В отличие от предыдущего примера, нынешняя секция `sidebar` заканчивается `@endsection` вместо `@show`. Директива `@endsection` будет только определять секцию, в то время как `@show` будет определять и **немедленно дополнять** секцию.
 
 Директива `@yield` также принимает значение по умолчанию в качестве второго параметра. Это значение будет отображено, если дополняемый раздел не определен:
 
+```html
 @yield('content', 'Default content')
+```
 
 <a name="forms"></a>
 ## Формы
@@ -1458,9 +1593,9 @@ Route::get('/tasks', function () {
 
 ```html
 <form method="POST" action="/profile">
-@csrf
+    @csrf
 
-...
+    ...
 </form>
 ```
 
@@ -1471,9 +1606,9 @@ Route::get('/tasks', function () {
 
 ```html
 <form action="/foo/bar" method="POST">
-@method('PUT')
+    @method('PUT')
 
-...
+    ...
 </form>
 ```
 
@@ -1494,7 +1629,7 @@ Route::get('/tasks', function () {
 />
 
 @error('title')
-<div class="alert alert-danger">{{ $message }}</div>
+    <div class="alert alert-danger">{{ $message }}</div>
 @enderror
 ```
 
@@ -1526,7 +1661,7 @@ Route::get('/tasks', function () {
 />
 
 @error('email', 'login')
-<div class="alert alert-danger">{{ $message }}</div>
+    <div class="alert alert-danger">{{ $message }}</div>
 @enderror
 ```
 
@@ -1548,7 +1683,6 @@ Blade позволяет вам добавлять содержимое к им�
     <script src="/example.js"></script>
 @endPushIf
 ```
-
 
 Вы можете помещать в стек сколько угодно раз. Чтобы отобразить полное содержимое стека, передайте имя стека в директиву `@stack`:
 
@@ -1649,7 +1783,6 @@ view('dashboard', ['users' => $users])
     );
 ```
 
-
 <a name="extending-blade"></a>
 ## Расширение Blade
 
@@ -1689,7 +1822,7 @@ Blade позволяет вам определять ваши собственн
 
     <?php echo ($var)->format('m/d/Y H:i'); ?>
 
-> [!WARNING]  
+> [!WARNING]
 > После обновления логики директивы Blade вам нужно будет удалить все кешированные шаблоны Blade. Кешированные шаблоны Blade могут быть удалены с помощью команды `view:clear` Artisan.
 
 <a name="custom-echo-handlers"></a>
