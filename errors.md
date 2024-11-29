@@ -4,7 +4,6 @@ git: 37a8b499fc099ea49dd232d64c6cc4fd3f7ad7f7
 
 # Обработка ошибок (Exception)
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -47,7 +46,7 @@ git: 37a8b499fc099ea49dd232d64c6cc4fd3f7ad7f7
         });
     })
 
-> [!NOTE]  
+> [!NOTE]
 > Чтобы настроить отчет об исключениях для переданного исключения, вы можете рассмотреть возможность использования [отчетных исключений](#renderable-exceptions).
 
 <a name="global-log-context"></a>
@@ -65,7 +64,6 @@ git: 37a8b499fc099ea49dd232d64c6cc4fd3f7ad7f7
 #### Контекст журнала исключений
 
 Добавление контекста к каждому сообщению в журнале может быть полезным, но иногда у конкретного исключения может быть уникальный контекст, который вы хотели бы включить в журнал. Определив метод `context` в одном из исключений вашего приложения, вы можете указать любые данные, относящиеся к этому исключению, которые должны быть добавлены в журнал записи об исключении:
-
 
     <?php
 
@@ -219,7 +217,6 @@ class PodcastProcessingException extends Exception implements ShouldntReport
 <a name="rendering-exceptions-as-json"></a>
 #### Отображение исключений в формате JSON
 
-When rendering an exception, Laravel will automatically determine if the exception should be rendered as an HTML or JSON response based on the `Accept` header of the request. If you would like to customize how Laravel determines whether to render HTML or JSON exception responses, you may utilize the `shouldRenderJsonWhen` method:
 При обработке исключения Laravel автоматически определяет, должно ли исключение быть отображено в виде ответа HTML или JSON, на основе заголовка `Accept` запроса. Если вы хотите настроить, как Laravel определяет, следует ли отображать ответы об исключениях HTML или JSON, вы можете использовать метод `shouldRenderJsonWhen`:
 
     use Illuminate\Http\Request;
@@ -272,7 +269,7 @@ When rendering an exception, Laravel will automatically determine if the excepti
         /**
          * Отчитаться об исключении.
          */
-        public function report() : void
+        public function report(): void
         {
             // ...
         }
@@ -286,9 +283,8 @@ When rendering an exception, Laravel will automatically determine if the excepti
         }
     }
 
-
 Если ваше исключение расширяет исключение, которое уже доступно для визуализации, например встроенное исключение Laravel или Symfony, вы можете вернуть `false` из метода `render` исключения, чтобы отобразить HTTP-ответ исключения по умолчанию:
-    
+
     /**
      * Преобразовать исключение в HTTP-ответ.
      */
@@ -311,13 +307,15 @@ When rendering an exception, Laravel will automatically determine if the excepti
     {
         if (/** Определить, требуется ли для исключения пользовательское отображение */) {
 
+            // ...
+
             return true;
         }
 
         return false;
     }
 
-> [!NOTE]  
+> [!NOTE]
 > Вы можете указать любые требуемые зависимости метода `report`, и они будут автоматически внедрены в метод [контейнером служб](/docs/{{version}}/container) Laravel.
 
 <a name="throttling-reported-exceptions"></a>
