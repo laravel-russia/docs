@@ -13,7 +13,7 @@ Laravel стремится сделать весь процесс разрабо
 
 Homestead работает в любой системе Windows, macOS или Linux и включает Nginx, PHP, MySQL, PostgreSQL, Redis, Memcached, Node и все другое программное обеспечение, необходимое для разработки потрясающих приложений Laravel.
 
-> [!WARNING]  
+> [!WARNING]
 > Если вы используете Windows, вам может потребоваться включить аппаратную виртуализацию (VT-x). Обычно его можно включить в BIOS. Если вы используете Hyper-V в системе UEFI, вам может дополнительно потребоваться отключить Hyper-V, чтобы получить доступ к VT-x.
 
 <a name="included-software"></a>
@@ -52,7 +52,6 @@ Homestead работает в любой системе Windows, macOS или Li
 - wp-cli
 
 </div>
-
 
 <a name="optional-software"></a>
 ### Дополнительное программное обеспечение
@@ -145,7 +144,7 @@ init.bat
 
     provider: virtualbox
 
-> [!WARNING]  
+> [!WARNING]
 > Если вы используете Apple Silicon, требуется провайдер Parallels.
 
 <a name="configuring-shared-folders"></a>
@@ -159,7 +158,7 @@ folders:
       to: /home/vagrant/project1
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Пользователи Windows, при указании пути не должны использовать синтаксис `~/`, а вместо этого должны указать полный путь к своему проекту от корня диска, например `C:\Users\user\Code\project1`.
 
 Вы всегда должны сопоставлять каждое ваше приложение с его собственной отдельной директорией вместо назначения одного большого каталога, содержащего все ваши приложения. При назначении папки приложению виртуальная машина должна отслеживать все операции ввода-вывода на диске для *каждого* файла в папке. Поэтому у вас может снизиться производительность среды, если в папке много файлов:
@@ -172,7 +171,7 @@ folders:
       to: /home/vagrant/project2
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Вы никогда не должны монтировать `.` (текущий каталог) при использовании Homestead. Это приводит к тому, что Vagrant не отображает текущую папку в `/vagrant`, что нарушает работу дополнительных функций и приводит к неожиданным результатам при подготовке.
 
 Чтобы включить [NFS](https://developer.hashicorp.com/vagrant/docs/synced-folders/nfs), вы можете добавить параметр `type` при сопоставлении папок:
@@ -184,7 +183,7 @@ folders:
       type: "nfs"
 ```
 
-> [!WARNING] 
+> [!WARNING]
 > При использовании NFS в Windows вам следует рассмотреть возможность установки подключаемого модуля [vagrant-winnfsd](https://github.com/winnfsd/vagrant-winnfsd). Этот плагин будет поддерживать правильные разрешения пользователя / группы для файлов и каталогов на виртуальной машине Homestead.
 
 Вы также можете передать любые параметры, поддерживаемые [общими папками Vagrant](https://developer.hashicorp.com/vagrant/docs/synced-folders/basic_usage), указав их под ключом options:
@@ -204,13 +203,15 @@ folders:
 
 Не знаком с Nginx? Нет проблем! Свойство `sites` файла `Homestead.yaml` позволяет легко сопоставить "домен" с папкой в среде Homestead. Пример конфигурации сайта включен в файл `Homestead.yaml`. Опять же, вы можете добавить столько сайтов в среду Homestead, сколько необходимо. Homestead может служить удобной виртуальной средой для каждого приложения Laravel, над которым вы работаете:
 
-    sites:
-        - map: homestead.test
-          to: /home/vagrant/project1/public
+```yaml
+sites:
+    - map: homestead.test
+      to: /home/vagrant/project1/public
+```
 
 Если вы измените свойство `sites` после подготовки виртуальной машины Homestead, вы должны выполнить команду `vagrant reload --provision` в своем терминале, чтобы обновить конфигурацию Nginx на виртуальной машине.
 
-> [!WARNING]  
+> [!WARNING]
 > Скрипты Homestead созданы максимально [идемпотентными](https://ru.wikipedia.org/wiki/Идемпотентность). Однако, если у вас возникли проблемы во время подготовки, вам следует удалить и повторно запустить виртуальную машину, выполнив команду `vagrant destroy && vagrant up`.
 
 <a name="hostname-resolution"></a>
@@ -300,12 +301,10 @@ features:
     - grafana: true
     - influxdb: true
     - logstash: true
-    - mailpit: true
     - mariadb: true
     - meilisearch: true
     - minio: true
     - mongodb: true
-    - mysql: true
     - neo4j: true
     - ohmyzsh: true
     - openresty: true
@@ -326,7 +325,7 @@ features:
 
 Вы можете указать поддерживаемую версию Elasticsearch, которая должна быть точным номером версии (major.minor.patch). При установке по умолчанию будет создан кластер с именем «homestead». Никогда не следует отдавать Elasticsearch больше половины памяти операционной системы, поэтому убедитесь, что на вашей виртуальной машине Homestead выделено как минимум вдвое больше памяти Elasticsearch.
 
-> [!NOTE]  
+> [!NOTE]
 > Ознакомьтесь с [документацией Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current), чтобы узнать, как настроить свою конфигурацию.
 
 <a name="mariadb"></a>
@@ -424,7 +423,7 @@ sites:
       to: /home/vagrant/project2/public
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Перед добавлением сайта убедитесь, что вы настроили [сопоставление папок](#configuring-shared-folders) для каталога проекта.
 
 Если Vagrant не управляет вашим файлом «hosts» автоматически, вам может потребоваться также добавить новый сайт в этот файл. В macOS и Linux этот файл находится в `/etc/hosts`. В Windows он находится в `C:\Windows\System32\drivers\etc\hosts`:
@@ -501,13 +500,13 @@ ports:
 
 Ниже приведен список дополнительных сервисных портов Homestead, которые вы, возможно, захотите перенаправить с вашего хост-компьютера на ваш Vagrant box:
 
-- **SSH:** 2222 &rarr; 22
-- **ngrok UI:** 4040 &rarr; 4040
-- **MySQL:** 33060 &rarr; 3306
-- **PostgreSQL:** 54320 &rarr; 5432
-- **MongoDB:** 27017 &rarr; 27017
-- **Mailpit:** 8025 &rarr; 8025
-- **Minio:** 9600 &rarr; 9600
+- **SSH:** 2222 &rarr; To 22
+- **ngrok UI:** 4040 &rarr; To 4040
+- **MySQL:** 33060 &rarr; To 3306
+- **PostgreSQL:** 54320 &rarr; To 5432
+- **MongoDB:** 27017 &rarr; To 27017
+- **Mailpit:** 8025 &rarr; To 8025
+- **Minio:** 9600 &rarr; To 9600
 
 <a name="php-versions"></a>
 ### Версии PHP
@@ -556,7 +555,7 @@ php83
 
 База данных `homestead` настраивается как для MySQL, так и для PostgreSQL из коробки. Чтобы подключиться к вашей базе данных MySQL или PostgreSQL из клиента вашего хост-компьютера, вы должны подключиться к `127.0.0.1` через порт `33060` (MySQL) или `54320` (PostgreSQL). Имя пользователя и пароль для обеих баз данных - `homestead` / `secret`.
 
-> [!WARNING]  
+> [!WARNING]
 > Вы должны использовать эти нестандартные порты только при подключении к базам данных с вашего хост-компьютера. Вы будете использовать порты 3306 и 5432 по умолчанию в файле конфигурации вашего приложения Laravel `database`, поскольку Laravel работает _внутри_ виртуальной машины.
 
 <a name="database-backups"></a>
@@ -584,7 +583,7 @@ sites:
 
 Задание cron для сайта будет записано в каталоге `/etc/cron.d` виртуальной машины Homestead.
 
-<a name="configuring-mailhog"></a>
+<a name="configuring-mailpit"></a>
 ### Настройка mailpit
 
 [Mailpit](https://github.com/axllent/mailpit) позволяет вам перехватывать исходящую электронную почту и проверять ее, не отправляя ее получателям. Для начала обновите файл `.env` вашего приложения, чтобы использовать следующие настройки почты:
@@ -662,8 +661,7 @@ share homestead.test -region=eu -subdomain=laravel
 
 Если вам необходимо предоставить контент через HTTPS вместо HTTP, используйте команду `sshare` вместо `share`, и это позволит вам делать это.
 
-
-> [!WARNING]  
+> [!WARNING]
 > Помните, что Vagrant по своей сути небезопасен, и вы открываете свою виртуальную машину для доступа из Интернета, выполняя команду `share`.
 
 <a name="debugging-and-profiling"></a>
@@ -676,7 +674,7 @@ Homestead включает поддержку пошаговой отладки 
 
 По умолчанию Xdebug уже запущен и готов принимать подключения. Если вам нужно включить Xdebug в CLI, выполните команду `sudo phpenmod xdebug` на виртуальной машине Homestead. Затем следуйте инструкциям IDE, чтобы включить отладку. Наконец, настройте свой браузер для запуска Xdebug с расширением или [букмарклетом](https://www.jetbrains.com/phpstorm/marklets/).
 
-> [!WARNING]  
+> [!WARNING]
 > Xdebug заставляет PHP работать значительно медленнее. Чтобы отключить Xdebug, запустите `sudo phpdismod xdebug` на виртуальной машине Homestead и перезапустите службу FPM.
 
 <a name="autostarting-xdebug"></a>
