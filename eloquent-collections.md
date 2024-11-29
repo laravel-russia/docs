@@ -46,6 +46,7 @@ git: a24c4a3d79f374f1c272312a300da55f44cd19b2
 - [diff](#method-diff)
 - [except](#method-except)
 - [find](#method-find)
+- [findOrFail](#method-find-or-fail)
 - [fresh](#method-fresh)
 - [intersect](#method-intersect)
 - [load](#method-load)
