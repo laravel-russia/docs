@@ -110,4 +110,4 @@ git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
     - [Socialite](/docs/{{version}}/socialite)
     - [Telescope](/docs/{{version}}/telescope)
     - [Valet](/docs/{{version}}/valet)
-    - [API Документация](https://laravel.com/api/11.x)
+- [API Документация](https://laravel.com/api/11.x)
