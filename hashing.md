@@ -45,7 +45,7 @@ php artisan config:publish hashing
          */
         public function update(Request $request): RedirectResponse
         {
-            // Проверить длину нового пароля ...
+            // Проверить длину нового пароля...
 
             $request->user()->fill([
                 'password' => Hash::make($request->newPassword)
@@ -75,7 +75,7 @@ php artisan config:publish hashing
         'threads' => 2,
     ]);
 
-> [!NOTE]    
+> [!NOTE]
 > Дополнительную информацию об этих параметрах можно найти в [официальной документации PHP](https://www.php.net/manual/ru/function.password-hash.php).
 
 <a name="verifying-that-a-password-matches-a-hash"></a>
@@ -84,7 +84,7 @@ php artisan config:publish hashing
 Метод `check` фасада `Hash` позволяет проверить, что указанная текстовая строка соответствует заданному хешу:
 
     if (Hash::check('plain-text', $hashedPassword)) {
-        // Пароли совпадают ...
+        // Пароли совпадают...
     }
 
 <a name="determining-if-a-password-needs-to-be-rehashed"></a>
