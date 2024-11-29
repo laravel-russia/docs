@@ -56,9 +56,9 @@ git: 87c1dc3bbb78949d35a1af957ba76c4469490baa
         /**
          * Обработать событие.
          */
-        public function handle(OrderWasPlaced $event) : void
+        public function handle(OrderWasPlaced $event): void
         {
-           // ...
+            // ...
         }
     }
 
