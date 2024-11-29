@@ -29,10 +29,10 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-        /**
-         * Отвлеченный пример функционального теста.
-         */
-        public function test_the_application_returns_a_successful_response(): void
+    /**
+     * Отвлеченный пример функционального теста.
+     */
+    public function test_the_application_returns_a_successful_response(): void
     {
         $response = $this->get('/');
 
@@ -405,7 +405,6 @@ Exceptions::assertNothingReported();
 
     $response = $this->withoutDeprecationHandling()->get('/');
 
-
 Метод assertThrows можно использовать для проверки того, что код внутри заданного замыкания генерирует исключение `указанного` типа:
 
 ```php
@@ -637,7 +636,7 @@ public function test_fluent_json(): void
 
     $response->assertJson(fn (AssertableJson $json) =>
         $json->hasAll(['status', 'data'])
-            ->missingAll(['message', 'code'])
+             ->missingAll(['message', 'code'])
     );
 
 Вы можете использовать метод `hasAny`, чтобы определить, присутствует ли хотя бы один из заданного списка атрибутов:
@@ -691,6 +690,7 @@ public function test_fluent_json(): void
                  ->has('users.0', fn (AssertableJson $json) =>
                     $json->where('id', 1)
                          ->where('name', 'Victoria Faith')
+                         ->where('email', fn (string $email) => str($email)->is('victoria@gmail.com'))
                          ->missing('password')
                          ->etc()
                  )
@@ -973,14 +973,14 @@ class ExampleTest extends TestCase
 
 Утверждает, что ответ имеет код `202` состояния HTTP – `accepted`:
 
-$response->assertAccepted();
+    $response->assertAccepted();
 
 <a name="assert-conflict"></a>
 #### assertConflict
 
 Утверждает, что ответ имеет код `409` состояния HTTP – `conflict`:
 
-$response->assertConflict();
+    $response->assertConflict();
 
 <a name="assert-cookie"></a>
 #### assertCookie
@@ -1040,7 +1040,7 @@ $response->assertConflict();
 
 При желании вы можете сделать утверждение, что загружаемому файлу было присвоено данное имя файла:
 
-    $response->assertDownload('image.jpg');    
+    $response->assertDownload('image.jpg');
 
 <a name="assert-exact-json"></a>
 #### assertExactJson
@@ -1076,7 +1076,7 @@ $response->assertConflict();
 #### assertGone
 
 Утверждает, что ответ имеет код `420` состояния HTTP – `gone`:
-    
+
     $response->assertGone();
 
 <a name="assert-header"></a>
@@ -1247,7 +1247,7 @@ $response->assertConflict();
             "name": "Steve Schoger",
             "age": 55,
             "location": "Earth"
-        },  
+        },
         {
             "name": "Mary Schoger",
             "age": 60,
@@ -1346,7 +1346,7 @@ $response->assertConflict();
 #### assertPaymentRequired
 
 Утверждает, что ответ имеет код `402` состояния HTTP – `payment required`:
-    
+
     $response->assertPaymentRequired();
 
 <a name="assert-plain-cookie"></a>
@@ -1369,7 +1369,6 @@ $response->assertConflict();
 Утверждает, перенаправляет ли ответ на URI, который содержит данную строку:
 
     $response->assertRedirectContains($string);
-
 
 <a name="assert-redirect-to-route"></a>
 #### assertRedirectToRoute
@@ -1443,7 +1442,7 @@ $response->assertConflict();
 
 Если необходимо, замыкание может быть предоставлено в качестве второго аргумента метода `assertSessionHas`. Утверждение пройдет, если замыкание вернет `true`:
 
-    $$response->assertSessionHas($key, function (User $value) {
+    $response->assertSessionHas($key, function (User $value) {
         return $value->name === 'Taylor Otwell';
     });
 
@@ -1482,7 +1481,7 @@ $response->assertConflict();
 Утверждает, что сессия содержит ошибку для переданных `$keys`. Если `$keys` является ассоциативным массивом, следует утверждать, что сессия содержит конкретное сообщение об ошибке (значение) для каждого поля (ключа). Этот метод следует использовать при тестировании маршрутов, которые передают ошибки валидации в сессию вместо того, чтобы возвращать их в виде структуры JSON:
 
     $response->assertSessionHasErrors(
-        array $keys = [], $format = null, $errorBag = 'default
+        array $keys = [], $format = null, $errorBag = 'default'
     );
 
 Например, чтобы утверждать, что поля `name` и `email` содержат сообщения об ошибках валидации, которые были переданы в сессию, вы можете вызвать метод `assertSessionHasErrors` следующим образом:
@@ -1497,7 +1496,6 @@ $response->assertConflict();
 
 > [!NOTE]
 > Более общий метод [assertInvalid](#assert-invalid) может быть использован для проверки, что ответ содержит ошибки валидации, представленные в формате JSON **или** что ошибки были сохранены в хранилище сессий.
-
 
 <a name="assert-session-has-errors-in"></a>
 #### assertSessionHasErrorsIn
@@ -1519,9 +1517,9 @@ $response->assertConflict();
 Утверждает, что в сессии нет ошибок валидации для переданных ключей:
 
     $response->assertSessionDoesntHaveErrors($keys = [], $format = null, $errorBag = 'default');
+
 > [!NOTE]
 > Более общий метод [assertValid](#assert-valid)  может быть использован для проверки того, что ответ не содержит ошибок валидации, представленных в формате JSON **и** что ошибок не было сохранено в хранилище сессий.
-
 
 <a name="assert-session-missing"></a>
 #### assertSessionMissing
@@ -1570,17 +1568,17 @@ $response->assertConflict();
 
 Утверждает, что ответ имеет код `415` состояния HTTP – `unsupported media type`:
 
-    $response->assertUnsupportedMediaType()
+    $response->assertUnsupportedMediaType();
 
 <a name="assert-valid"></a>
 #### assertValid
 
 Утверждает, что в ответе нет ошибок валидации для заданных ключей. Этот метод можно использовать для утверждения против ответов, в которых ошибки проверки возвращаются в виде структуры JSON или ошибки проверки были переданы в сессию:
 
-    // Assert that no validation errors are present...
+    // Утверждает, что ошибок проверки нет...
     $response->assertValid();
 
-    // Assert that the given keys do not have validation errors...
+    // Утверждает, что данные ключи не имеют ошибок проверки...
     $response->assertValid(['name', 'email']);
 
 <a name="assert-invalid"></a>
@@ -1597,7 +1595,6 @@ $response->assertConflict();
         'email' => 'valid email address',
     ]);
 
-
 <a name="assert-view-has"></a>
 #### assertViewHas
 
@@ -1609,7 +1606,7 @@ $response->assertConflict();
 
     $response->assertViewHas('user', function (User $user) {
         return $user->name === 'Taylor';
-    });    
+    });
 
 Кроме того, данные шаблона могут быть доступны как переменные массива в ответе, что позволяет вам удобно инспектировать их:
 
@@ -1682,7 +1679,6 @@ Laravel также содержит множество утверждений, �
 
     $this->assertAuthenticatedAs($user, $guard = null);
 
-
 <a name="validation-assertions"></a>
 ## Утверждения валидации
 
@@ -1692,7 +1688,6 @@ Laravel предоставляет два основных метода утве
 #### assertValid
 
 Утверждает, что ответ не содержит ошибок валидации для указанных ключей. Этот метод может использоваться для проверки ответов, где ошибки валидации представлены в виде JSON-структуры или где ошибки валидации сохраняются в сессии:
-
 
     // Утверждает, что ошибок валидации нет...
     $response->assertValid();
