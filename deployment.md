@@ -117,7 +117,9 @@ php artisan optimize:clear
 
 При развертывании вашего приложения в эксплуатационном окружении, вы должны убедиться, что вы выполнили команду `config:cache` Artisan в процессе развертывания:
 
-    php artisan config:cache
+```shell
+php artisan config:cache
+```
 
 Эта команда объединит все файлы конфигурации Laravel в один кешированный файл, что значительно сократит количество обращений, которые фреймворк должен совершить к файловой системе при загрузке значений вашей конфигурации.
 
@@ -132,7 +134,6 @@ php artisan optimize:clear
 ```shell
 php artisan event:cache
 ```
-
 
 <a name="optimizing-route-loading"></a>
 ### Оптимизация загрузки маршрута
@@ -174,11 +175,10 @@ Laravel включает встроенный маршрут проверки р
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
-        health: '/up', // [tl! удалить]
-        health: '/status', // [tl! добавить]
+        health: '/up', // [tl! remove]
+        health: '/status', // [tl! add]
     )
 
-When HTTP requests are made to this route, Laravel will also dispatch a `Illuminate\Foundation\Events\DiagnosingHealth` event, allowing you to perform additional health checks relevant to your application. Within a [listener](/docs/{{version}}/events) for this event, you may check your application's database or cache status. If you detect a problem with your application, you may simply throw an exception from the listener.
 Когда HTTP-запросы отправляются по этому маршруту, Laravel также отправляет событие `Illuminate\Foundation\Events\DiagnosingHealth`, позволяя вам выполнять дополнительные проверки работоспособности, относящиеся к вашему приложению. В [слушателе](/docs/{{version}}/events) для этого события вы можете проверить состояние базы данных или кэша вашего приложения. Если вы обнаружите проблему в своем приложении, вы можете просто выдать исключение из прослушивателя.
 
 <a name="deploying-with-forge-or-vapor"></a>
@@ -191,7 +191,7 @@ When HTTP requests are made to this route, Laravel will also dispatch a `Illumin
 
 Laravel Forge может создавать серверы на различных поставщиках инфраструктуры, таких как DigitalOcean, Linode, AWS и других. Кроме того, Forge устанавливает и управляет всеми инструментами, необходимыми для создания надежных приложений Laravel, таких как Nginx, MySQL, Redis, Memcached, Beanstalk и других.
 
-> [!NOTE]  
+> [!NOTE]
 > Хотите полное руководство по развертыванию с использованием Laravel Forge? Проверьте [Laravel Bootcamp](https://bootcamp.laravel.com/deploying) и [видео-серию Forge на Laracasts](https://laracasts.com/series/learn-laravel-forge-2022-edition).
 
 <a name="laravel-vapor"></a>
