@@ -4,6 +4,7 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 
 # Коллекции
 
+<a name="introduction"></a>
 ## Введение
 
 Класс `Illuminate\Support\Collection` обеспечивает гибкую и удобную обертку для работы с массивами данных. Например, посмотрите на следующий код. Здесь мы будем использовать хелпер `collect`, чтобы создать новый экземпляр коллекции из массива, запустим функцию `strtoupper` для каждого элемента, а затем удалим все пустые элементы:
@@ -82,14 +83,14 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 - [`chunk()`](#method-chunk)
 - [`chunkWhile()`](#method-chunkwhile)
 - [`collapse()`](#method-collapse)
-- [`combine()`](#method-combine)
 - [`collect()`](#method-collect)
+- [`combine()`](#method-combine)
 - [`concat()`](#method-concat)
 - [`contains()`](#method-contains)
 - [`containsOneItem()`](#method-containsoneitem)
 - [`containsStrict()`](#method-containsstrict)
 - [`count()`](#method-count)
-- [`countBy()`](#method-countby)
+- [`countBy()`](#method-countBy)
 - [`crossJoin()`](#method-crossjoin)
 - [`dd()`](#method-dd)
 - [`diff()`](#method-diff)
@@ -652,7 +653,6 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 
     // ['color' => 'orange', 'remain' => 6]
 
-
 Обратный вызов должен быть функцией сравнения, которая возвращает целое число меньше, равное или больше нуля. Дополнительную информацию можно найти в документации PHP по array_diff_uassoc, функции PHP, которую внутренне использует метод diffAssocUsing.
 
 <a name="method-diffkeys"></a>
@@ -795,6 +795,7 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
         if (/* condition */) {
             return false;
         }
+    });
 
 <a name="method-eachspread"></a>
 #### `eachSpread()`
@@ -819,7 +820,7 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 Метод `ensure` может использоваться для проверки того, что все элементы коллекции имеют определенный тип или список типов. В противном случае будет выброшено исключение `UnexpectedValueException`:
 
     return $collection->ensure(User::class);
-    
+
     return $collection->ensure([User::class, Customer::class]);
 
 Примитивные типы, такие как `string`, `int`, `float`, `bool` и `array`, также могут быть указаны:
@@ -865,7 +866,7 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 
 Противоположным методу `except` является метод [only](#method-only).
 
-> [!NOTE]  
+> [!NOTE]
 > Поведение этого метода изменяется при использовании [коллекций Eloquent](/docs/{{version}}/eloquent-collections#method-except).
 
 <a name="method-filter"></a>
@@ -918,13 +919,13 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
     collect([1, 2, 3, 4])->firstOrFail(function (int $value, int $key) {
         return $value > 5;
     });
-    
+
     // Генерирует исключение ItemNotFoundException...
 
 Вы также можете вызвать метод `firstOrFail` без аргументов, чтобы получить первый элемент в коллекции. Если коллекция пуста, будет сгенерировано исключение `Illuminate\Support\ItemNotFoundException`:
 
     collect([])->firstOrFail();
-    
+
     // Генерирует исключение ItemNotFoundException...
 
 <a name="method-first-where"></a>
@@ -1479,7 +1480,7 @@ git: 426c6287831d95a7472e085cfd53ea11d93f0a78
 
     $chunks = $collection->chunk(2);
 
-    $sequence = $chunks->mapSpread(function (int $even, int $odd)
+    $sequence = $chunks->mapSpread(function (int $even, int $odd) {
         return $even + $odd;
     });
 
@@ -1808,7 +1809,6 @@ $percentage = $collection->percentage(fn ($value) => $value === 1, precision: 3)
 
     class ResourceCollection
     {
-
         /**
          * Создать новый экземпляр ResourceCollection.
          */
@@ -2040,7 +2040,6 @@ $percentage = $collection->percentage(fn ($value) => $value === 1, precision: 3)
 
     // [3, 4, 5, 6]
 
-
 <a name="method-reduce"></a>
 #### `reduce()`
 
@@ -2200,7 +2199,7 @@ $percentage = $collection->percentage(fn ($value) => $value === 1, precision: 3)
     // 2
 
 <a name="method-select"></a>
-#### `select()` {.collection-method}
+#### `select()`
 
 Метод `select` выбирает заданные ключи из коллекции, подобно SQL-оператору `SELECT`:
 
@@ -2371,7 +2370,6 @@ $users->select(['name', 'role']);
 
     // [[1, 2, 3], [3, 4, 5]]
 
-
 <a name="method-sole"></a>
 #### `sole()`
 
@@ -2426,7 +2424,7 @@ $users->select(['name', 'role']);
 
 Если ваши потребности в сортировке более сложны, вы можете передать замыкание методу `sort` с вашим собственным алгоритмом. Обратитесь к документации PHP по [`uasort`](https://www.php.net/manual/ru/function.uasort.php#refsect1-function.uasort-parameters), который используется внутри метода `sort`.
 
-> [!NOTE]  
+> [!NOTE]
 > Если вам нужно отсортировать коллекцию вложенных массивов или объектов, то см. методы [`sortBy`](#method-sortby) и [`sortByDesc`](#method-sortbydesc).
 
 <a name="method-sortby"></a>
@@ -2833,7 +2831,7 @@ $users->select(['name', 'role']);
         ]
     */
 
-> [!WARNING]  
+> [!WARNING]
 > Метод `toArray` также преобразует все вложенные объекты коллекции, которые являются экземпляром `Arrayable`, в массив. Если вы хотите получить необработанный массив, лежащий в основе коллекции, используйте вместо этого метод [`all`](#method-all).
 
 <a name="method-tojson"></a>
@@ -2966,7 +2964,7 @@ $users->select(['name', 'role']);
 
 Метод `unique` использует «гибкое» сравнение при проверке значений элементов, то есть строка с целым значением будет считаться равной целому числу того же значения. Используйте метод [`uniqueStrict`](#method-uniquestrict) для фильтрации с использованием «жесткого» сравнения.
 
-> [!NOTE]  
+> [!NOTE]
 > Поведение этого метода изменяется при использовании [коллекций Eloquent](/docs/{{version}}/eloquent-collections#method-unique).
 
 <a name="method-uniquestrict"></a>
@@ -3474,7 +3472,7 @@ $users->select(['name', 'role']);
 <a name="lazy-collection-introduction"></a>
 ### Введение в отложенные коллекции
 
-> [!WARNING]  
+> [!WARNING]
 > Прежде чем узнать больше об отложенных коллекциях Laravel, потратьте некоторое время на то, чтобы ознакомиться с [генераторами PHP](https://www.php.net/manual/ru/language.generators.overview.php).
 
 В дополнении к мощному классу `Collection`, класс `LazyCollection` использует [генераторы](https://www.php.net/manual/ru/language.generators.overview.php) PHP, чтобы вы могли работать с очень большим наборы данных при низком потреблении памяти.
@@ -3536,7 +3534,7 @@ $users->select(['name', 'role']);
 
 Почти все методы, доступные в классе `Collection`, также доступны в классе `LazyCollection`. Оба класса реализуют контракт `Illuminate\Support\Enumerable`, который определяет следующие методы:
 
-<div class="docs-column-list" markdown="1"> 
+<div class="docs-column-list" markdown="1">
 
 - [`all()`](#method-all)
 - [`average()`](#method-average)
@@ -3544,13 +3542,13 @@ $users->select(['name', 'role']);
 - [`chunk()`](#method-chunk)
 - [`chunkWhile()`](#method-chunkwhile)
 - [`collapse()`](#method-collapse)
-- [`combine()`](#method-combine)
 - [`collect()`](#method-collect)
+- [`combine()`](#method-combine)
 - [`concat()`](#method-concat)
 - [`contains()`](#method-contains)
 - [`containsStrict()`](#method-containsstrict)
 - [`count()`](#method-count)
-- [`countBy()`](#method-countby)
+- [`countBy()`](#method-countBy)
 - [`crossJoin()`](#method-crossjoin)
 - [`dd()`](#method-dd)
 - [`diff()`](#method-diff)
@@ -3570,7 +3568,6 @@ $users->select(['name', 'role']);
 - [`flatMap()`](#method-flatmap)
 - [`flatten()`](#method-flatten)
 - [`flip()`](#method-flip)
-- [`forget()`](#method-forget)
 - [`forPage()`](#method-forpage)
 - [`get()`](#method-get)
 - [`groupBy()`](#method-groupby)
@@ -3603,13 +3600,7 @@ $users->select(['name', 'role']);
 - [`pad()`](#method-pad)
 - [`partition()`](#method-partition)
 - [`pipe()`](#method-pipe)
-- [`pipeInto()`](#method-pipeinto)
 - [`pluck()`](#method-pluck)
-- [`pop()`](#method-pop)
-- [`prepend()`](#method-prepend)
-- [`pull()`](#method-pull)
-- [`push()`](#method-push)
-- [`put()`](#method-put)
 - [`random()`](#method-random)
 - [`reduce()`](#method-reduce)
 - [`reject()`](#method-reject)
@@ -3617,32 +3608,23 @@ $users->select(['name', 'role']);
 - [`replaceRecursive()`](#method-replacerecursive)
 - [`reverse()`](#method-reverse)
 - [`search()`](#method-search)
-- [`shift()`](#method-shift)
 - [`shuffle()`](#method-shuffle)
 - [`skip()`](#method-skip)
-- [`skipUntil()`](#method-skipuntil)
-- [`skipWhile()`](#method-skipwhile)
 - [`slice()`](#method-slice)
 - [`sole()`](#method-sole)
 - [`some()`](#method-some)
 - [`sort()`](#method-sort)
 - [`sortBy()`](#method-sortby)
 - [`sortByDesc()`](#method-sortbydesc)
-- [`sortDesc()`](#method-sortdesc)
 - [`sortKeys()`](#method-sortkeys)
 - [`sortKeysDesc()`](#method-sortkeysdesc)
-- [`splice()`](#method-splice)
 - [`split()`](#method-split)
-- [`splitIn()`](#method-splitin)
 - [`sum()`](#method-sum)
 - [`take()`](#method-take)
-- [`takeUntil()`](#method-takeuntil)
-- [`takeWhile()`](#method-takewhile)
 - [`tap()`](#method-tap)
 - [`times()`](#method-times)
 - [`toArray()`](#method-toarray)
 - [`toJson()`](#method-tojson)
-- [`transform()`](#method-transform)
 - [`union()`](#method-union)
 - [`unique()`](#method-unique)
 - [`uniqueStrict()`](#method-uniquestrict)
@@ -3663,8 +3645,6 @@ $users->select(['name', 'role']);
 - [`whereNotBetween()`](#method-wherenotbetween)
 - [`whereNotIn()`](#method-wherenotin)
 - [`whereNotInStrict()`](#method-wherenotinstrict)
-- [`whereNotNull()`](#method-wherenotnull)
-- [`whereNull()`](#method-wherenull)
 - [`wrap()`](#method-wrap)
 - [`zip()`](#method-zip)
 
@@ -3738,7 +3718,7 @@ User::where('vip', true)
     ->cursor()
     ->throttle(seconds: 1)
     ->each(function (User $user) {
-        // Call external API...
+        // Вызов внешнего API...
     });
 ```
 
