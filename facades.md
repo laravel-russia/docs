@@ -4,7 +4,6 @@ git: 1a3d112255c8d0da2cbc10ebe581deebdd172ae2
 
 # Фасады (Facades)
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -68,14 +67,14 @@ git: 1a3d112255c8d0da2cbc10ebe581deebdd172ae2
 
 ```php tab=Pest
 use Illuminate\Support\Facades\Cache;
- 
+
 test('basic example', function () {
     Cache::shouldReceive('get')
          ->with('key')
          ->andReturn('value');
- 
+
     $response = $this->get('/cache');
- 
+
     $response->assertSee('value');
 });
 ```
@@ -112,7 +111,6 @@ public function test_basic_example(): void
     Route::get('/cache', function () {
         return cache('key');
     });
-
 
 Помощник `cache` будет вызывать метод `get` в базовом классе, лежащем в основе фасада `Cache`. Таким образом, даже если мы используем вспомогательную функцию, мы можем написать следующий тест, чтобы убедиться, что метод был вызван с ожидаемым аргументом:
 
@@ -151,9 +149,6 @@ public function test_basic_example(): void
     {
         /**
          * Показать профиль конкретного пользователя.
-         *
-         * @param  int  $id
-         * @return Response
          */
         public function showProfile(string $id): View
         {
@@ -211,21 +206,22 @@ public function test_basic_example(): void
 
     namespace App\Models;
 
-    use Facades\App\Contracts\Publisher;
+    use App\Contracts\Publisher; // [tl! remove]
+    use Facades\App\Contracts\Publisher; // [tl! add]
     use Illuminate\Database\Eloquent\Model;
 
     class Podcast extends Model
     {
         /**
          * Опубликовать подкаст.
-         *
-         * @return void
          */
-        public function publish()
+        public function publish(Publisher $publisher): void // [tl! remove]
+        public function publish(): void // [tl! add]
         {
             $this->update(['publishing' => now()]);
 
-            Publisher::publish($this);
+            $publisher->publish($this); // [tl! remove]
+            Publisher::publish($this); // [tl! add]
         }
     }
 
@@ -233,18 +229,18 @@ public function test_basic_example(): void
 
 ```php tab=Pest
 <?php
- 
+
 use App\Models\Podcast;
 use Facades\App\Contracts\Publisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
- 
+
 uses(RefreshDatabase::class);
- 
+
 test('podcast can be published', function () {
     $podcast = Podcast::factory()->create();
- 
+
     Publisher::shouldReceive('publish')->once()->with($podcast);
- 
+
     $podcast->publish();
 });
 ```
