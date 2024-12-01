@@ -4,7 +4,6 @@ git: e81073dfdf1af87568007014abe72aaa235c61b1
 
 # Тестирование · База данных
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -54,6 +53,8 @@ class ExampleTest extends TestCase
 ```
 
 Трейт `Illuminate\Foundation\Testing\RefreshDatabase` не мигрирует вашу базу данных, если ваша схема актуальна. Вместо этого он выполняет тест в пределах транзакции базы данных. Следовательно, любые записи, добавленные в базу данных в тестах, не использующих этот трейт, могут по-прежнему существовать в базе данных.
+
+Если вы хотите полностью сбросить базу данных, вместо этого вы можете использовать трейты `Illuminate\Foundation\Testing\DatabaseMigrations` или `Illuminate\Foundation\Testing\DatabaseTruncation`. Однако обе эти опции значительно медленнее, чем трейт `RefreshDatabase`.
 
 <a name="model-factories"></a>
 ## Фабрики моделей
@@ -168,7 +169,6 @@ class ExampleTest extends TestCase
          * @var bool
          */
         protected $seed = true;
-
     }
 
 Когда свойство `$seed` имеет значение `true`, тогда класс `Database\Seeders\DatabaseSeeder` будет запускаться перед каждым тестом, который использует трейт `RefreshDatabase`. Однако, вы можете указать конкретный наполнитель, который должен выполняться, определив свойство `$seeder` в вашем тестовом классе:
