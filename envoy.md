@@ -271,39 +271,49 @@ Envoy поддерживает отправку уведомлений в [Slack
 
 Вы должны передать полный WebHook URL в качестве первого аргумента директивы `@slack`. Вторым аргументом, передаваемым директиве `@slack`, должно быть имя канала `#channel` или имя пользователя `@user`:
 
-    @finished
-        @slack('webhook-url', '#bots')
-    @endfinished
+```php
+@finished
+    @slack('webhook-url', '#bots')
+@endfinished
+```
 
 По умолчанию уведомления Envoy отправляют сообщение в канал уведомлений с описанием выполненной задачи. Однако вы можете назначить свое сообщение, передав третий аргумент директиве `@slack`:
 
-    @finished
-        @slack('webhook-url', '#bots', 'Hello, Slack.')
-    @endfinished
+```php
+@finished
+    @slack('webhook-url', '#bots', 'Hello, Slack.')
+@endfinished
+```
 
 <a name="discord"></a>
 ### Discord
 
 Envoy также поддерживает отправку уведомлений в [Discord](https://discord.com) после выполнения каждой задачи. Директива `@discord` принимает WebHook URL и сообщение. Вы можете получить WebHook URL, создав «Webhook» в настройках сервера и выбрав канал, на который WebHook должен публиковать сообщения. Вы должны передать полный WebHook URL в директиву `@discord`:
 
-    @finished
-        @discord('discord-webhook-url')
-    @endfinished
+```php
+@finished
+    @discord('discord-webhook-url')
+@endfinished
+```
 
 <a name="telegram"></a>
 ### Telegram
 
 Envoy также поддерживает отправку уведомлений в [Telegram](https://telegram.org) после выполнения каждой задачи. Директива `@telegram` принимает идентификатор бота Telegram и идентификатор чата. Вы можете получить свой идентификатор бота, создав нового бота в [BotFather](https://t.me/botfather). Вы можете получить действительный идентификатор чата, используя [`@username_to_id_bot`](https://t.me/username_to_id_bot). Вы должны передать полный идентификатор бота и идентификатор чата в директиву `@telegram`:
 
-    @finished
-        @telegram('bot-id','chat-id')
-    @endfinished
+```php
+@finished
+    @telegram('bot-id','chat-id')
+@endfinished
+```
 
 <a name="microsoft-teams"></a>
 ### Microsoft Teams
 
 Envoy также поддерживает отправку уведомлений в [Microsoft Teams](https://www.microsoft.com/en-us/microsoft-teams) после выполнения каждой задачи. Директива `@microsoftTeams` принимает Webhook Teams (обязательно), сообщение, цвет темы (success, info, warning, error) и массив параметров. Вы можете получить ваш Webhook Teams, создав новый [входящий веб-хук](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook). API Teams имеет множество других атрибутов для настройки вашего сообщения, таких как заголовок, краткое описание и разделы. Дополнительную информацию можно найти в [документации Microsoft Teams](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL#example-of-connector-message). Вы должны передать полный URL веб-хука в директиву `@microsoftTeams`:
 
-    @finished
-        @microsoftTeams('webhook-url')
-    @endfinished
+```php
+@finished
+    @microsoftTeams('webhook-url')
+@endfinished
+```
