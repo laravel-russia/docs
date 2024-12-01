@@ -22,9 +22,6 @@ git: 0db6ab246107750937a39f29489a0af33be7266b
     {
         /**
          * Создать новый экземпляр контроллера.
-         *
-         * @param  UserRepository  $users
-         * @return void
          */
         public function __construct(
             protected AppleMusic $apple,
@@ -113,7 +110,6 @@ git: 0db6ab246107750937a39f29489a0af33be7266b
         // ...
     });
 
-
 Вы можете использовать метод `bindIf` для регистрации привязки контейнера только в том случае, если привязка уже не была зарегистрирована для данного типа:
 
 ```php
@@ -122,7 +118,7 @@ $this->app->bindIf(Transistor::class, function (Application $app) {
 });
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Нет необходимости привязывать классы в контейнере, если они не зависят от каких-либо интерфейсов. Контейнеру не нужно указывать, как создавать эти объекты, поскольку он может автоматически извлекать эти объекты с помощью рефлексии.
 
 <a name="binding-a-singleton"></a>
@@ -365,6 +361,13 @@ Route::get('/user', function (#[CurrentUser] User $user) {
     class Firewall
     {
         /**
+         * Экземпляры фильтра.
+         *
+         * @var array
+         */
+        protected $filters;
+
+        /**
          * Создать новый экземпляр класса.
          */
         public function __construct(
@@ -467,6 +470,8 @@ Route::get('/user', function (#[CurrentUser] User $user) {
 
     $transistor = App::make(Transistor::class);
 
+    $transistor = app(Transistor::class);
+
 Если вы хотите, чтобы сам экземпляр контейнера Laravel был внедрен в класс, извлекаемый контейнером, вы можете указать класс `Illuminate\Container\Container` в конструкторе вашего класса:
 
     use Illuminate\Container\Container;
@@ -508,7 +513,6 @@ Route::get('/user', function (#[CurrentUser] User $user) {
             return $this->apple->findPodcast($id);
         }
     }
-
 
 <a name="method-invocation-and-injection"></a>
 ## Вызов и внедрение метода
@@ -559,11 +563,11 @@ Route::get('/user', function (#[CurrentUser] User $user) {
     use Illuminate\Contracts\Foundation\Application;
 
     $this->app->resolving(Transistor::class, function (Transistor $transistor, Application $app) {
-        // Вызывается, когда контейнер извлекает объекты типа `Transistor` ...
+        // Вызывается, когда контейнер извлекает объекты типа `Transistor`...
     });
 
     $this->app->resolving(function (mixed $object, Application $app) {
-        // Вызывается, когда контейнер извлекает объект любого типа ...
+        // Вызывается, когда контейнер извлекает объект любого типа...
     });
 
 Как видите, извлекаемый объект будет передан в замыкание, что позволит вам установить любые дополнительные свойства объекта до того, как он будет передан его получателю.
@@ -587,7 +591,7 @@ Route::get('/user', function (#[CurrentUser] User $user) {
         },
     );
 
-    // New binding will trigger rebinding closure...
+    // Новая привязка вызовет повторное замыкание...
     $this->app->bind(PodcastPublisher::class, TransistorPublisher::class);
 
 <a name="psr-11"></a>
