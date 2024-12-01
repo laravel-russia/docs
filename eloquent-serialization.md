@@ -4,7 +4,6 @@ git: 63ffde91d51bd2be64036899966496461423f6b1
 
 # Eloquent · Сериализация
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -145,7 +144,7 @@ git: 63ffde91d51bd2be64036899966496461423f6b1
          */
         protected function isAdmin(): Attribute
         {
-             return new Attribute(
+            return new Attribute(
                 get: fn () => 'yes',
             );
         }
