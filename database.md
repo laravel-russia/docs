@@ -4,18 +4,19 @@ git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 
 # База данных · Начало работы
 
-
 <a name="introduction"></a>
 ## Введение
 
 Почти каждое современное веб-приложение взаимодействует с базой данных. Laravel делает взаимодействие с базами данных чрезвычайно простым через поддержку множества баз данных, используя либо сырой SQL [построителя запросов](/docs/{{version}}/queries), либо [Eloquent ORM](/docs/{{version}}/eloquent). В настоящее время Laravel обеспечивает поддержку пяти баз данных:
 
 <!-- <div class="content-list" markdown="1"> -->
+
 - MariaDB 10.3+ ([Version Policy](https://mariadb.org/about/#maintenance-policy))
 - MySQL 5.7+ ([Version Policy](https://en.wikipedia.org/wiki/MySQL#Release_history))
 - PostgreSQL 10.0+ ([Version Policy](https://www.postgresql.org/support/versioning/))
 - SQLite 3.26.0+
 - SQL Server 2017+ ([Version Policy](https://docs.microsoft.com/en-us/lifecycle/products/?products=sql-server))
+
 <!-- </div> -->
 
 Кроме того, MongoDB поддерживается через пакет `mongodb/laravel-mongodb`, который официально поддерживается MongoDB. Дополнительную информацию можно найти в документации [Laravel MongoDB](https://www.mongodb.com/docs/drivers/php/laravel-mongodb/).
@@ -43,7 +44,7 @@ DB_DATABASE=/absolute/path/to/database.sqlite
 DB_FOREIGN_KEYS=false
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Если вы используете [установщик Laravel](/docs/{{version}}/installation#creating-a-laravel-project) для создания приложения Laravel и выбираете SQLite в качестве базы данных, Laravel автоматически создаст `database/database.sqlite` и запустит для вас стандартную [миграцию базы данных](/docs/{{version}}/migrations).
 
 <a name="mssql-configuration"></a>
@@ -162,9 +163,9 @@ driver://username:password@host:port/database?options
 #### Выбор скалярных значений
 
 Иногда ваш запрос к базе данных может вернуть единственное скалярное значение. Вместо того чтобы получать скалярный результат запроса из объекта записи, Laravel позволяет вам получать это значение напрямую с использованием метода `scalar`:
-    
+
     $burgers = DB::scalar(
-    "select count(case when food = 'burger' then 1 end) as burgers from menu"
+        "select count(case when food = 'burger' then 1 end) as burgers from menu"
     );
 
 <a name="selecting-multiple-result-sets"></a>
@@ -173,7 +174,7 @@ driver://username:password@host:port/database?options
 Если ваше приложение вызывает хранимые процедуры, возвращающие несколько наборов результатов, вы можете использовать метод `selectResultSets` для получения всех наборов результатов, возвращенных хранимой процедурой:
 
     [$options, $notifications] = DB::selectResultSets(
-    "CALL get_user_options_and_notifications(?)", $request->user()->id
+        "CALL get_user_options_and_notifications(?)", $request->user()->id
     );
 
 <a name="using-named-bindings"></a>
@@ -289,12 +290,10 @@ driver://username:password@host:port/database?options
         }
     }
 
-
 <a name="monitoring-cumulative-query-time"></a>
 ### Мониторинг общего времени выполнения запроса
 
 Одной из обычных узких точек производительности современных веб-приложений является время, которое они затрачивают на выполнение запросов к базе данных. К счастью, Laravel может вызвать замыкание или обратный вызов по вашему выбору, когда время выполнения запросов к базе данных в течение одного запроса становится слишком велико. Для начала укажите порог времени выполнения запроса (в миллисекундах) и замыкание для метода `whenQueryingForLongerThan`. Вы можете вызвать этот метод в методе `boot` [Сервис-провайдера](/docs/{{version}}/providers)::
-
 
     <?php
 
@@ -397,6 +396,7 @@ php artisan db:show
 ```
 
 Вы можете указать, какое соединение с базой данных следует использовать, передав имя соединения с помощью опции `--database`:
+
 ```shell
 php artisan db:show --database=pgsql
 ```
