@@ -51,7 +51,7 @@ php artisan make:controller UserController
 
 Когда входящий запрос совпадает с указанным URI маршрута, будет вызван метод `show` класса `App\Http\Controllers\UserController`, и параметры маршрута будут переданы методу.
 
-> [!NOTE]  
+> [!NOTE]
 > Контроллеры **не требуют** расширения базового класса. Однако иногда бывает удобно расширить базовый класс контроллера, содержащий методы, которые должны использоваться всеми вашими контроллерами.
 
 <a name="single-action-controllers"></a>
@@ -62,7 +62,6 @@ php artisan make:controller UserController
     <?php
 
     namespace App\Http\Controllers;
-
 
     class ProvisionServer extends Controller
     {
@@ -87,7 +86,7 @@ php artisan make:controller UserController
 php artisan make:controller ProvisionServer --invokable
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Заготовки контроллера можно настроить с помощью [публикации заготовок](artisan#stub-customization).
 
 <a name="controller-middleware"></a>
@@ -120,7 +119,7 @@ php artisan make:controller ProvisionServer --invokable
                 new Middleware('subscribed', except: ['store']),
             ];
         }
-        
+
         // ...
     }
 
@@ -199,17 +198,13 @@ php artisan make:controller PhotoController --resource
 
 Обычно неявная привязка моделей не будет извлекать модели, которые были [мягко удалены](/docs/{{version}}/eloquent#soft-deleting), и вместо этого будет возвращать HTTP-ответ 404. Однако вы можете указать фреймворку разрешить использование мягко удаленных моделей, вызвав метод `withTrashed` при определении маршрута ресурса:
 
-```php
-use App\Http\Controllers\PhotoController;
+    use App\Http\Controllers\PhotoController;
 
-Route::resource('photos', PhotoController::class)->withTrashed();
-```
+    Route::resource('photos', PhotoController::class)->withTrashed();
 
 Вызов `withTrashed` без аргументов разрешит использование мягко удаленных моделей для маршрутов ресурса `show`, `edit` и `update`. Вы также можете указать подмножество этих маршрутов, передав массив методу `withTrashed`:
 
-```php
-Route::resource('photos', PhotoController::class)->withTrashed(['show']);
-```
+    Route::resource('photos', PhotoController::class)->withTrashed(['show']);
 
 <a name="specifying-the-resource-model"></a>
 #### Указание модели ресурса
@@ -371,7 +366,7 @@ php artisan make:controller PhotoController --api
 
     /publicacion/crear
 
-    /publicacion/{publicacion}/editar
+    /publicacion/{publicaciones}/editar
 
 <a name="restful-supplementing-resource-controllers"></a>
 ### Дополнение ресурсных контроллеров
@@ -383,17 +378,13 @@ php artisan make:controller PhotoController --api
     Route::get('/photos/popular', [PhotoController::class, 'popular']);
     Route::resource('photos', PhotoController::class);
 
-> [!NOTE]  
+> [!NOTE]
 > Помните, что ваши контроллеры должны быть сосредоточенными. Если вам постоянно требуются методы, выходящие за рамки типичного набора действий с ресурсами, рассмотрите возможность разделения вашего контроллера на два меньших контроллера.
 
 <a name="singleton-resource-controllers"></a>
 ### Синглтон-ресурс контроллеров
 
-Иногда в вашем приложении могут быть ресурсы, которые могут иметь только один экземпляр.
-Например, "профиль" пользователя можно редактировать или обновить, но у пользователя может быть только один "профиль".
-Точно так же у изображения может быть только одна "миниатюра".
-Эти ресурсы называются "Синглтон-ресурсами" (Singleton resource), что означает, что может существовать только один экземпляр данного ресурса.
-В таких случаях вы можете зарегистрировать контроллер синглтон-ресурс:
+Иногда в вашем приложении могут быть ресурсы, которые могут иметь только один экземпляр. Например, "профиль" пользователя можно редактировать или обновить, но у пользователя может быть только один "профиль". Точно так же у изображения может быть только одна "миниатюра". Эти ресурсы называются "Синглтон-ресурсами" (Singleton resource), что означает, что может существовать только один экземпляр данного ресурса. В таких случаях вы можете зарегистрировать контроллер синглтон-ресурс:
 
 ```php
 use App\Http\Controllers\ProfileController;
@@ -402,8 +393,7 @@ use Illuminate\Support\Facades\Route;
 Route::singleton('profile', ProfileController::class);
 ```
 
-Вышеописанное определение зарегистрирует следующие маршруты.
-Как видно, маршруты "создания" не регистрируются для них, и зарегистрированные маршруты не принимают идентификатор, поскольку может существовать только один экземпляр ресурса:
+Вышеописанное определение зарегистрирует следующие маршруты. Как видно, маршруты "создания" не регистрируются для них, и зарегистрированные маршруты не принимают идентификатор, поскольку может существовать только один экземпляр ресурса:
 
 | Метод     | URI             | Действие | Имя маршрута   |
 | --------- | --------------- | -------- | -------------- |
@@ -499,6 +489,7 @@ Route::apiSingleton('photos.thumbnail', ProfileController::class)->creatable();
 
     namespace App\Http\Controllers;
 
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
 
     class UserController extends Controller
@@ -510,7 +501,7 @@ Route::apiSingleton('photos.thumbnail', ProfileController::class)->creatable();
         {
             $name = $request->name;
 
-            //
+            // Сохранить пользователя...
 
             return redirect('/users');
         }
