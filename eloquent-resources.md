@@ -4,7 +4,6 @@ git: 3a2fa3ea59532f3239ae737ae78d0ffd1922c4c8
 
 # Eloquent · Ресурсы API (Resource)
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -274,8 +273,8 @@ php artisan make:resource UserCollection
     <?php
 
     namespace App\Http\Resources;
-    
-    use Illuminate\Http\Request
+
+    use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\ResourceCollection;
 
     class UserCollection extends ResourceCollection
@@ -283,7 +282,7 @@ php artisan make:resource UserCollection
         /**
          * Преобразовать коллекцию ресурса в массив.
          *
-          * @return array<string, mixed>
+         * @return array<string, mixed>
          */
         public function toArray(Request $request): array
         {
@@ -340,8 +339,6 @@ php artisan make:resource UserCollection
     {
         /**
          * Регистрация любых служб приложения.
-         *
-         * @return void
          */
         public function register(): void
         {
@@ -350,8 +347,6 @@ php artisan make:resource UserCollection
 
         /**
          * Загрузка любых служб приложения.
-         *
-         * @return void
          */
         public function boot(): void
         {
@@ -476,7 +471,6 @@ php artisan make:resource UserCollection
 
 Если вы хотите настроить информацию, включаемую в ключи `links` или `meta` ответа пагинации, вы можете определить метод `paginationInformation` в ресурсе. Этот метод получит данные `$paginated` и массив `$default` информации, который содержит ключи `links` и `meta`:
 
-
     /**
      * Настроика информации о постраничной навигации для ресурса.
      *
@@ -595,7 +589,6 @@ php artisan make:resource UserCollection
 
     new UserResource($user->loadCount('posts'));
 
-
 Метод `whenCounted` может быть использован для условного включения подсчета отношения в ответ вашего ресурса. Этот метод избегает лишнего включения атрибута, если подсчет отношения отсутствует:
 
     /**
@@ -618,7 +611,6 @@ php artisan make:resource UserCollection
 В данном примере, если подсчет отношения posts не был загружен, ключ `posts_count` будет удален из ответа ресурса перед его отправкой клиенту.
 
 Другие типы агрегатов, такие как `avg`, `sum`, `min` и `max`, также могут быть условно загружены с использованием метода `whenAggregated`:
-
 
 ```php
 'words_avg' => $this->whenAggregated('posts', 'words', 'avg'),
@@ -747,7 +739,7 @@ php artisan make:resource UserCollection
 
 Как вы уже читали, ресурсы могут быть возвращены напрямую из маршрутов и контроллеров:
 
-    use App\Http\Resources\User as UserResource;
+    use App\Http\Resources\UserResource;
     use App\Models\User;
 
     Route::get('/user/{id}', function (string $id) {
