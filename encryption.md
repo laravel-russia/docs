@@ -4,7 +4,6 @@ git: ead3a5b4b11c267f20ee1065eb3f9aa98fc986e1
 
 # Шифрование
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -44,7 +43,6 @@ APP_PREVIOUS_KEYS="base64:2nLsGFGzyoae2ax3EF2Lyq/hH6QghBGLIq5uL+Gp8/w="
     namespace App\Http\Controllers;
 
     use Illuminate\Http\RedirectResponse;
-    use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Crypt;
 
