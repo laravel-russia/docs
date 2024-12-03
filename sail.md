@@ -4,7 +4,6 @@ git: bf57399422909dce882226ede0a560d1fe3aa2ee
 
 # Laravel Sail
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -22,7 +21,7 @@ Laravel Sail автоматически устанавливается со вс
 <a name="installing-sail-into-existing-applications"></a>
 ### Установка Sail в существующее приложение
 
-Если вы хотите использовать Sail в уже существующем приложении Laravel, вы можете просто установить Sail с помощью диспетчера пакетов Composer: 
+Если вы хотите использовать Sail в уже существующем приложении Laravel, вы можете просто установить Sail с помощью диспетчера пакетов Composer:
 
 ```shell
 composer require laravel/sail --dev
@@ -59,7 +58,7 @@ php artisan sail:add
 
 ```shell
 php artisan sail:install --devcontainer
-```  
+```
 
 <a name="rebuilding-sail-images"></a>
 ### Пересборка образов Sail
@@ -130,10 +129,10 @@ sail stop
 **При чтении документации Laravel вы будете часто видеть команды Composer, Artisan и Node/NPM, в которых не упоминается Sail.** В этих примерах предполагается, что эти инструменты установлены на вашем компьютере. Если вы используете Sail для своей локальной среды разработки Laravel, вам следует выполнить эти команды с помощью Sail:
 
 ```shell
-# Локальное выполнение команд Artisan ...
+# Локальное выполнение команд Artisan...
 php artisan queue:work
 
-# Выполнение команд Artisan в Laravel Sail ...
+# Выполнение команд Artisan в Laravel Sail...
 sail artisan queue:work
 ```
 
@@ -192,7 +191,7 @@ sail artisan queue:work
 ```shell
 sail node --version
 
-sail npm run prod
+sail npm run dev
 ```
 
 Если вы хотите, вы можете использовать Yarn вместо NPM:
@@ -207,7 +206,7 @@ sail yarn
 <a name="mysql"></a>
 ### MySQL
 
-Как вы могли заметить, в файле `docker-compose.yml` есть описание контейнера MySQL. Этот контейнер использует [том Docker](https://docs.docker.com/storage/volumes/), чтобы данные, хранящиеся в вашей базе данных, сохранялись даже при остановке и перезапуске ваших контейнеров. 
+Как вы могли заметить, в файле `docker-compose.yml` есть описание контейнера MySQL. Этот контейнер использует [том Docker](https://docs.docker.com/storage/volumes/), чтобы данные, хранящиеся в вашей базе данных, сохранялись даже при остановке и перезапуске ваших контейнеров.
 
 Кроме того, при первом запуске контейнера MySQL будут созданы две базы данных. Первая база данных будет названа в соответствии со значением вашей переменной окружения `DB_DATABASE` и предназначена для локальной разработки. Вторая - это отдельная тестовая база данных с именем `testing`, которая гарантирует, что ваши тесты не будут вмешиваться в данные вашей разработки.
 
@@ -258,7 +257,6 @@ TYPESENSE_PROTOCOL=http
 TYPESENSE_API_KEY=xyz
 ```
 
-
 Со своего локального компьютера вы можете получить доступ к API Typesense по адресу `http://localhost:8108`.
 
 <a name="file-storage"></a>
@@ -284,12 +282,11 @@ AWS_USE_PATH_STYLE_ENDPOINT=true
 AWS_URL=http://localhost:9000/local
 ```
 
-
 Вы можете создавать сегменты через консоль MinIO, которая доступна по адресу `http://localhost:8900`. Имя пользователя по умолчанию для консоли MinIO - `sail`, а пароль - `password`.
 
 > [!WARNING]
 > Генерация временных URL-адресов с использованием метода `temporaryUrl` не поддерживается при использовании MinIO.
-> 
+
 <a name="running-tests"></a>
 ## Тестирование
 
@@ -307,7 +304,6 @@ sail test --group orders
 sail artisan test
 ```
 
-
 По умолчанию Sail создает отдельную базу данных `testing`, чтобы ваши тесты не влияли на текущее состояние вашей базы данных. В стандартной установке Laravel Sail также настраивает ваш файл `phpunit.xml` для использования этой базы данных при выполнении тестов:
 
 ```xml
@@ -323,7 +319,7 @@ sail artisan test
 selenium:
     image: 'selenium/standalone-chrome'
     extra_hosts:
-      - 'host.docker.internal:host-gateway'    
+      - 'host.docker.internal:host-gateway'
     volumes:
         - '/dev/shm:/dev/shm'
     networks:
@@ -354,7 +350,7 @@ sail dusk
 selenium:
     image: 'selenium/standalone-chromium'
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+        - 'host.docker.internal:host-gateway'
     volumes:
         - '/dev/shm:/dev/shm'
     networks:
@@ -418,6 +414,7 @@ context: ./vendor/laravel/sail/runtimes/8.0
 ```yaml
 image: sail-8.2/app
 ```
+
 После обновления файла `docker-compose.yml` вашего приложения вы должны обновить образы контейнеров:
 
 ```shell
@@ -467,13 +464,13 @@ sail share
 sail share --subdomain=my-sail-site
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Команда `share` использует [Expose](https://github.com/beyondcode/expose), службу туннелирования с открытым исходным кодом от [BeyondCode](https://beyondco.de).
 
 <a name="debugging-with-xdebug"></a>
 ## Отладка с Xdebug
 
-Laravel Sail содержит поддержку [Xdebug](https://xdebug.org/), популярного отладчика для PHP. Чтобы включить его, добавьте в `.env` параметр для [конфигурации Xdebug](https://xdebug.org/docs/step_debug#mode) и затем запустите Sail: 
+Laravel Sail содержит поддержку [Xdebug](https://xdebug.org/), популярного отладчика для PHP. Чтобы включить его, добавьте в `.env` параметр для [конфигурации Xdebug](https://xdebug.org/docs/step_debug#mode) и затем запустите Sail:
 
 ```ini
 SAIL_XDEBUG_MODE=develop,debug,coverage
@@ -491,6 +488,7 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
+
 services:
   laravel.test:
     networks:
@@ -524,7 +522,7 @@ sail debug migrate
 
 Если вы используете Phpstorm, ознакомьтесь с инструкцией по [настройке отладки](https://www.jetbrains.com/help/phpstorm/zero-configuration-debugging.html) этой IDE.
 
-> [!WARNING]  
+> [!WARNING]
 > Laravel Sail полагается на `artisan serve` для обслуживания вашего приложения. Команда `artisan serve` принимает только переменные `XDEBUG_CONFIG` и `XDEBUG_MODE` начиная с Laravel версии 8.53.0. Более старые версии Laravel (8.52.0 и ниже) не поддерживают эти переменные и не принимают отладочные соединения.
 
 <a name="sail-customization"></a>
