@@ -36,9 +36,7 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 
 Для удобства Laravel также предлагает глобальную функцию `to_route`:
 
-```php
-return to_route('profile', ['id' => 1]);
-```
+    return to_route('profile', ['id' => 1]);
 
 <a name="populating-parameters-via-eloquent-models"></a>
 #### Передача параметров через модели Eloquent
