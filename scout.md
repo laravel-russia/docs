@@ -40,7 +40,6 @@ php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
         use Searchable;
     }
 
-
 <a name="queueing"></a>
 ### Использование очереди
 
@@ -76,13 +75,15 @@ composer require algolia/algoliasearch-client-php
 ```
 
 <a name="meilisearch"></a>
-#### Meilisearch
+### Meilisearch
 
 [Meilisearch](https://www.meilisearch.com) это невероятно быстрая поисковая система с открытым исходным кодом. Если вы не знаете, как установить Meilisearch на свой локальный компьютер, вы можете использовать [Laravel Sail](/docs/{{version}}/sail#meilisearch), официально поддерживаемую Laravel среду разработки Docker.
 
 При использовании драйвера Meilisearch вам необходимо установить Meilisearch PHP SDK через менеджер пакетов Composer:
 
-    composer require meilisearch/meilisearch-php http-interop/http-factory-guzzle
+```shell
+composer require meilisearch/meilisearch-php http-interop/http-factory-guzzle
+```
 
 Затем установите переменную среды `SCOUT_DRIVER`, а также учетные данные вашего Meilisearch `host` и `key` в файле` .env` вашего приложения:
 
@@ -96,8 +97,7 @@ MEILISEARCH_KEY=masterKey
 
 Кроме того, вы должны убедиться, что вы установили версию `meilisearch/meilisearch-php` которая совместима с вашей двоичной версией Meilisearch, просмотрев [документацию Meilisearch относительно двоичной совместимости](https://github.com/meilisearch/meilisearch-php#-compatibility-with-meilisearch).
 
-
-> [!WARNING]  
+> [!WARNING]
 > При обновлении Scout в приложении, которое использует MeiliSearch, вы всегда должны [просматривать любые дополнительные критические изменения](https://github.com/meilisearch/MeiliSearch/releases) в самой службе Meilisearch.
 
 <a name="typesense"></a>
@@ -157,7 +157,6 @@ public function toSearchableArray()
 
 Если ваша модель для поиска поддерживает мягкое удаление, вы должны определить поле `__soft_deleted` в схеме соответствующей модели Typesense в файле конфигурации вашего приложения `config/scout.php`.
 
-
 ```php
 User::class => [
     'collection-schema' => [
@@ -173,12 +172,10 @@ User::class => [
 ],
 ```
 
-
 <a name="typesense-dynamic-search-parameters"></a>
 #### Динамические параметры поиска
 
 Typesense позволяет вам динамически изменять [параметры поиска](https://typesense.org/docs/latest/api/search.html#search-parameters) при выполнении операции поиска с помощью метода `options`:
-
 
 ```php
 use App\Models\Todo;
@@ -210,7 +207,7 @@ Todo::search('Groceries')->options([
         /**
          * Переопределение имени индекса модели по умолчанию
          */
-         public function searchableAs(): string
+        public function searchableAs(): string
         {
             return 'posts_index';
         }
@@ -257,6 +254,7 @@ Todo::search('Groceries')->options([
             'price' => (float) $this->price,
         ];
     }
+
 <a name="configuring-filterable-data-for-meilisearch"></a>
 #### Настройка фильтруемых данных и параметров индекса (Meilisearch)
 
@@ -332,7 +330,6 @@ php artisan scout:sync-index-settings
         }
     }
 
-
 <a name="configuring-search-engines-per-model"></a>
 ### Настройка поисковых драйверов для каждой модели
 
@@ -370,7 +367,6 @@ SCOUT_IDENTIFY=true
 ```
 
 Включение этой функции также передаст IP-адрес запроса и основной идентификатор вашего аутентифицированного пользователя в Algolia, поэтому эти данные будут связаны с любым поисковым запросом, сделанным пользователем.
-
 
 <a name="database-and-collection-engines"></a>
 ## Драйвер базы данных/колекции
@@ -464,7 +460,6 @@ php artisan scout:flush "App\Models\Post"
 
 Если вы хотите изменить запрос, который используется для получения моделей для пакетного импорта, вы можете определить метод `makeAllSearchableUsing` в модели. Это отличное место для добавления любых отношений, которые могут потребоваться перед импортом:
 
-
     use Illuminate\Database\Eloquent\Builder;
 
     /**
@@ -475,7 +470,7 @@ php artisan scout:flush "App\Models\Post"
         return $query->with('author');
     }
 
-> [!WARNING]  
+> [!WARNING]
 > Метод `makeAllSearchableUsing` может оказаться не применимым при использовании очереди для пакетного импорта моделей. Связи [не восстанавливаются](/docs/{{version}}/queues#handling-relationships) при обработке коллекций моделей в заданиях.
 
 <a name="adding-records"></a>
@@ -535,7 +530,6 @@ php artisan scout:flush "App\Models\Post"
 Или, если у вас уже есть коллекция Eloquent, вы можете вызвать метод `searchable` для коллекции, чтобы добавить экземпляры моделей в их соответствующий индекс:
 
     $orders->searchable();
-
 
 <a name="modifying-records-before-importing"></a>
 #### Изменение Записей Перед Импортом
@@ -605,7 +599,7 @@ php artisan scout:flush "App\Models\Post"
 
 Метод `shouldBeSearchable` применяется только при манипуляциях с моделями с помощью методов `save`, `create`, запросов или в цепочке вызовов. Непосредственное добавление моделей или коллекций в поисковый индекс с помощью метода `searchable` переопределит результат метода `shouldBeSearchable`.
 
-> [!WARNING]  
+> [!WARNING]
 > Метод `shouldBeSearchable` не применим при использовании драйвера "database" в Scout, так как все данные для поиска всегда хранятся в базе данных. Для достижения аналогичного поведения при использовании драйвера базы данных следует использовать [Условия Where](#where-clauses) вместо этого.
 
 <a name="searching"></a>
@@ -649,8 +643,8 @@ Scout позволяет добавлять в поисковые запросы
     $orders = Order::search('Star Trek')->where('user_id', 1)->get();
 
 Кроме того, метод `whereIn` может быть использован для проверки того, содержится ли значение заданного столбца в указанном массиве:
-   
-     $orders = Order::search('Star Trek')->whereIn(
+
+    $orders = Order::search('Star Trek')->whereIn(
         'status', ['open', 'paid']
     )->get();
 
@@ -662,7 +656,7 @@ Scout позволяет добавлять в поисковые запросы
 
 Поскольку поисковый индекс не является реляционной базой данных, более сложные "where" условия в настоящее время не поддерживаются.
 
-> [!WARNING]  
+> [!WARNING]
 > Если ваше приложение использует Meilisearch, вам необходимо настроить [фильтруемые атрибуты](#configuring-filterable-data-for-meilisearch) вашего приложения перед использованием условий "where" Scout.
 
 <a name="pagination"></a>
@@ -699,7 +693,7 @@ Scout позволяет добавлять в поисковые запросы
         return Order::search($request->input('query'))->paginate(15);
     });
 
-> [!WARNING]  
+> [!WARNING]
 > Поскольку поисковые движки не осведомлены о глобальных определениях области видимости вашей Eloquent-модели, вы не должны использовать глобальные области видимости в приложениях, которые используют пагинацию Scout. Или же вы должны воссоздать ограничения глобальной области видимости при поиске через Scout.
 
 <a name="soft-deleting"></a>
@@ -713,14 +707,13 @@ Scout позволяет добавлять в поисковые запросы
 
     use App\Models\Order;
 
-    // Использовать удаленные записи при получении результатов ...
+    // Использовать удаленные записи при получении результатов...
     $orders = Order::search('Star Trek')->withTrashed()->get();
 
-    // Использовать только удаленные записи при получении результатов ...
+    // Использовать только удаленные записи при получении результатов...
     $orders = Order::search('Star Trek')->onlyTrashed()->get();
 
-
-> [!NOTE]  
+> [!NOTE]
 > Когда псевдоудаленная модель будет окончательно удалена с помощью `forceDelete`, Scout автоматически удалит ее из поискового индекса.
 
 <a name="customizing-engine-searches"></a>
@@ -743,10 +736,7 @@ Scout позволяет добавлять в поисковые запросы
         }
     )->get();
 
-Поскольку это обратный вызов вызывается после того, как соответствующие модели уже были извлечены из поискового движка вашего приложения, метод `query` не следует использовать для "фильтрации" результатов. Вместо этого вы должны использовать [условия where Scout](#where-clauses).
-
 <a name="customizing-the-eloquent-results-query"></a>
-
 #### Настройка Запроса Результатов Eloquent
 
 После того, как Scout получает список соответствующих моделей Eloquent из поискового движка вашего приложения, для извлечения всех соответствующих моделей по их первичным ключам используется Eloquent. Вы можете настроить этот запрос, вызвав метод `query`. Метод `query` принимает замыкание, которое получит экземпляр построителя запросов Eloquent в качестве аргумента:
@@ -759,6 +749,8 @@ $orders = Order::search('Star Trek')
     ->query(fn (Builder $query) => $query->with('invoices'))
     ->get();
 ```
+
+Поскольку это обратный вызов вызывается после того, как соответствующие модели уже были извлечены из поискового движка вашего приложения, метод `query` не следует использовать для "фильтрации" результатов. Вместо этого вы должны использовать [условия where Scout](#where-clauses).
 
 <a name="custom-engines"></a>
 ## Разработка поискового движка
