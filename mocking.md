@@ -4,7 +4,6 @@ git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
 
 # Тестирование · Имитация (Мок)
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -106,29 +105,29 @@ public function test_something_can_be_mocked(): void
 
 ```php tab=Pest
 <?php
- 
+
 use Illuminate\Support\Facades\Cache;
- 
+
 test('get index', function () {
     Cache::shouldReceive('get')
                 ->once()
                 ->with('key')
                 ->andReturn('value');
- 
+
     $response = $this->get('/users');
- 
+
     // ...
 });
 ```
 
 ```php tab=PHPUnit
 <?php
- 
+
 namespace Tests\Feature;
- 
+
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
- 
+
 class UserControllerTest extends TestCase
 {
     public function test_get_index(): void
@@ -137,15 +136,13 @@ class UserControllerTest extends TestCase
                     ->once()
                     ->with('key')
                     ->andReturn('value');
- 
+
         $response = $this->get('/users');
- 
+
         // ...
     }
 }
 ```
-
-
 
 > [!WARNING]
 > Вы не должны имитировать фасад `Request`. Вместо этого передайте требуемые данные в [методы тестирования HTTP](http-tests), такие как `get` и `post`, при запуске вашего теста. Аналогично, вместо имитации фасада `Config`, вызовите метод `Config::set` в ваших тестах.
@@ -164,7 +161,7 @@ test('values are be stored in cache', function () {
     Cache::spy();
 
     $response = $this->get('/');
-    
+
     $response->assertStatus(200);
 
     Cache::shouldHaveReceived('put')->once()->with('name', 'Taylor', 10);
@@ -261,7 +258,6 @@ public function test_time_can_be_manipulated(): void
     })
 
 Как и ожидалось, все обсуждаемые выше методы в основном полезны для тестирования поведения приложения, зависящего от времени, такого как блокировка неактивных сообщений на форуме:
-
 
 ```php tab=Pest
 use App\Models\Thread;
