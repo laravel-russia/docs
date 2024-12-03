@@ -21,6 +21,7 @@ git: 3e3ecda52ed7aac946f9338e9e9a848d58f565a1
 
     namespace App\Http\Controllers;
 
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
 
     class UserController extends Controller
@@ -33,7 +34,7 @@ git: 3e3ecda52ed7aac946f9338e9e9a848d58f565a1
             $name = $request->input('name');
 
             // Сохранить пользователя
-            
+
             return redirect('/users');
         }
     }
@@ -61,6 +62,7 @@ git: 3e3ecda52ed7aac946f9338e9e9a848d58f565a1
 
     namespace App\Http\Controllers;
 
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
 
     class UserController extends Controller
@@ -70,7 +72,7 @@ git: 3e3ecda52ed7aac946f9338e9e9a848d58f565a1
          */
         public function update(Request $request, string $id): RedirectResponse
         {
-            // Обновляем пользователя ...
+            // Обновляем пользователя...
 
             return redirect('/users');
         }
@@ -305,7 +307,6 @@ composer require nyholm/psr7
 
     $archived = $request->boolean('archived');
 
-
 <a name="retrieving-date-input-values"></a>
 #### Получение значений Даты
 
@@ -379,7 +380,7 @@ composer require nyholm/psr7
     if ($request->hasAny(['name', 'email'])) {
         // ...
     }
-    
+
 Метод `whenHas` выполнит переданное замыкание, если в запросе присутствует значение:
 
     $request->whenHas('name', function (string $input) {
@@ -416,7 +417,7 @@ composer require nyholm/psr7
 
     if ($request->anyFilled(['name', 'email'])) {
         // ...
-    }}
+    }
 
 Метод `whenFilled` выполнит указанное замыкание, если значение присутствует в запросе и не является пустой строкой:
 
@@ -426,8 +427,8 @@ composer require nyholm/psr7
 
 Второе замыкание может быть передано методу `whenFilled` которое будет выполнено, если указанное значение «не заполнено»:
 
-    $request->whenFilled('name', function ($input) {
-        // Значение "имя" заполнено ...
+    $request->whenFilled('name', function (string $input) {
+        // Значение "имя" заполнено...
     }, function () {
         // Значение "имя" не заполнено...
     });
@@ -443,7 +444,7 @@ composer require nyholm/psr7
     }, function () {
         // Значение "name" присутствует...
     });
-    
+
 <a name="merging-additional-input"></a>
 ### Объединение дополнительных входных данных
 
@@ -626,7 +627,7 @@ Laravel также содержит глобального помощника `o
         );
     })
 
-> [!NOTE]  
+> [!NOTE]
 > Если вы используете AWS Elastic Load Balancing, значение `headers` должно быть `Request::HEADER_X_FORWARDED_AWS_ELB`. Если ваш балансировщик нагрузки использует стандартный заголовок `Forwarded` из [RFC 7239] (https://www.rfc-editor.org/rfc/rfc7239#section-4), значение `headers` должно быть `Request::HEADER_FORWARDED`. Для получения дополнительной информации о константах, которые можно использовать в значении `headers`, ознакомьтесь с документацией Symfony о [доверенных прокси-серверах] (https://symfony.com/doc/7.0/deployment/proxies.html).
 
 <a name="trusting-all-proxies"></a>
