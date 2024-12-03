@@ -4,7 +4,6 @@ git: 910898f77947c560ed9e1017b15314229a4bd1b6
 
 # Сервис-провайдеры
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -16,7 +15,7 @@ Laravel использует десятки поставщиков услуг в
 
 Все определенные пользователем поставщики услуг регистрируются в файле `bootstrap/providers.php`. В этой документации вы узнаете, как писать собственные сервис-провайдеры и регистрировать их в приложении Laravel.
 
-> [!NOTE] 
+> [!NOTE]
 > Если вы хотите узнать больше о том, как Laravel обрабатывает запросы и работает изнутри, ознакомьтесь с нашей документацией по [жизненному циклу запроса](/docs/{{version}}/lifecycle) Laravel.
 
 <a name="writing-service-providers"></a>
@@ -37,28 +36,26 @@ php artisan make:provider RiakServiceProvider
 
 Давайте взглянем на рядовой сервис-провайдер приложения. В любом из методов сервис-провайдера у вас всегда есть доступ к свойству `$app`, которое обеспечивает доступ к контейнеру служб:
 
-```php
-<?php
+    <?php
 
-namespace App\Providers;
+    namespace App\Providers;
 
-use App\Services\Riak\Connection;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
+    use App\Services\Riak\Connection;
+    use Illuminate\Contracts\Foundation\Application;
+    use Illuminate\Support\ServiceProvider;
 
-class RiakServiceProvider extends ServiceProvider
-{
-    /**
-     * Регистрация любых служб приложения.
-     */
-    public function register(): void
+    class RiakServiceProvider extends ServiceProvider
     {
-        $this->app->singleton(Connection::class, function (Application $app) {
-            return new Connection(config('riak'));
-        });
+        /**
+         * Регистрация любых служб приложения.
+         */
+        public function register(): void
+        {
+            $this->app->singleton(Connection::class, function (Application $app) {
+                return new Connection(config('riak'));
+            });
+        }
     }
-}
-```
 
 Этот сервис-провайдер определяет только метод `register` и использует этот метод для указания, какая именно реализация `App\Services\Riak\Connection` будет применена в нашем приложении - при помощи контейнера служб. Если вы еще не знакомы с контейнером служб Laravel, ознакомьтесь с [его документацией](/docs/{{version}}/container).
 
@@ -159,7 +156,7 @@ class RiakServiceProvider extends ServiceProvider
 
     return [
         App\Providers\AppServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class, // Ваш новый провайдер
+        App\Providers\ComposerServiceProvider::class, // [tl! add]
     ];
 
 <a name="deferred-providers"></a>
