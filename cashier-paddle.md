@@ -1,5 +1,5 @@
 ---
-git: 75b35258183385b5f2e7e018f58808512901185c
+git: 696cad17f80605f1cf2ff68c97f60873500c55ca
 ---
 
 # Laravel Cashier (Paddle)
