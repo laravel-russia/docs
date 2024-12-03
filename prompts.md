@@ -8,10 +8,12 @@ git: 77db50ec005aa0e6391511eb81ff3a0e21d7e504
 ## Введение
 
 [Laravel Prompts](https://github.com/laravel/prompts) - это PHP-пакет, который позволяет добавлять красивые и удобные формы в ваши приложения командной строки, с функциями, подобными браузеру, включая плейсхолдеры и валидацию.
+
 <img src="https://laravel.com/img/docs/prompts-example.png">
 
 Laravel Prompts идеально подходит для приема пользовательского ввода в ваших [командах Artisan консоли](/docs/{{version}}/artisan#writing-commands), но его также можно использовать в любом проекте с командной строкой на PHP.
-> [!NOTE]  
+
+> [!NOTE]
 > Laravel Prompts поддерживает macOS, Linux и Windows с WSL. Для получения дополнительной информации, пожалуйста, ознакомьтесь с нашей документацией по [не поддерживаемым средам и резервным вариантам](#fallbacks).
 
 <a name="installation"></a>
@@ -171,6 +173,7 @@ $story = textarea(
 ### Пароль
 
 Функция `password` аналогична функции `text`, но ввод пользователя будет маскироваться при вводе в консоли. Это полезно при запросе чувствительной информации, такой как пароли:
+
 ```php
 use function Laravel\Prompts\password;
 
@@ -476,7 +479,7 @@ $name = suggest(
     placeholder: 'E.g. Taylor',
     default: $user?->name,
     hint: 'This will be displayed on your profile.'
-);Если вам необходимо, чтобы было введено значение, вы можете передать аргумент `required`:
+);
 ```
 
 <a name="suggest-required"></a>
@@ -840,7 +843,7 @@ $response = spin(
 );
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Функция `spin` требует наличие расширения PHP `pcntl` для анимации спиннера. Когда это расширение недоступно, вместо этого будет отображаться статическая версия спиннера.
 
 <a name="progress"></a>
@@ -902,6 +905,7 @@ $progress->finish();
 
 ```
 use function Laravel\Prompts\clear;
+
 clear();
 ```
 
@@ -911,7 +915,7 @@ clear();
 <a name="terminal-width"></a>
 #### Ширина Терминала
 
-Если длина какой-либо метки, варианта или сообщения о валидации превышает количество "столбцов" в терминале пользователя, она будет автоматически усечена до соответствия. Рассмотрите возможность минимизации длины этих строк, если ваши пользователи могут использовать более узкие терминалы. Обычно безопасная максимальная длина составляет 74 символа для поддержки терминала шириной 80 символов.f the length of any label, option, or validation message exceeds the number of "columns" in the user's terminal, it will be automatically truncated to fit. Consider minimizing the length of these strings if your users may be using narrower terminals. A typically safe maximum length is 74 characters to support an 80-character terminal.
+Если длина какой-либо метки, варианта или сообщения о валидации превышает количество "столбцов" в терминале пользователя, она будет автоматически усечена до соответствия. Рассмотрите возможность минимизации длины этих строк, если ваши пользователи могут использовать более узкие терминалы. Обычно безопасная максимальная длина составляет 74 символа для поддержки терминала шириной 80 символов.
 
 <a name="terminal-height"></a>
 #### Высота Терминала
@@ -925,7 +929,7 @@ Laravel Prompts поддерживает macOS, Linux и Windows с исполь
 
 По этой причине Laravel Prompts поддерживает откат к альтернативной реализации, такой как [Symfony Console Question Helper](https://symfony.com/doc/7.0/components/console/helpers/questionhelper.html).
 
-> [!NOTE]  
+> [!NOTE]
 > При использовании Laravel Prompts с фреймворком Laravel резервные варианты для каждого запроса настроены для вас и будут автоматически включены в неподдерживаемых окружениях.
 
 <a name="fallback-conditions"></a>
@@ -942,8 +946,6 @@ Prompt::fallbackWhen(
 ```
 
 <a name="fallback-behavior"></a>
-#### Fallback Behavior
-
 #### Поведение Резервного Варианта
 
 Если вы не используете Laravel или вам нужно настроить поведение резервного варианта, вы можете передать замыкание методу `fallbackUsing` статического класса каждого prompt:
