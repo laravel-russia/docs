@@ -54,13 +54,13 @@ Laravel предлагает несколько функций, которые �
 
 Если не передан путь помощнику `url`, то возвращается экземпляр `Illuminate\Routing\UrlGenerator`, позволяющий вам получить доступ к информации о текущем URL:
 
-    // Получить текущий URL без строки запроса ...
+    // Получить текущий URL без строки запроса...
     echo url()->current();
 
-    // Получить текущий URL, включая строку запроса ...
+    // Получить текущий URL, включая строку запроса...
     echo url()->full();
 
-    // Получить полный URL-адрес предыдущего запроса ...
+    // Получить полный URL-адрес предыдущего запроса...
     echo url()->previous();
 
 К каждому из этих методов также можно получить доступ через [фасад](/docs/{{version}}/facades) `URL`:
@@ -200,31 +200,30 @@ Laravel позволяет вам легко создавать «подписа
 
 Обременительно передавать `locale` каждый раз при вызове помощника `route`. Итак, вы можете использовать метод `URL::defaults`, чтобы определить значение по умолчанию для этого параметра, которое всегда будет применяться во время текущего запроса. Вы можете вызвать этот метод из [посредника маршрута](/docs/{{version}}/middleware#assigning-middleware-to-routes), чтобы получить доступ к текущему запросу:
 
-```php
-<?php
+    <?php
 
-namespace App\Http\Middleware;
+    namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\Response;
+    use Closure;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\URL;
+    use Symfony\Component\HttpFoundation\Response;
 
-class SetDefaultLocaleForUrls
-{
-    /**
-     * Обработка входящего запроса.
-     *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    class SetDefaultLocaleForUrls
     {
-        URL::defaults(['locale' => $request->user()->locale]);
+        /**
+         * Обработка входящего запроса.
+         *
+         * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+         */
+        public function handle(Request $request, Closure $next): Response
+        {
+            URL::defaults(['locale' => $request->user()->locale]);
 
-        return $next($request);
+            return $next($request);
+        }
     }
-}
-```
+
 После установки значения по умолчанию для параметра `locale` вам больше не потребуется передавать его значение при генерации URL-адресов с помощью помощника `route`.
 
 <a name="url-defaults-middleware-priority"></a>
