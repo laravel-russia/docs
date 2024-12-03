@@ -4,7 +4,6 @@ git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
 
 # Локализация интерфейса
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -77,23 +76,20 @@ php artisan lang:publish
 
 Вы можете настроить "множественное число" Laravel, которое используется Eloquent и другими частями фреймворка для преобразования единственных строк во множественные строки, чтобы использовать язык отличный от английского. Это можно сделать, вызвав метод `useLanguage` внутри метода `boot` одного из провайдеров служб вашего приложения. В настоящее время поддерживаемые языки множественного числа: `french`, `norwegian-bokmal`, `portuguese`, `spanish` и `turkish`:
 
-```php
-use Illuminate\Support\Pluralizer;
+    use Illuminate\Support\Pluralizer;
 
-/**
- * Загрузка сервисов приложения.
- */
-public function boot(): void
-{
-    Pluralizer::useLanguage('spanish');
+    /**
+     * Загрузка сервисов приложения.
+     */
+    public function boot(): void
+    {
+        Pluralizer::useLanguage('spanish');
 
-    // ...
-}
-```
+        // ...
+    }
 
-> [!WARNING]  
+> [!WARNING]
 > Если вы настраиваете язык множественного числа, вы должны явно определить [имена таблиц](/docs/{{version}}/eloquent#table-names) ваших моделей Eloquent.
-
 
 <a name="defining-translation-strings"></a>
 ## Определение строк перевода
@@ -119,7 +115,7 @@ public function boot(): void
         'welcome' => 'Welcome to our application!',
     ];
 
-> [!WARNING]  
+> [!WARNING]
 > Для языков, отличающихся территориально, вы должны назвать языковые каталоги в соответствии со стандартом ISO 15897. Например, для британского английского следует использовать «en_GB», а не «en-gb».
 
 <a name="using-translation-strings-as-keys"></a>
@@ -137,8 +133,7 @@ public function boot(): void
 
 #### Конфликты ключей и имен файлов
 
-Вы не должны определять строковые ключи перевода, которые конфликтуют с именами файлов перевода.
-Например, перевод `__('Action')` для языка `NL` при условии существования файла `nl/action.php` и отсутствии файла `nl.json` приведет к тому, что переводчик Laravel вернет полное содержимое всего файла `nl/action.php`.
+Вы не должны определять строковые ключи перевода, которые конфликтуют с именами файлов перевода. Например, перевод `__('Action')` для языка `NL` при условии существования файла `nl/action.php` и отсутствии файла `nl.json` приведет к тому, что переводчик Laravel вернет полное содержимое всего файла `nl/action.php`.
 
 <a name="retrieving-translation-strings"></a>
 ## Получение строк перевода
@@ -180,25 +175,20 @@ public function boot(): void
 
 Когда вы пытаетесь использовать объект в качестве заполнителя перевода, Laravel автоматически вызывает метод `__toString` этого объекта. Метод [`__toString`](https://www.php.net/manual/en/language.oop5.magic.php#object.tostring) является одним из встроенных "магических" методов в PHP. Однако бывают случаи, когда у вас нет контроля над методом `__toString` определенного класса, особенно если это класс сторонней библиотеки.
 
-В таких ситуациях Laravel предоставляет возможность зарегистрировать пользовательский обработчик форматирования для конкретного типа объекта.
-Для этого используется метод `stringable` фасада `Lang`.
-Метод `stringable` принимает замыкание, которое должно указать тип объекта, для которого выполняется форматирование.
-Обычно вызов метода `stringable` выполняется в методе `boot` класса `AppServiceProvider` вашего приложения:
+В таких ситуациях Laravel предоставляет возможность зарегистрировать пользовательский обработчик форматирования для конкретного типа объекта. Для этого используется метод `stringable` фасада `Lang`. Метод `stringable` принимает замыкание, которое должно указать тип объекта, для которого выполняется форматирование. Обычно вызов метода `stringable` выполняется в методе `boot` класса `AppServiceProvider` вашего приложения:
 
-```php
-use Illuminate\Support\Facades\Lang;
-use Money\Money;
+    use Illuminate\Support\Facades\Lang;
+    use Money\Money;
 
-/**
- * Настройка служб приложения.
- */
-public function boot(): void
-{
-    Lang::stringable(function (Money $money) {
-        return $money->formatTo('en_GB');
-    });
-}
-```
+    /**
+     * Настройка служб приложения.
+     */
+    public function boot(): void
+    {
+        Lang::stringable(function (Money $money) {
+            return $money->formatTo('en_GB');
+        });
+    }
 
 <a name="pluralization"></a>
 ### Плюрализация
@@ -232,7 +222,6 @@ public function boot(): void
 Если вы хотите отобразить целочисленное значение, переданное в функцию `trans_choice`, то вы можете использовать встроенный заполнитель `:count`:
 
     'apples' => '{0} There are none|{1} There is one|[2,*] There are :count',
-
 
 <a name="overriding-package-language-files"></a>
 ## Переопределение языковых файлов пакета
