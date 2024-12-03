@@ -4,7 +4,6 @@ git: 51c2103e2594f1655666b965fbfd5893a0cbec1b
 
 # Жизненный цикл запроса
 
-
 <a name="introduction"></a>
 ## Введение
 
