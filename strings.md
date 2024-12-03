@@ -31,6 +31,8 @@ Laravel включает в себя различные функции для р
 - [Str::betweenFirst](#method-str-between-first)
 - [Str::camel](#method-camel-case)
 - [Str::charAt](#method-char-at)
+- [Str::chopStart](#method-str-chop-start)
+- [Str::chopEnd](#method-str-chop-end)
 - [Str::contains](#method-str-contains)
 - [Str::containsAll](#method-str-contains-all)
 - [Str::doesntContain](#method-str-doesnt-contain)
@@ -87,6 +89,10 @@ Laravel включает в себя различные функции для р
 - [Str::title](#method-title-case)
 - [Str::toBase64](#method-str-to-base64)
 - [Str::toHtmlString](#method-str-to-html-string)
+- [Str::transliterate](#method-str-transliterate)
+- [Str::trim](#method-str-trim)
+- [Str::ltrim](#method-str-ltrim)
+- [Str::rtrim](#method-str-rtrim)
 - [Str::ucfirst](#method-str-ucfirst)
 - [Str::ucsplit](#method-str-ucsplit)
 - [Str::upper](#method-str-upper)
@@ -121,6 +127,8 @@ Laravel включает в себя различные функции для р
 - [camel](#method-fluent-str-camel)
 - [charAt](#method-fluent-str-char-at)
 - [classBasename](#method-fluent-str-class-basename)
+- [chopStart](#method-fluent-str-chop-start)
+- [chopEnd](#method-fluent-str-chop-end)
 - [contains](#method-fluent-str-contains)
 - [containsAll](#method-fluent-str-contains-all)
 - [deduplicate](#method-fluent-str-deduplicate)
@@ -145,7 +153,6 @@ Laravel включает в себя различные функции для р
 - [length](#method-fluent-str-length)
 - [limit](#method-fluent-str-limit)
 - [lower](#method-fluent-str-lower)
-- [ltrim](#method-fluent-str-ltrim)
 - [markdown](#method-fluent-str-markdown)
 - [mask](#method-fluent-str-mask)
 - [match](#method-fluent-str-match)
@@ -168,7 +175,6 @@ Laravel включает в себя различные функции для р
 - [replaceMatches](#method-fluent-str-replace-matches)
 - [replaceStart](#method-fluent-str-replace-start)
 - [replaceEnd](#method-fluent-str-replace-end)
-- [rtrim](#method-fluent-str-rtrim)
 - [scan](#method-fluent-str-scan)
 - [singular](#method-fluent-str-singular)
 - [slug](#method-fluent-str-slug)
@@ -187,6 +193,7 @@ Laravel включает в себя различные функции для р
 - [test](#method-fluent-str-test)
 - [title](#method-fluent-str-title)
 - [toBase64](#method-fluent-str-to-base64)
+- [transliterate](#method-fluent-str-transliterate)
 - [trim](#method-fluent-str-trim)
 - [ucfirst](#method-fluent-str-ucfirst)
 - [ucsplit](#method-fluent-str-ucsplit)
@@ -216,7 +223,7 @@ Laravel включает в себя различные функции для р
 ## Строки
 
 <a name="method-__"></a>
-#### `__()` 
+#### `__()`
 
 Функция `__` переводит переданную строку перевода или ключ перевода, используя ваши [файлы локализации](/docs/{{version}}/localization):
 
@@ -227,7 +234,7 @@ Laravel включает в себя различные функции для р
 Если указанная строка перевода или ключ не существует, то функция `__` вернет переданное значение. Итак, используя приведенный выше пример, функция `__` вернет `messages.welcome`, если этот ключ перевода не существует.
 
 <a name="method-class-basename"></a>
-#### `class_basename()` 
+#### `class_basename()`
 
 Функция `class_basename` возвращает имя переданного класса с удаленным пространством имен этого класса:
 
@@ -236,7 +243,7 @@ Laravel включает в себя различные функции для р
     // Baz
 
 <a name="method-e"></a>
-#### `e()` 
+#### `e()`
 
 Функция `e` запускает PHP-функцию `htmlspecialchars` с параметром `double_encode`, установленным по умолчанию в `true`:
 
@@ -245,7 +252,7 @@ Laravel включает в себя различные функции для р
     // &lt;html&gt;foo&lt;/html&gt;
 
 <a name="method-preg-replace-array"></a>
-#### `preg_replace_array()` 
+#### `preg_replace_array()`
 
 Функция `preg_replace_array` последовательно заменяет переданный шаблон в строке, используя массив:
 
@@ -256,7 +263,7 @@ Laravel включает в себя различные функции для р
     // The event will take place between 8:30 and 9:00
 
 <a name="method-str-after"></a>
-#### `Str::after()` 
+#### `Str::after()`
 
 Метод `Str::after` возвращает все после переданного значения в строке. Если значение не существует в строке, то будет возвращена вся строка:
 
@@ -267,7 +274,7 @@ Laravel включает в себя различные функции для р
     // ' my name'
 
 <a name="method-str-after-last"></a>
-#### `Str::afterLast()` 
+#### `Str::afterLast()`
 
 Метод `Str::afterLast` возвращает все после последнего вхождения переданного значения в строке. Если значение не существует в строке, то будет возвращена вся строка:
 
@@ -278,9 +285,10 @@ Laravel включает в себя различные функции для р
     // 'Controller'
 
 <a name="method-str-apa"></a>
-#### `Str::apa()` 
+#### `Str::apa()`
 
 Метод `Str::apa` преобразует заданную строку в `Title Case` в соответствии с [правилами APA](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case):
+
     use Illuminate\Support\Str;
 
     $title = Str::apa('Creating A Project');
@@ -288,7 +296,7 @@ Laravel включает в себя различные функции для р
     // 'Creating a Project'
 
 <a name="method-str-ascii"></a>
-#### `Str::ascii()` 
+#### `Str::ascii()`
 
 Метод `Str::ascii` попытается транслитерировать строку в ASCII значение:
 
@@ -299,7 +307,7 @@ Laravel включает в себя различные функции для р
     // 'u'
 
 <a name="method-str-before"></a>
-#### `Str::before()` 
+#### `Str::before()`
 
 Метод `Str :: before` возвращает все до переданного значения в строке:
 
@@ -310,7 +318,7 @@ Laravel включает в себя различные функции для р
     // 'This is '
 
 <a name="method-str-before-last"></a>
-#### `Str::beforeLast()` 
+#### `Str::beforeLast()`
 
 Метод `Str::beforeLast` возвращает все до последнего вхождения переданного значения в строке:
 
@@ -321,7 +329,7 @@ Laravel включает в себя различные функции для р
     // 'This '
 
 <a name="method-str-between"></a>
-#### `Str::between()` 
+#### `Str::between()`
 
 Метод `Str::between` возвращает часть строки между двумя значениями:
 
@@ -332,7 +340,7 @@ Laravel включает в себя различные функции для р
     // ' is my '
 
 <a name="method-str-between-first"></a>
-#### `Str::betweenFirst()` 
+#### `Str::betweenFirst()`
 
 Метод `Str::betweenFirst` возвращает наименьший возможный участок строки между двумя значениями:
 
@@ -343,7 +351,7 @@ Laravel включает в себя различные функции для р
     // 'a'
 
 <a name="method-camel-case"></a>
-#### `Str::camel()` 
+#### `Str::camel()`
 
 Метод `Str::camel` преобразует переданную строку в `camelCase`:
 
@@ -354,7 +362,7 @@ Laravel включает в себя различные функции для р
     // 'fooBar'
 
 <a name="method-char-at"></a>
-#### `Str::charAt()` 
+#### `Str::charAt()`
 
 Метод `Str::charAt` возвращает символ по указанному индексу. Если индекс выходит за границы, возвращается значение `false`:
 
@@ -403,7 +411,7 @@ Laravel включает в себя различные функции для р
     // 'laravel.com'
 
 <a name="method-str-contains"></a>
-#### `Str::contains()` 
+#### `Str::contains()`
 
 Метод `Str::contains` определяет, содержит ли переданная строка указанное значение. По умолчанию этот метод чувствителен к регистру:
 
@@ -430,7 +438,7 @@ Laravel включает в себя различные функции для р
     // true
 
 <a name="method-str-contains-all"></a>
-#### `Str::containsAll()` 
+#### `Str::containsAll()`
 
 Метод `Str::containsAll` определяет, содержит ли переданная строка все значения массива:
 
@@ -495,7 +503,7 @@ Laravel включает в себя различные функции для р
     // The-Laravel-Framework
 
 <a name="method-ends-with"></a>
-#### `Str::endsWith()` 
+#### `Str::endsWith()`
 
 Метод `Str::endsWith` определяет, заканчивается ли переданная строка указанным значением:
 
@@ -518,7 +526,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-excerpt"></a>
-#### `Str::excerpt()` 
+#### `Str::excerpt()`
 
 Метод `Str::excerpt` извлекает отрывок из заданной строки, соответствующий первому вхождению фразы в эту строку:
 
@@ -544,7 +552,7 @@ Laravel включает в себя различные функции для р
     // '(...) my name'
 
 <a name="method-str-finish"></a>
-#### `Str::finish()` 
+#### `Str::finish()`
 
 Метод `Str::finish` добавляет один экземпляр указанного значения в переданную строку, если она еще не заканчивается этим значением:
 
@@ -559,7 +567,7 @@ Laravel включает в себя различные функции для р
     // this/string/
 
 <a name="method-str-headline"></a>
-#### `Str::headline()` 
+#### `Str::headline()`
 
 Метод `Str::headline` преобразует строки, разделенные регистром, дефисами или подчеркиванием, в строку, разделенную пробелами, с заглавной первой буквой каждого слова:
 
@@ -574,9 +582,10 @@ Laravel включает в себя различные функции для р
     // Email Notification Sent
 
 <a name="method-str-inline-markdown"></a>
-#### `Str::inlineMarkdown()` 
+#### `Str::inlineMarkdown()`
 
 Метод `Str::inlineMarkdown` преобразует Markdown в стиле GitHub в HTML в одну строку с использованием [CommonMark](https://commonmark.thephpleague.com/). Однако, в отличие от метода `markdown`, он не оборачивает весь сгенерированный HTML в блочный элемент:
+
     use Illuminate\Support\Str;
 
     $html = Str::inlineMarkdown('**Laravel**');
@@ -585,9 +594,7 @@ Laravel включает в себя различные функции для р
 
 #### Безопасность в Markdown
 
-По умолчанию Markdown позволяет использовать HTML, что может привести к уязвимостям XSS (межсайтовый скриптинг), если использовать его с необработанным пользовательским вводом.
-Согласно [документации по безопасности CommonMark](https://commonmark.thephpleague.com/security/), вы можете использовать опцию `html_input` для экранирования или удаления сырого HTML, а также опцию `allow_unsafe_links` для указания разрешения на небезопасные ссылки.
-Если вам нужно разрешить некоторый сырой HTML, следует пропустить скомпилированный Markdown через сторонние библиотеки, такие как HTML Purifier:
+По умолчанию Markdown позволяет использовать HTML, что может привести к уязвимостям XSS (межсайтовый скриптинг), если использовать его с необработанным пользовательским вводом. Согласно [документации по безопасности CommonMark](https://commonmark.thephpleague.com/security/), вы можете использовать опцию `html_input` для экранирования или удаления сырого HTML, а также опцию `allow_unsafe_links` для указания разрешения на небезопасные ссылки. Если вам нужно разрешить некоторый сырой HTML, следует пропустить скомпилированный Markdown через сторонние библиотеки, такие как HTML Purifier:
 
     use Illuminate\Support\Str;
 
@@ -599,7 +606,7 @@ Laravel включает в себя различные функции для р
     // Inject: alert(&quot;Hello XSS!&quot;);
 
 <a name="method-str-is"></a>
-#### `Str::is()` 
+#### `Str::is()`
 
 Метод `Str::is` определяет, соответствует ли переданная строка указанному шаблону. Допускается использование метасимвола подстановки `*`:
 
@@ -614,7 +621,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-str-is-ascii"></a>
-#### `Str::isAscii()` 
+#### `Str::isAscii()`
 
 Метод `Str::isAscii` определяет, является ли переданная строка 7-битной ASCII:
 
@@ -629,7 +636,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-str-is-json"></a>
-#### `Str::isJson()` 
+#### `Str::isJson()`
 
 Метод `Str::isJson` определяет, является ли заданная строка допустимым JSON:
 
@@ -648,7 +655,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-str-is-url"></a>
-#### `Str::isUrl()` 
+#### `Str::isUrl()`
 
 Метод `Str::isUrl` определяет, является ли заданная строка допустимым URL:
 
@@ -667,7 +674,7 @@ Laravel включает в себя различные функции для р
     $isUrl = Str::isUrl('http://example.com', ['http', 'https']);
 
 <a name="method-str-is-ulid"></a>
-#### `Str::isUlid()` 
+#### `Str::isUlid()`
 
 Метод `Str::isUlid` определяет, является ли заданная строка допустимым ULID:
 
@@ -682,7 +689,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-str-is-uuid"></a>
-#### `Str::isUuid()` 
+#### `Str::isUuid()`
 
 Метод `Str::isUuid` определяет, является ли заданная строка допустимым UUID:
 
@@ -697,7 +704,7 @@ Laravel включает в себя различные функции для р
     // false
 
 <a name="method-kebab-case"></a>
-#### `Str::kebab()` 
+#### `Str::kebab()`
 
 Метод `Str::kebab` преобразует переданную строку в `kebab-case`:
 
@@ -708,7 +715,7 @@ Laravel включает в себя различные функции для р
     // foo-bar
 
 <a name="method-str-lcfirst"></a>
-#### `Str::lcfirst()` 
+#### `Str::lcfirst()`
 
 Метод `Str::lcfirst` возвращает переданную строку с первым символом в нижнем регистре:
 
@@ -719,7 +726,7 @@ Laravel включает в себя различные функции для р
     // foo Bar
 
 <a name="method-str-length"></a>
-#### `Str::length()` 
+#### `Str::length()`
 
 Метод `Str::length` возвращает длину переданной строки:
 
@@ -730,7 +737,7 @@ Laravel включает в себя различные функции для р
     // 7
 
 <a name="method-str-limit"></a>
-#### `Str::limit()` 
+#### `Str::limit()`
 
 Метод `Str::limit` усекает переданную строку до указанной длины:
 
@@ -753,7 +760,7 @@ Laravel включает в себя различные функции для р
     // The quick...
 
 <a name="method-str-lower"></a>
-#### `Str::lower()` 
+#### `Str::lower()`
 
 Метод `Str::lower` преобразует переданную строку в нижний регистр:
 
@@ -764,7 +771,7 @@ Laravel включает в себя различные функции для р
     // laravel
 
 <a name="method-str-markdown"></a>
-#### `Str::markdown()` 
+#### `Str::markdown()`
 
 Метод `Str::markdown` конвертирует текст с разметкой [GitHub flavored Markdown](https://github.github.com/gfm/) в HTML:
 
@@ -780,8 +787,21 @@ Laravel включает в себя различные функции для р
 
     // <h1>Taylor Otwell</h1>
 
+#### Безопасность markdown
+
+По умолчанию Markdown поддерживает необработанный HTML, который обнажает уязвимости межсайтового скриптинга (XSS) при использовании с необработанным пользовательским вводом. Согласно [документации по безопасности CommonMark](https://commonmark.thephpleague.com/security/), вы можете использовать параметр `html_input` для экранирования или удаления необработанного HTML-кода, а также параметр `allow_unsafe_links`, чтобы указать, разрешать ли небезопасные ссылки. Если вам нужно разрешить некоторый необработанный HTML, вам следует передать скомпилированный Markdown через HTML Purifier:
+
+    use Illuminate\Support\Str;
+
+    Str::markdown('Inject: <script>alert("Hello XSS!");</script>', [
+        'html_input' => 'strip',
+        'allow_unsafe_links' => false,
+    ]);
+
+    // <p>Inject: alert(&quot;Hello XSS!&quot;);</p>
+
 <a name="method-str-mask"></a>
-#### `Str::mask()` 
+#### `Str::mask()`
 
 Метод `Str::mask` маскирует часть строки повторяющимся символом и может использоваться для обфускации сегментов строк, таких как адреса электронной почты и номера телефонов:
 
@@ -798,7 +818,7 @@ Laravel включает в себя различные функции для р
     // tay***@example.com
 
 <a name="method-str-ordered-uuid"></a>
-#### `Str::orderedUuid()` 
+#### `Str::orderedUuid()`
 
 Метод `Str::orderedUuid` генерирует UUID с «префиксом временной метки», который может быть эффективно сохранен в индексированном столбце базы данных. Каждый UUID, созданный с помощью этого метода, будет отсортирован после UUID, ранее созданных с помощью этого метода:
 
@@ -807,7 +827,7 @@ Laravel включает в себя различные функции для р
     return (string) Str::orderedUuid();
 
 <a name="method-str-padboth"></a>
-#### `Str::padBoth()` 
+#### `Str::padBoth()`
 
 Метод `Str::padBoth` оборачивает функцию `str_pad` PHP, заполняя обе стороны строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -822,7 +842,7 @@ Laravel включает в себя различные функции для р
     // '  James   '
 
 <a name="method-str-padleft"></a>
-#### `Str::padLeft()` 
+#### `Str::padLeft()`
 
 Метод `Str::padLeft` оборачивает функцию `str_pad` PHP, заполняя левую часть строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -837,7 +857,7 @@ Laravel включает в себя различные функции для р
     // '     James'
 
 <a name="method-str-padright"></a>
-#### `Str::padRight()` 
+#### `Str::padRight()`
 
 Метод `Str::padRight` оборачивает функцию `str_pad` PHP, заполняя правую часть строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -852,9 +872,10 @@ Laravel включает в себя различные функции для р
     // 'James     '
 
 <a name="method-str-password"></a>
-#### `Str::password()` 
+#### `Str::password()`
 
 Метод `Str::password` можно использовать для генерации безопасного, случайного пароля заданной длины. Пароль будет состоять из комбинации букв, цифр, символов и пробелов. По умолчанию пароли имеют длину 32 символа:
+
     use Illuminate\Support\Str;
 
     $password = Str::password();
@@ -866,9 +887,10 @@ Laravel включает в себя различные функции для р
     // 'qwuar>#V|i]N'
 
 <a name="method-str-plural"></a>
-#### `Str::plural()` 
+#### `Str::plural()`
 
 Метод `Str::plural` преобразует строку единственного числа в ее форму множественного числа. Эта функция поддерживает [любые из языков, поддерживаемых плюрализатором Laravel](/docs/{{version}}/localization#pluralization-language):
+
     use Illuminate\Support\Str;
 
     $plural = Str::plural('car');
@@ -892,10 +914,10 @@ Laravel включает в себя различные функции для р
     // child
 
 <a name="method-str-plural-studly"></a>
-#### `Str::pluralStudly()` 
+#### `Str::pluralStudly()`
 
 Метод `Str::pluralStudly` преобразует строку единственного слова, отформатированную в заглавном регистре studly, в форму множественного числа. Эта функция поддерживает [любой из языков, поддерживаемых плюрализатором Laravel](/docs/{{version}}/localization#pluralization-language):
-    
+
     use Illuminate\Support\Str;
 
     $plural = Str::pluralStudly('VerifiedHuman');
@@ -919,9 +941,10 @@ Laravel включает в себя различные функции для р
     // VerifiedHuman
 
 <a name="method-str-position"></a>
-#### `Str::position()` 
+#### `Str::position()`
 
 Метод `Str::position` возвращает позицию первого вхождения подстроки в строке. Если подстрока не существует в данной строке, возвращается значение `false`:
+
     use Illuminate\Support\Str;
 
     $position = Str::position('Hello, World!', 'Hello');
@@ -933,7 +956,7 @@ Laravel включает в себя различные функции для р
     // 7
 
 <a name="method-str-random"></a>
-#### `Str::random()` 
+#### `Str::random()`
 
 Метод `Str::random` генерирует случайную строку указанной длины. Этот метод использует функцию `random_bytes` PHP:
 
@@ -941,8 +964,18 @@ Laravel включает в себя различные функции для р
 
     $random = Str::random(40);
 
+Во время тестирования может быть полезно «подделать» значение, возвращаемое методом `Str::random`. Для этого вы можете использовать метод `createRandomStringsUsing`:
+
+    Str::createRandomStringsUsing(function () {
+        return 'fake-random-string';
+    });
+
+Чтобы дать указание методу `random` вернуться к нормальной генерации случайных строк, вы можете вызвать метод `createRandomStringsNormally`:
+
+    Str::createRandomStringsNormally();
+
 <a name="method-str-remove"></a>
-#### `Str::remove()` 
+#### `Str::remove()`
 
 Метод `Str::remove` удаляет указанную подстроку или массив подстрок в строке:
 
@@ -957,7 +990,7 @@ Laravel включает в себя различные функции для р
 Вы можете передать `false` в качестве третьего аргумента для игнорирования регистра удаляемых подстрок.
 
 <a name="method-str-repeat"></a>
-#### `Str::repeat()` 
+#### `Str::repeat()`
 
 Метод `Str::repeat` повторяет заданную строку:
 
@@ -972,7 +1005,7 @@ $repeat = Str::repeat($string, 5);
 ```
 
 <a name="method-str-replace"></a>
-#### `Str::replace()` 
+#### `Str::replace()`
 
 Метод `Str::replace` заменяет в строке одну подстроку другой:
 
@@ -989,7 +1022,7 @@ $repeat = Str::repeat($string, 5);
     Str::replace('Framework', 'Laravel', caseSensitive: false);
 
 <a name="method-str-replace-array"></a>
-#### `Str::replaceArray()` 
+#### `Str::replaceArray()`
 
 Метод `Str::replaceArray` последовательно заменяет указанное значение в строке, используя массив:
 
@@ -1002,7 +1035,7 @@ $repeat = Str::repeat($string, 5);
     // The event will take place between 8:30 and 9:00
 
 <a name="method-str-replace-first"></a>
-#### `Str::replaceFirst()` 
+#### `Str::replaceFirst()`
 
 Метод `Str::replaceFirst` заменяет первое вхождение переданного значения в строке:
 
@@ -1013,7 +1046,7 @@ $repeat = Str::repeat($string, 5);
     // a quick brown fox jumps over the lazy dog
 
 <a name="method-str-replace-last"></a>
-#### `Str::replaceLast()` 
+#### `Str::replaceLast()`
 
 Метод `Str::replaceLast` заменяет последнее вхождение переданного значения в строке:
 
@@ -1024,7 +1057,7 @@ $repeat = Str::repeat($string, 5);
     // the quick brown fox jumps over a lazy dog
 
 <a name="method-str-replace-matches"></a>
-#### `Str::replaceMatches()` 
+#### `Str::replaceMatches()`
 
 Метод `Str::replaceMatches` заменяет все части строки, соответствующие шаблону, заданной строкой замены:
 
@@ -1039,7 +1072,7 @@ $repeat = Str::repeat($string, 5);
     // '15015551000'
 
 Метод `replaceMatches` также принимает замыкание, которое будет вызвано для каждой части строки, соответствующей заданному шаблону, что позволяет вам выполнять логику замены внутри замыкания и возвращать замененное значение:
-    
+
     use Illuminate\Support\Str;
 
     $replaced = Str::replaceMatches('/\d/', function (array $matches) {
@@ -1049,7 +1082,7 @@ $repeat = Str::repeat($string, 5);
     // '[1][2][3]'
 
 <a name="method-str-replace-start"></a>
-#### `Str::replaceStart()` 
+#### `Str::replaceStart()`
 
 Метод `Str::replaceStart` заменяет только первое вхождение заданного значения, если значение появляется в начале строки:
 
@@ -1064,7 +1097,7 @@ $repeat = Str::repeat($string, 5);
     // Hello World
 
 <a name="method-str-replace-end"></a>
-#### `Str::replaceEnd()` 
+#### `Str::replaceEnd()`
 
 Метод `Str::replaceEnd` заменяет только последнее вхождение заданного значения, если значение появляется в конце строки:
 
@@ -1079,7 +1112,7 @@ $repeat = Str::repeat($string, 5);
     // Hello World
 
 <a name="method-str-reverse"></a>
-#### `Str::reverse()` 
+#### `Str::reverse()`
 
 Метод `Str::reverse` переворачивает данную строку:
 
@@ -1090,9 +1123,10 @@ $repeat = Str::repeat($string, 5);
     // dlroW olleH
 
 <a name="method-str-singular"></a>
-#### `Str::singular()` 
+#### `Str::singular()`
 
 Метод `Str::singular` преобразует строку в ее форму единственного числа. Эта функция поддерживает [любые из языков, поддерживаемых плюрализатором Laravel](/docs/{{version}}/localization#pluralization-language):
+
     use Illuminate\Support\Str;
 
     $singular = Str::singular('cars');
@@ -1104,7 +1138,7 @@ $repeat = Str::repeat($string, 5);
     // child
 
 <a name="method-str-slug"></a>
-#### `Str::slug()` 
+#### `Str::slug()`
 
 Метод `Str::slug` создает «дружественный фрагмент» URL-адреса из переданной строки:
 
@@ -1115,7 +1149,7 @@ $repeat = Str::repeat($string, 5);
     // laravel-5-framework
 
 <a name="method-snake-case"></a>
-#### `Str::snake()` 
+#### `Str::snake()`
 
 Метод `Str::snake` преобразует переданную строку в `snake_case`:
 
@@ -1130,7 +1164,7 @@ $repeat = Str::repeat($string, 5);
     // foo-bar
 
 <a name="method-str-squish"></a>
-#### `Str::squish()` 
+#### `Str::squish()`
 
 Метод `Str::squish` удаляет все лишние пробелы из строки, включая лишние пробелы между словами:
 
@@ -1141,7 +1175,7 @@ $repeat = Str::repeat($string, 5);
     // laravel framework
 
 <a name="method-str-start"></a>
-#### `Str::start()` 
+#### `Str::start()`
 
 Метод `Str::start` добавляет один экземпляр указанного значения в переданную строку, если она еще не начинается этим значением:
 
@@ -1156,7 +1190,7 @@ $repeat = Str::repeat($string, 5);
     // /this/string
 
 <a name="method-starts-with"></a>
-#### `Str::startsWith()` 
+#### `Str::startsWith()`
 
 Метод `Str::startsWith` определяет, начинается ли переданная строка с указанного значения:
 
@@ -1173,7 +1207,7 @@ $repeat = Str::repeat($string, 5);
     // true
 
 <a name="method-studly-case"></a>
-#### `Str::studly()` 
+#### `Str::studly()`
 
 Метод `Str::studly` преобразует переданную строку в `StudlyCase`:
 
@@ -1184,7 +1218,7 @@ $repeat = Str::repeat($string, 5);
     // FooBar
 
 <a name="method-str-substr"></a>
-#### `Str::substr()` 
+#### `Str::substr()`
 
 Метод `Str::substr` возвращает часть строки, заданную параметрами «начало» и «длина»:
 
@@ -1195,7 +1229,7 @@ $repeat = Str::repeat($string, 5);
     // Laravel
 
 <a name="method-str-substrcount"></a>
-#### `Str::substrCount()` 
+#### `Str::substrCount()`
 
 Метод `Str::substrCount` возвращает число вхождений подстроки в строку:
 
@@ -1206,7 +1240,7 @@ $repeat = Str::repeat($string, 5);
     // 2
 
 <a name="method-str-substrreplace"></a>
-#### `Str::substrReplace()` 
+#### `Str::substrReplace()`
 
 Метод `Str::substrReplace` заменяет текст в части строки, начиная с позиции, указанной третьим аргументом, и заменяет число символов, указанное четвертым аргументом. Передав `0` четвертым аргументом в метод, строка будет вставлена в указанную позицию без замены каких-либо существующих символов в строке:
 
@@ -1219,7 +1253,7 @@ $repeat = Str::repeat($string, 5);
     // 13:00
 
 <a name="method-str-swap"></a>
-#### `Str::swap()` 
+#### `Str::swap()`
 
 Метод `Str::swap` заменяет несколько значений в заданной строке, используя функцию `strtr` PHP:
 
@@ -1233,7 +1267,7 @@ $repeat = Str::repeat($string, 5);
     // Burritos are fantastic!
 
 <a name="method-take"></a>
-#### `Str::take()` 
+#### `Str::take()`
 
 Метод `Str::take` возвращает указанное количество символов из начала строки:
 
@@ -1244,7 +1278,7 @@ $repeat = Str::repeat($string, 5);
     // Build
 
 <a name="method-title-case"></a>
-#### `Str::title()` 
+#### `Str::title()`
 
 Метод `Str::title` преобразует переданную строку в `Title Case`:
 
@@ -1266,7 +1300,7 @@ $repeat = Str::repeat($string, 5);
     // TGFyYXZlbA==
 
 <a name="method-str-to-html-string"></a>
-#### `Str::toHtmlString()` 
+#### `Str::toHtmlString()`
 
 Метод `Str::toHtmlString` преобразует экземпляр строки в экземпляр `Illuminate\Support\HtmlString`, который может отображаться в шаблонах Blade:
 
@@ -1319,7 +1353,7 @@ $repeat = Str::repeat($string, 5);
     // '  foo bar'
 
 <a name="method-str-ucfirst"></a>
-#### `Str::ucfirst()` 
+#### `Str::ucfirst()`
 
 Метод `Str::ucfirst` возвращает переданную строку с первой заглавной буквой:
 
@@ -1330,7 +1364,7 @@ $repeat = Str::repeat($string, 5);
     // Foo bar
 
 <a name="method-str-ucsplit"></a>
-#### `Str::ucsplit()` 
+#### `Str::ucsplit()`
 
 Метод `Str::ucsplit` разделяет заданную строку на массив по символам в верхнем регистре:
 
@@ -1341,7 +1375,7 @@ $repeat = Str::repeat($string, 5);
     // [0 => 'Foo', 1 => 'Bar']
 
 <a name="method-str-upper"></a>
-#### `Str::upper()` 
+#### `Str::upper()`
 
 Метод `Str::upper` преобразует переданную строку в верхний регистр:
 
@@ -1352,7 +1386,7 @@ $repeat = Str::repeat($string, 5);
     // LARAVEL
 
 <a name="method-str-ulid"></a>
-#### `Str::ulid()` 
+#### `Str::ulid()`
 
 Метод `Str::ulid` генерирует ULID, который является компактным, уникальным и упорядоченным по времени идентификатором:
 
@@ -1363,6 +1397,7 @@ $repeat = Str::repeat($string, 5);
     // 01gd6r360bp37zj17nxb55yv40
 
 Если вы хотите получить экземпляр даты `Illuminate\Support\Carbon`, представляющий дату и время создания заданного ULID, вы можете использовать метод `createFromId`, предоставленный интеграцией Carbon в Laravel:
+
 ```php
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -1370,8 +1405,20 @@ use Illuminate\Support\Str;
 $date = Carbon::createFromId((string) Str::ulid());
 ```
 
+Во время тестирования может оказаться полезным «подделать» значение, возвращаемое методом `Str::ulid`. Для этого вы можете использовать метод `createUlidsUsing`:
+
+    use Symfony\Component\Uid\Ulid;
+
+    Str::createUlidsUsing(function () {
+        return new Ulid('01HRDBNHHCKNW2AK4Z29SN82T9');
+    });
+
+Чтобы дать указание методу `ulid` вернуться к нормальной генерации ULID, вы можете вызвать метод `createUlidsNormally`:
+
+    Str::createUlidsNormally();
+
 <a name="method-str-unwrap"></a>
-#### `Str::unwrap()` 
+#### `Str::unwrap()`
 
 Метод `Str::unwrap` удаляет указанные строки из начала и конца заданной строки:
 
@@ -1386,7 +1433,7 @@ $date = Carbon::createFromId((string) Str::ulid());
     // framework: "Laravel"
 
 <a name="method-str-uuid"></a>
-#### `Str::uuid()` 
+#### `Str::uuid()`
 
 Метод `Str::uuid` генерирует UUID (версия 4):
 
@@ -1394,8 +1441,20 @@ $date = Carbon::createFromId((string) Str::ulid());
 
     return (string) Str::uuid();
 
+Во время тестирования может оказаться полезным «подделать» значение, возвращаемое методом `Str::uuid`. Для этого вы можете использовать метод `createUuidsUsing`:
+
+    use Ramsey\Uuid\Uuid;
+
+    Str::createUuidsUsing(function () {
+        return Uuid::fromString('eadbfeac-5258-45c2-bab7-ccb9b5ef74f9');
+    });
+
+Чтобы дать указание методу `uuid` вернуться к обычному генерированию UUID, вы можете вызвать метод `createUuidsNormally`:
+
+    Str::createUuidsNormally();
+
 <a name="method-str-word-count"></a>
-#### `Str::wordCount()` 
+#### `Str::wordCount()`
 
 Метод `Str::wordCount` возвращает число слов в строке:
 
@@ -1406,7 +1465,7 @@ Str::wordCount('Hello, world!'); // 2
 ```
 
 <a name="method-str-word-wrap"></a>
-#### `Str::wordWrap()` 
+#### `Str::wordWrap()`
 
 Метод `Str::wordWrap` переносит строку по заданному количеству символов:
 
@@ -1423,7 +1482,7 @@ Str::wordCount('Hello, world!'); // 2
     */
 
 <a name="method-str-words"></a>
-#### `Str::words()` 
+#### `Str::words()`
 
 Метод `Str::words` ограничивает количество слов в строке. Дополнительная строка может быть передана этому методу через его третий аргумент, чтобы указать, какая строка должна быть добавлена в конец усеченной строки:
 
@@ -1434,7 +1493,7 @@ Str::wordCount('Hello, world!'); // 2
     // Perfectly balanced, as >>>
 
 <a name="method-str-wrap"></a>
-#### `Str::wrap()` 
+#### `Str::wrap()`
 
 Метод `Str::wrap` оборачивает заданную строку дополнительной строкой или парой строк:
 
@@ -1449,7 +1508,7 @@ Str::wordCount('Hello, world!'); // 2
     // This is Laravel!
 
 <a name="method-str"></a>
-#### `str()` 
+#### `str()`
 
 Функция `str` возвращает новый экземпляр `Illuminate\Support\Stringable` для заданной строки. Эта функция эквивалентна методу `Str::of`:
 
@@ -1464,7 +1523,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'foo_bar'
 
 <a name="method-trans"></a>
-#### `trans()` 
+#### `trans()`
 
 Функция `trans` переводит переданный ключ перевода, используя ваши [файлы локализации](/docs/{{version}}/localization):
 
@@ -1473,7 +1532,7 @@ Str::wordCount('Hello, world!'); // 2
 Если указанный ключ перевода не существует, функция `trans` вернет данный ключ. Итак, используя приведенный выше пример, функция `trans` вернет `messages.welcome`, если ключ перевода не существует.
 
 <a name="method-trans-choice"></a>
-#### `trans_choice()` 
+#### `trans_choice()`
 
 Функция `trans_choice` переводит заданный ключ перевода с изменением формы слова:
 
@@ -1487,7 +1546,7 @@ Str::wordCount('Hello, world!'); // 2
 Строки Fluent обеспечивают более гибкий объектно-ориентированный интерфейс для работы со строковыми значениями, позволяя объединять несколько строковых операций вместе с использованием более удобочитаемого синтаксиса по сравнению с традиционными строковыми операциями.
 
 <a name="method-fluent-str-after"></a>
-#### `after` 
+#### `after`
 
 Метод `after` возвращает все после переданного значения в строке. Вся строка будет возвращена, если значение не существует в строке:
 
@@ -1498,7 +1557,7 @@ Str::wordCount('Hello, world!'); // 2
     // ' my name'
 
 <a name="method-fluent-str-after-last"></a>
-#### `afterLast` 
+#### `afterLast`
 
 Метод `afterLast` возвращает все после последнего вхождения переданного значения в строке. Вся строка будет возвращена, если значение не существует в строке:
 
@@ -1509,7 +1568,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'Controller'
 
 <a name="method-fluent-str-apa"></a>
-#### `apa` 
+#### `apa`
 
 Метод `apa` преобразует заданную строку в `Title Case` в соответствии с [правилами APA](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case):
 
@@ -1520,7 +1579,7 @@ Str::wordCount('Hello, world!'); // 2
     // A Nice Title Uses the Correct Case
 
 <a name="method-fluent-str-append"></a>
-#### `append` 
+#### `append`
 
 Метод `append` добавляет указанные значения в строку:
 
@@ -1531,7 +1590,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'Taylor Otwell'
 
 <a name="method-fluent-str-ascii"></a>
-#### `ascii` 
+#### `ascii`
 
 Метод `ascii` попытается транслитерировать строку в значение ASCII:
 
@@ -1542,7 +1601,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'u'
 
 <a name="method-fluent-str-basename"></a>
-#### `basename` 
+#### `basename`
 
 Метод `basename` вернет завершающий компонент имени переданной строки:
 
@@ -1561,7 +1620,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'baz'
 
 <a name="method-fluent-str-before"></a>
-#### `before` 
+#### `before`
 
 Метод `before` возвращает все до указанного значения в строке:
 
@@ -1572,7 +1631,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'This is '
 
 <a name="method-fluent-str-before-last"></a>
-#### `beforeLast` 
+#### `beforeLast`
 
 Метод `beforeLast` возвращает все до последнего вхождения переданного значения в строку:
 
@@ -1583,7 +1642,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'This '
 
 <a name="method-fluent-str-between"></a>
-#### `between` 
+#### `between`
 
 Метод `between` возвращает часть строки между двумя значениями:
 
@@ -1594,7 +1653,7 @@ Str::wordCount('Hello, world!'); // 2
     // ' is my '
 
 <a name="method-fluent-str-between-first"></a>
-#### `betweenFirst` 
+#### `betweenFirst`
 
 Метод `betweenFirst` возвращает наименьший возможный участок строки между двумя значениями:
 
@@ -1605,7 +1664,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'a'
 
 <a name="method-fluent-str-camel"></a>
-#### `camel` 
+#### `camel`
 
 Метод `camel` преобразует переданную строку в` camelCase`:
 
@@ -1616,9 +1675,10 @@ Str::wordCount('Hello, world!'); // 2
     // 'fooBar'
 
 <a name="method-fluent-str-char-at"></a>
-#### `charAt` 
+#### `charAt`
 
 Метод `charAt` возвращает символ по указанному индексу. Если индекс выходит за границы, возвращается значение `false`:
+
     use Illuminate\Support\Str;
 
     $character = Str::of('This is my name.')->charAt(6);
@@ -1626,7 +1686,7 @@ Str::wordCount('Hello, world!'); // 2
     // 's'
 
 <a name="method-fluent-str-class-basename"></a>
-#### `classBasename` 
+#### `classBasename`
 
 Метод `classBasename` возвращает имя класса без пространства имен:
 
@@ -1675,7 +1735,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'http://laravel'
 
 <a name="method-fluent-str-contains"></a>
-#### `contains` 
+#### `contains`
 
 Метод `contains` определяет, содержит ли переданная строка указанное значение. По умолчанию этот метод чувствителен к регистру:
 
@@ -1702,7 +1762,7 @@ Str::wordCount('Hello, world!'); // 2
     // true
 
 <a name="method-fluent-str-contains-all"></a>
-#### `containsAll` 
+#### `containsAll`
 
 Метод `containsAll` определяет, содержит ли переданная строка все значения массива:
 
@@ -1740,7 +1800,7 @@ Str::wordCount('Hello, world!'); // 2
     // The-Laravel-Framework
 
 <a name="method-fluent-str-dirname"></a>
-#### `dirname` 
+#### `dirname`
 
 Метод `dirname` возвращает родительскую часть директории переданной строки:
 
@@ -1759,7 +1819,7 @@ Str::wordCount('Hello, world!'); // 2
     // '/foo'
 
 <a name="method-fluent-str-ends-with"></a>
-#### `endsWith` 
+#### `endsWith`
 
 Метод `endsWith` определяет, заканчивается ли переданная строка указанным значением:
 
@@ -1782,7 +1842,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-exactly"></a>
-#### `exactly` 
+#### `exactly`
 
 Метод `exactly` определяет, является ли переданная строка точным совпадением с другой строкой:
 
@@ -1793,34 +1853,33 @@ Str::wordCount('Hello, world!'); // 2
     // true
 
 <a name="method-fluent-str-excerpt"></a>
-#### `excerpt` 
+#### `excerpt`
 
 Метод `excerpt` извлекает отрывок из заданной строки, соответствующий первому вхождению фразы в эту строку:
 
     use Illuminate\Support\Str;
-    
-    $excerpt = Str::excerpt('This is my name', 'my', [
+
+    $excerpt = Str::of('This is my name')->excerpt('my', [
         'radius' => 3
     ]);
-    
-    // '...is my na...'
 
+    // '...is my na...'
 
 Опция `radius`, по умолчанию равная `100`, позволяет определить количество символов, которые должны появиться с каждой стороны усеченной строки.
 
 Кроме того, вы можете использовать опцию `omission`, чтобы определить строку, которая будет добавлена перед и после усеченной строки:
 
     use Illuminate\Support\Str;
-    
-    $excerpt = Str::excerpt('This is my name', 'name', [
+
+    $excerpt = Str::of('This is my name')->excerpt('name', [
         'radius' => 3,
         'omission' => '(...) '
     ]);
-    
+
     // '(...) my name'
 
 <a name="method-fluent-str-explode"></a>
-#### `explode` 
+#### `explode`
 
 Метод `explode` разделяет строку по заданному разделителю и возвращает коллекцию, содержащую каждый раздел строки разбиения:
 
@@ -1831,7 +1890,7 @@ Str::wordCount('Hello, world!'); // 2
     // collect(['foo', 'bar', 'baz'])
 
 <a name="method-fluent-str-finish"></a>
-#### `finish` 
+#### `finish`
 
 Метод `finish` добавляет один экземпляр указанного значения в переданную строку, если она еще не заканчивается этим значением:
 
@@ -1846,7 +1905,7 @@ Str::wordCount('Hello, world!'); // 2
     // this/string/
 
 <a name="method-fluent-str-headline"></a>
-#### `headline` 
+#### `headline`
 
 Метод `headline` преобразует строки, разделенные регистром, дефисами или подчеркиваниями, в строку с пробелами, где первая буква каждого слова написана заглавной:
 
@@ -1861,18 +1920,31 @@ Str::wordCount('Hello, world!'); // 2
     // Email Notification Sent
 
 <a name="method-fluent-str-inline-markdown"></a>
-#### `inlineMarkdown` 
+#### `inlineMarkdown`
 
 Метод `inlineMarkdown` преобразует Markdown в стиле GitHub в HTML в одну строку с использованием [CommonMark](https://commonmark.thephpleague.com/). Однако, в отличие от метода `markdown`, он не оборачивает весь сгенерированный HTML в блочный элемент:
-    
+
     use Illuminate\Support\Str;
 
     $html = Str::of('**Laravel**')->inlineMarkdown();
 
     // <strong>Laravel</strong>
 
+#### Безопасность markdown
+
+По умолчанию Markdown поддерживает необработанный HTML, который обнажает уязвимости межсайтового скриптинга (XSS) при использовании с необработанным пользовательским вводом. Согласно [документации по безопасности CommonMark](https://commonmark.thephpleague.com/security/), вы можете использовать параметр `html_input` для экранирования или удаления необработанного HTML-кода, а также параметр `allow_unsafe_links`, чтобы указать, разрешать ли небезопасные ссылки. Если вам нужно разрешить некоторый необработанный HTML, вам следует передать скомпилированный Markdown через HTML Purifier:
+
+    use Illuminate\Support\Str;
+
+    Str::of('Inject: <script>alert("Hello XSS!");</script>')->inlineMarkdown([
+        'html_input' => 'strip',
+        'allow_unsafe_links' => false,
+    ]);
+
+    // Inject: alert(&quot;Hello XSS!&quot;);
+
 <a name="method-fluent-str-is"></a>
-#### `is` 
+#### `is`
 
 Метод `is` определяет, соответствует ли переданная строка указанному шаблону. Допускается использование метасимвола подстановки `*`:
 
@@ -1887,7 +1959,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-is-ascii"></a>
-#### `isAscii` 
+#### `isAscii`
 
 Метод `isAscii` определяет, является ли переданная строка строкой ASCII:
 
@@ -1902,7 +1974,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-is-empty"></a>
-#### `isEmpty` 
+#### `isEmpty`
 
 Метод `isEmpty` определяет, является ли переданная строка пустой:
 
@@ -1917,7 +1989,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-is-not-empty"></a>
-#### `isNotEmpty` 
+#### `isNotEmpty`
 
 Метод `isNotEmpty` определяет, является ли переданная строка не пустой:
 
@@ -1932,7 +2004,7 @@ Str::wordCount('Hello, world!'); // 2
     // true
 
 <a name="method-fluent-str-is-json"></a>
-#### `isJson` 
+#### `isJson`
 
 Метод `isJson` определяет, является ли заданная строка допустимым JSON:
 
@@ -1951,7 +2023,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-is-ulid"></a>
-#### `isUlid` 
+#### `isUlid`
 
 Метод `isUlid` определяет, является ли заданная строка ULID:
 
@@ -1966,7 +2038,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-is-url"></a>
-#### `isUrl` 
+#### `isUrl`
 
 Метод `isUrl` определяет, является ли заданная строка URL:
 
@@ -1985,7 +2057,7 @@ Str::wordCount('Hello, world!'); // 2
     $result = Str::of('http://example.com')->isUrl(['http', 'https']);
 
 <a name="method-fluent-str-is-uuid"></a>
-#### `isUuid` 
+#### `isUuid`
 
 Метод `isUuid` определяет, является ли заданная строка UUID:
 
@@ -2000,7 +2072,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-kebab"></a>
-#### `kebab` 
+#### `kebab`
 
 Метод `kebab` преобразует переданную строку в `kebab-case`:
 
@@ -2011,7 +2083,7 @@ Str::wordCount('Hello, world!'); // 2
     // foo-bar
 
 <a name="method-fluent-str-lcfirst"></a>
-#### `lcfirst` 
+#### `lcfirst`
 
 Метод `lcfirst` возвращает заданную строку с первым символом в нижнем регистре:
 
@@ -2022,7 +2094,7 @@ Str::wordCount('Hello, world!'); // 2
     // foo Bar
 
 <a name="method-fluent-str-length"></a>
-#### `length` 
+#### `length`
 
 Метод `length` возвращает длину переданной строки:
 
@@ -2033,7 +2105,7 @@ Str::wordCount('Hello, world!'); // 2
     // 7
 
 <a name="method-fluent-str-limit"></a>
-#### `limit` 
+#### `limit`
 
 Метод `limit` усекает переданную строку до указанной длины:
 
@@ -2056,7 +2128,7 @@ Str::wordCount('Hello, world!'); // 2
     // The quick...
 
 <a name="method-fluent-str-lower"></a>
-#### `lower` 
+#### `lower`
 
 Метод `lower` преобразует переданную строку в нижний регистр:
 
@@ -2067,7 +2139,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'laravel'
 
 <a name="method-fluent-str-markdown"></a>
-#### `markdown` 
+#### `markdown`
 
 Метод `markdown` преобразует Markdown в стиле GitHub в HTML:
 
@@ -2083,8 +2155,21 @@ Str::wordCount('Hello, world!'); // 2
 
     // <h1>Taylor Otwell</h1>
 
+#### Безопасность markdown
+
+По умолчанию Markdown поддерживает необработанный HTML, который обнажает уязвимости межсайтового скриптинга (XSS) при использовании с необработанным пользовательским вводом. Согласно [документации по безопасности CommonMark](https://commonmark.thephpleague.com/security/), вы можете использовать параметр `html_input` для экранирования или удаления необработанного HTML-кода, а также параметр `allow_unsafe_links`, чтобы указать, разрешать ли небезопасные ссылки. Если вам нужно разрешить некоторый необработанный HTML, вам следует передать скомпилированный Markdown через HTML Purifier:
+
+    use Illuminate\Support\Str;
+
+    Str::of('Inject: <script>alert("Hello XSS!");</script>')->markdown([
+        'html_input' => 'strip',
+        'allow_unsafe_links' => false,
+    ]);
+
+    // <p>Inject: alert(&quot;Hello XSS!&quot;);</p>
+
 <a name="method-fluent-str-mask"></a>
-#### `mask` 
+#### `mask`
 
 Метод `mask` маскирует часть строки повторяющимся символом и может использоваться для обфускации сегментов строк, таких как адреса электронной почты и номера телефонов:
 
@@ -2105,7 +2190,7 @@ Str::wordCount('Hello, world!'); // 2
     // tayl**********.com
 
 <a name="method-fluent-str-match"></a>
-#### `match` 
+#### `match`
 
 Метод `match` вернет часть строки, которая соответствует указанному шаблону регулярного выражения:
 
@@ -2120,7 +2205,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'bar'
 
 <a name="method-fluent-str-match-all"></a>
-#### `matchAll` 
+#### `matchAll`
 
 Метод `matchAll` вернет коллекцию, содержащую части строки, которые соответствуют указанному шаблону регулярного выражения:
 
@@ -2141,7 +2226,7 @@ Str::wordCount('Hello, world!'); // 2
 Если совпадений не найдено, будет возвращена пустая коллекция.
 
 <a name="method-fluent-str-is-match"></a>
-#### `isMatch` 
+#### `isMatch`
 
 Метод `isMatch` вернет `true`, если строка соответствует заданному регулярному выражению:
 
@@ -2156,7 +2241,7 @@ Str::wordCount('Hello, world!'); // 2
     // false
 
 <a name="method-fluent-str-new-line"></a>
-#### `newLine` 
+#### `newLine`
 
 Метод `newLine` добавляет символ "конец строки" к строке:
 
@@ -2168,7 +2253,7 @@ Str::wordCount('Hello, world!'); // 2
     //  Framework'
 
 <a name="method-fluent-str-padboth"></a>
-#### `padBoth` 
+#### `padBoth`
 
 Метод `padBoth` оборачивает функцию `str_pad` PHP, заполняя обе стороны строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -2183,7 +2268,7 @@ Str::wordCount('Hello, world!'); // 2
     // '  James   '
 
 <a name="method-fluent-str-padleft"></a>
-#### `padLeft` 
+#### `padLeft`
 
 Метод `padLeft` оборачивает функцию `str_pad` PHP, заполняя левую часть строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -2198,7 +2283,7 @@ Str::wordCount('Hello, world!'); // 2
     // '     James'
 
 <a name="method-fluent-str-padright"></a>
-#### `padRight` 
+#### `padRight`
 
 Метод `padRight` оборачивает функцию `str_pad` PHP, заполняя правую часть строки другой строкой, пока конечная строка не достигнет желаемой длины:
 
@@ -2213,7 +2298,7 @@ Str::wordCount('Hello, world!'); // 2
     // 'James     '
 
 <a name="method-fluent-str-pipe"></a>
-#### `pipe` 
+#### `pipe`
 
 Метод `pipe` позволяет вам преобразовать строку, передав ее текущее значение указанной функции обратного вызова:
 
@@ -2231,9 +2316,10 @@ Str::wordCount('Hello, world!'); // 2
     // 'bar'
 
 <a name="method-fluent-str-plural"></a>
-#### `plural` 
+#### `plural`
 
 Метод `plural` преобразует строку в единственном числе во множественное число. Эта функция поддерживает [любые из языков, поддерживаемых плюрализатором Laravel](/docs/{{version}}/localization#pluralization-language):
+
     use Illuminate\Support\Str;
 
     $plural = Str::of('car')->plural();
@@ -2257,7 +2343,7 @@ Str::wordCount('Hello, world!'); // 2
     // child
 
 <a name="method-fluent-str-position"></a>
-#### `position` 
+#### `position`
 
 Метод `position` возвращает позицию первого вхождения подстроки в строку. Если подстрока не существует внутри строки, возвращается значение `false`:
 
@@ -2272,7 +2358,7 @@ Str::wordCount('Hello, world!'); // 2
     // 7
 
 <a name="method-fluent-str-prepend"></a>
-#### `prepend` 
+#### `prepend`
 
 Метод `prepend` добавляет указанные значения в начало строки:
 
@@ -2283,7 +2369,7 @@ Str::wordCount('Hello, world!'); // 2
     // Laravel Framework
 
 <a name="method-fluent-str-remove"></a>
-#### `remove` 
+#### `remove`
 
 Метод `remove` удаляет указанную подстроку или массив подстрок в строке:
 
@@ -2296,7 +2382,7 @@ Str::wordCount('Hello, world!'); // 2
 Вы можете передать `false` в качестве второго аргумента для игнорирования регистра удаляемых строк.
 
 <a name="method-fluent-str-repeat"></a>
-#### `repeat` 
+#### `repeat`
 
 Метод `repeat` повторяет заданную строку:
 
@@ -2309,7 +2395,7 @@ $repeated = Str::of('a')->repeat(5);
 ```
 
 <a name="method-fluent-str-replace"></a>
-#### `replace` 
+#### `replace`
 
 Метод `replace` заменяет указанную строку внутри строки:
 
@@ -2326,7 +2412,7 @@ $repeated = Str::of('a')->repeat(5);
     );
 
 <a name="method-fluent-str-replace-array"></a>
-#### `replaceArray` 
+#### `replaceArray`
 
 Метод `replaceArray` последовательно заменяет указанное значение в строке, используя массив:
 
@@ -2339,7 +2425,7 @@ $repeated = Str::of('a')->repeat(5);
     // The event will take place between 8:30 and 9:00
 
 <a name="method-fluent-str-replace-first"></a>
-#### `replaceFirst` 
+#### `replaceFirst`
 
 Метод `replaceFirst` заменяет первое вхождение указанного значения в строке:
 
@@ -2350,7 +2436,7 @@ $repeated = Str::of('a')->repeat(5);
     // a quick brown fox jumps over the lazy dog
 
 <a name="method-fluent-str-replace-last"></a>
-#### `replaceLast` 
+#### `replaceLast`
 
 Метод `replaceLast` заменяет последнее вхождение указанного значения в строке:
 
@@ -2361,7 +2447,7 @@ $repeated = Str::of('a')->repeat(5);
     // the quick brown fox jumps over a lazy dog
 
 <a name="method-fluent-str-replace-matches"></a>
-#### `replaceMatches` 
+#### `replaceMatches`
 
 Метод `replaceMatches` заменяет все части строки, соответствующие указанному шаблону, переданной строки:
 
@@ -2382,7 +2468,7 @@ $repeated = Str::of('a')->repeat(5);
     // '[1][2][3]'
 
 <a name="method-fluent-str-replace-start"></a>
-#### `replaceStart` 
+#### `replaceStart`
 
 Метод `replaceStart` заменяет только первое вхождение заданного значения, если значение появляется в начале строки:
 
@@ -2397,7 +2483,7 @@ $repeated = Str::of('a')->repeat(5);
     // Hello World
 
 <a name="method-fluent-str-replace-end"></a>
-#### `replaceEnd` 
+#### `replaceEnd`
 
 Метод `replaceEnd` заменяет только последнее вхождение заданного значения, если значение появляется в конце строки:
 
@@ -2412,7 +2498,7 @@ $repeated = Str::of('a')->repeat(5);
     // Hello World
 
 <a name="method-fluent-str-scan"></a>
-#### `scan` 
+#### `scan`
 
 Метод `scan` анализирует входные данные из строки в коллекцию в соответствии с форматом, поддерживаемым [`sscanf` функцией PHP](https://www.php.net/manual/ru/function.sscanf.php):
 
@@ -2423,7 +2509,7 @@ $repeated = Str::of('a')->repeat(5);
     // collect(['filename', 'jpg'])
 
 <a name="method-fluent-str-singular"></a>
-#### `singular` 
+#### `singular`
 
 Метод `singular` преобразует строку в ее форму единственного числа. Эта функция поддерживает [любые из языков, поддерживаемых плюрализатором Laravel](/docs/{{version}}/localization#pluralization-language):
 
@@ -2438,7 +2524,7 @@ $repeated = Str::of('a')->repeat(5);
     // child
 
 <a name="method-fluent-str-slug"></a>
-#### `slug` 
+#### `slug`
 
 Метод `slug` создает «дружественный фрагмент» URL-адреса из переданной строки:
 
@@ -2449,7 +2535,7 @@ $repeated = Str::of('a')->repeat(5);
     // laravel-framework
 
 <a name="method-fluent-str-snake"></a>
-#### `snake` 
+#### `snake`
 
 Метод `snake` преобразует переданную строку в `snake_case`:
 
@@ -2460,7 +2546,7 @@ $repeated = Str::of('a')->repeat(5);
     // foo_bar
 
 <a name="method-fluent-str-split"></a>
-#### `split` 
+#### `split`
 
 Метод `split` разбивает строку на коллекцию с помощью регулярного выражения:
 
@@ -2471,7 +2557,7 @@ $repeated = Str::of('a')->repeat(5);
     // collect(["one", "two", "three"])
 
 <a name="method-fluent-str-squish"></a>
-#### `squish` 
+#### `squish`
 
 Метод `squish` удаляет все лишние пробелы из строки, включая лишние пробелы между словами:
 
@@ -2482,7 +2568,7 @@ $repeated = Str::of('a')->repeat(5);
     // laravel framework
 
 <a name="method-fluent-str-start"></a>
-#### `start` 
+#### `start`
 
 Метод `start` добавляет один экземпляр указанного значения в переданную строку, если она еще не начинается этим значением:
 
@@ -2497,7 +2583,7 @@ $repeated = Str::of('a')->repeat(5);
     // /this/string
 
 <a name="method-fluent-str-starts-with"></a>
-#### `startsWith` 
+#### `startsWith`
 
 Метод `startsWith` определяет, начинается ли переданная строка с указанного значения:
 
@@ -2508,7 +2594,7 @@ $repeated = Str::of('a')->repeat(5);
     // true
 
 <a name="method-fluent-str-strip-tags"></a>
-#### `stripTags` 
+#### `stripTags`
 
 Метод `stripTags` удаляет все HTML- и PHP-теги из строки:
 
@@ -2523,7 +2609,7 @@ $repeated = Str::of('a')->repeat(5);
     // Taylor <b>Otwell</b>
 
 <a name="method-fluent-str-studly"></a>
-#### `studly` 
+#### `studly`
 
 Метод `studly` преобразует переданную строку в `StudlyCase`:
 
@@ -2534,7 +2620,7 @@ $repeated = Str::of('a')->repeat(5);
     // FooBar
 
 <a name="method-fluent-str-substr"></a>
-#### `substr` 
+#### `substr`
 
 Метод `substr` возвращает часть строки, заданную параметрами «начало» и «длина»:
 
@@ -2549,7 +2635,7 @@ $repeated = Str::of('a')->repeat(5);
     // Frame
 
 <a name="method-fluent-str-substrreplace"></a>
-#### `substrReplace` 
+#### `substrReplace`
 
 Метод `substrReplace` заменяет текст в части строки, начиная с позиции, указанной третьим аргументом, и заменяет число символов, указанное четвертым аргументом. Передав 0 четвертым аргументом в метод, строка будет вставлена в указанную позицию без замены каких-либо существующих символов в строке:
 
@@ -2564,7 +2650,7 @@ $repeated = Str::of('a')->repeat(5);
     // The Laravel Framework
 
 <a name="method-fluent-str-swap"></a>
-#### `swap` 
+#### `swap`
 
 Метод `swap` заменяет несколько значений в строке с использованием функции `strtr` PHP:
 
@@ -2579,7 +2665,7 @@ $repeated = Str::of('a')->repeat(5);
     // Burritos are fantastic!
 
 <a name="method-fluent-str-take"></a>
-#### `take` 
+#### `take`
 
 Метод `take` возвращает указанное количество символов из начала строки:
 
@@ -2590,7 +2676,7 @@ $repeated = Str::of('a')->repeat(5);
     // Build
 
 <a name="method-fluent-str-tap"></a>
-#### `tap` 
+#### `tap`
 
 Метод `tap` передает строку заданному замыканию, позволяя вам взаимодействовать с ней, не затрагивая при этом саму строку. Исходная строка возвращается методом `tap` независимо от того, что возвращает замыкание:
 
@@ -2607,7 +2693,7 @@ $repeated = Str::of('a')->repeat(5);
     // LARAVEL FRAMEWORK
 
 <a name="method-fluent-str-test"></a>
-#### `test` 
+#### `test`
 
 Метод `test` определяет, соответствует ли строка переданному шаблону регулярного выражения:
 
@@ -2618,7 +2704,7 @@ $repeated = Str::of('a')->repeat(5);
     // true
 
 <a name="method-fluent-str-title"></a>
-#### `title` 
+#### `title`
 
 Метод `title` преобразует переданную строку в `Title Case`:
 
@@ -2629,7 +2715,7 @@ $repeated = Str::of('a')->repeat(5);
     // A Nice Title Uses The Correct Case
 
 <a name="method-fluent-str-to-base64"></a>
-#### `toBase64()` {.collection-method}
+#### `toBase64()`
 
 Метод `toBase64` преобразует переданную строку в Base64:
 
@@ -2651,7 +2737,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'test@laravel.com'
 
 <a name="method-fluent-str-trim"></a>
-#### `trim` 
+#### `trim`
 
 Метод `trim` обрезает переданную строку. В отличие от встроенной функции PHP `trim`, метод `trim` в Laravel также удаляет пробельные символы Юникода:
 
@@ -2696,7 +2782,7 @@ $repeated = Str::of('a')->repeat(5);
     // '/Laravel'
 
 <a name="method-fluent-str-ucfirst"></a>
-#### `ucfirst` 
+#### `ucfirst`
 
 Метод `ucfirst` возвращает переданную строку с первой заглавной буквой:
 
@@ -2707,7 +2793,7 @@ $repeated = Str::of('a')->repeat(5);
     // Foo bar
 
 <a name="method-fluent-str-ucsplit"></a>
-#### `ucsplit` 
+#### `ucsplit`
 
 Метод `upper` преобразует переданную строку в верхний регистр:
 
@@ -2718,7 +2804,7 @@ $repeated = Str::of('a')->repeat(5);
     // collect(['Foo', 'Bar'])
 
 <a name="method-fluent-str-unwrap"></a>
-#### `unwrap` 
+#### `unwrap`
 
 Метод `unwrap` удаляет указанные строки из начала и конца заданной строки:
 
@@ -2733,7 +2819,7 @@ $repeated = Str::of('a')->repeat(5);
     // framework: "Laravel"
 
 <a name="method-fluent-str-upper"></a>
-#### `upper` 
+#### `upper`
 
 Метод `upper` преобразует заданную строку в верхний регистр:
 
@@ -2744,7 +2830,7 @@ $repeated = Str::of('a')->repeat(5);
     // LARAVEL
 
 <a name="method-fluent-str-when"></a>
-#### `when` 
+#### `when`
 
 Метод `when` вызывает указанное замыкание, если переданное условие истинно. Замыкание получит экземпляр Fluent:
 
@@ -2761,7 +2847,7 @@ $repeated = Str::of('a')->repeat(5);
 При необходимости вы можете передать другое замыкание в качестве третьего параметра методу `when`. Это замыкание будет выполнено, если параметр условия оценивается как `false`.
 
 <a name="method-fluent-str-when-contains"></a>
-#### `whenContains` 
+#### `whenContains`
 
 Метод `whenContains` вызывает данное замыкание, если строка содержит заданное значение. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2790,7 +2876,7 @@ $repeated = Str::of('a')->repeat(5);
     // Tony Stark
 
 <a name="method-fluent-str-when-contains-all"></a>
-#### `whenContainsAll` 
+#### `whenContainsAll`
 
 Метод `whenContainsAll` вызывает данное замыкание, если строка содержит все заданные подстроки. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2807,7 +2893,7 @@ $repeated = Str::of('a')->repeat(5);
 При необходимости вы можете передать другое замыкание в качестве третьего параметра метода `when`. Это замыкание будет выполнено, если параметр условия оценивается как `false`.
 
 <a name="method-fluent-str-when-empty"></a>
-#### `whenEmpty` 
+#### `whenEmpty`
 
 Метод `whenEmpty` вызывает переданное замыкание, если строка пуста. Если замыкание возвращает значение, то это значение будет возвращено методом `whenEmpty`. Если замыкание не возвращает значение, будет возвращен экземпляр Fluent:
 
@@ -2821,7 +2907,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Laravel'
 
 <a name="method-fluent-str-when-not-empty"></a>
-#### `whenNotEmpty` 
+#### `whenNotEmpty`
 
 Метод `whenNotEmpty` вызывает данное замыкание, если строка не пуста. Если замыкание возвращает значение, это значение также будет возвращено методом `whenNotEmpty`. Если замыкание не возвращает значение, будет возвращен экземпляр класса `Stringable`:
 
@@ -2835,7 +2921,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Laravel Framework'
 
 <a name="method-fluent-str-when-starts-with"></a>
-#### `whenStartsWith` 
+#### `whenStartsWith`
 
 Метод `whenStartsWith` вызывает данное замыкание, если строка начинается с данной подстроки. Замыкание получит свободный экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2849,7 +2935,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Disney World'
 
 <a name="method-fluent-str-when-ends-with"></a>
-#### `whenEndsWith` 
+#### `whenEndsWith`
 
 Метод `whenEndsWith` вызывает данное замыкание, если строка заканчивается заданной подстрокой. Замыкание получит свободный экземпляр строки:
 
@@ -2863,7 +2949,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Disney World'
 
 <a name="method-fluent-str-when-exactly"></a>
-#### `whenExactly` 
+#### `whenExactly`
 
 Метод `whenExactly` вызывает данное замыкание, если строка точно соответствует заданной строке. Закрытие получит свободный экземпляр строки:
 
@@ -2877,7 +2963,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Laravel'
 
 <a name="method-fluent-str-when-not-exactly"></a>
-#### `whenNotExactly` 
+#### `whenNotExactly`
 
 Метод `whenExactly` вызывает данное замыкание, если строка не соответствует заданной строке. Закрытие получит свободный экземпляр строки:
 
@@ -2891,7 +2977,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Framework'
 
 <a name="method-fluent-str-when-is"></a>
-#### `whenIs` 
+#### `whenIs`
 
 Метод `whenIs` вызывает данное замыкание, если строка соответствует заданному шаблону. Звездочки могут использоваться в качестве подстановочных знаков. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2905,7 +2991,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'foo/bar/baz'
 
 <a name="method-fluent-str-when-is-ascii"></a>
-#### `whenIsAscii` 
+#### `whenIsAscii`
 
 Метод `whenIsAscii` вызывает данное замыкание, если строка представляет собой 7-битный ASCII. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2919,7 +3005,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Laravel'
 
 <a name="method-fluent-str-when-is-ulid"></a>
-#### `whenIsUlid` 
+#### `whenIsUlid`
 
 Метод `whenIsUlid` вызывает заданное замыкание, если строка является допустимым ULID. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2932,7 +3018,7 @@ $repeated = Str::of('a')->repeat(5);
     // '01gd6r36'
 
 <a name="method-fluent-str-when-is-uuid"></a>
-#### `whenIsUuid` 
+#### `whenIsUuid`
 
 Метод `whenIsUuid` вызывает данное замыкание, если строка является допустимым UUID. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2946,7 +3032,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'a0a2a2d2'
 
 <a name="method-fluent-str-when-test"></a>
-#### `whenTest` 
+#### `whenTest`
 
 Метод `whenTest` вызывает данное замыкание, если строка соответствует заданному регулярному выражению. Замыкание получит экземпляр класса `Stringable` в качестве аргумента:
 
@@ -2960,7 +3046,7 @@ $repeated = Str::of('a')->repeat(5);
     // 'Laravel Framework'
 
 <a name="method-fluent-str-word-count"></a>
-#### `wordCount` 
+#### `wordCount`
 
 Метод `wordCount` возвращает число слов в строке:
 
@@ -2971,7 +3057,7 @@ Str::of('Hello, world!')->wordCount(); // 2
 ```
 
 <a name="method-fluent-str-words"></a>
-#### `words` 
+#### `words`
 
 Метод `words` ограничивает количество слов в строке. Дополнительная строка может быть передана этому методу, чтобы указать, какая строка должна быть добавлена в конец усеченной строки:
 
