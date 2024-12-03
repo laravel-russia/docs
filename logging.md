@@ -4,7 +4,6 @@ git: 7102a2df101517a6388a4280485eafda00d0f28d
 
 # Логирование
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -38,7 +37,7 @@ git: 7102a2df101517a6388a4280485eafda00d0f28d
 | `stack`      | Обертка для облегчения создания «многоканальных» каналов.                      |
 | `syslog`     | Драйвер Monolog на основе `SyslogHandler`.                                     |
 
-> [!NOTE] 
+> [!NOTE]
 > Ознакомьтесь с документацией по [продвинутой кастомизации каналов](#monolog-channel-customization), чтобы узнать больше о драйверах `monolog` и `custom`.
 
 <a name="configuring-the-channel-name"></a>
@@ -179,14 +178,11 @@ PHP, Laravel и другие библиотеки часто уведомляю�
     use App\Models\User;
     use Illuminate\Support\Facades\Log;
     use Illuminate\View\View;
-    
+
     class UserController extends Controller
     {
         /**
          * Показать профиль конкретного пользователя.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
          */
         public function show(string $id): View
         {
@@ -218,15 +214,12 @@ PHP, Laravel и другие библиотеки часто уведомляю�
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Str;
     use Symfony\Component\HttpFoundation\Response;
-    
+
     class AssignRequestId
     {
         /**
          * Обработчик входящего запроса .
          *
-         * @param  \Illuminate\Http\Request  $request
-         * @param  \Closure  $next
-         * @return mixed
          * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
          */
         public function handle(Request $request, Closure $next): Response
@@ -255,10 +248,11 @@ PHP, Laravel и другие библиотеки часто уведомляю�
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Str;
+    use Symfony\Component\HttpFoundation\Response;
 
     class AssignRequestId
     {
-         /**
+        /**
          * Handle an incoming request.
          *
          * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
@@ -337,7 +331,7 @@ PHP, Laravel и другие библиотеки часто уведомляю�
     <?php
 
     namespace App\Logging;
-    
+
     use Illuminate\Log\Logger;
     use Monolog\Formatter\LineFormatter;
 
@@ -345,9 +339,6 @@ PHP, Laravel и другие библиотеки часто уведомляю�
     {
         /**
          * Настроить переданный экземпляр регистратора.
-         *
-         * @param  \Illuminate\Log\Logger  $logger
-         * @return void
          */
         public function __invoke(Logger $logger): void
         {
@@ -359,7 +350,7 @@ PHP, Laravel и другие библиотеки часто уведомляю�
         }
     }
 
-> [!NOTE]  
+> [!NOTE]
 > Все ваши классы «tap» извлекаются через [контейнер служб](/docs/{{version}}/container), поэтому любые зависимости конструктора, которые им требуются, будут автоматически внедрены.
 
 <a name="creating-monolog-handler-channels"></a>
@@ -449,9 +440,6 @@ Monolog также может обрабатывать сообщения пер
     {
         /**
          * Создать экземпляр собственного регистратора Monolog.
-         *
-         * @param  array  $config
-         * @return \Monolog\Logger
          */
         public function __invoke(array $config): Logger
         {
@@ -473,6 +461,7 @@ Laravel Pail - это пакет, который позволяет вам ле�
 
 > [!WARNING]
 > Laravel Pail поддерживает [PHP 8.2+](https://php.net/releases/) и расширение [PCNTL](https://www.php.net/manual/en/book.pcntl.php).
+
 Чтобы начать работу, установите Pail в свой проект с помощью менеджера пакетов Composer:
 
 ```bash
