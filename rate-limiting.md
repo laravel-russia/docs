@@ -44,16 +44,14 @@ Laravel включает простую в использовании абстр
 
 При необходимости, вы можете добавить четвёртый аргумент к методу `attempt`, который представляет собой "скорость сброса", или количество секунд до обновления количества доступных попыток. К примеру, мы можем изменить вышеуказанный пример так, чтобы разрешить пять попыток каждые две минуты:
 
-```php
-$executed = RateLimiter::attempt(
-    'send-message:'.$user->id,
-    $perTwoMinutes = 5,
-    function() {
-        // Отправить сообщение...
-    },
-    $decaySeconds = 120
-);
-```
+    $executed = RateLimiter::attempt(
+        'send-message:'.$user->id,
+        $perTwoMinutes = 5,
+        function() {
+            // Отправить сообщение...
+        },
+        $decayRate = 120,
+    );
 
 <a name="manually-incrementing-attempts"></a>
 ### Ручное увеличение числа попыток
@@ -79,10 +77,6 @@ $executed = RateLimiter::attempt(
 
         // Send message...
     }
-
-    RateLimiter::increment('send-message:'.$user->id);
-
-    // Send message...
 
 Если вы хотите увеличить значение для определенного ключа более чем на единицу, вы можете указать желаемое число для метода `increment`:
 
@@ -119,8 +113,8 @@ $executed = RateLimiter::attempt(
     public function read(Message $message): Message
     {
         $message->markAsRead();
-        
+
         RateLimiter::clear('send-message:'.$message->user_id);
-        
+
         return $message;
     }
