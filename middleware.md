@@ -4,7 +4,6 @@ git: 85faadde4f004298773a1e0e8f0d53ae47430c77
 
 # Посредники (middleware)
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -52,7 +51,7 @@ php artisan make:middleware EnsureTokenIsValid
 
 Лучше всего представить себе посредников как серию «слоев» для HTTP-запроса, которые необходимо пройти, прежде чем запрос попадет в ваше приложение. Каждый слой может рассмотреть запрос и даже полностью отклонить его.
 
-> [!NOTE]  
+> [!NOTE]
 > Все посредники извлекаются из [контейнера служб](/docs/{{version}}/container), поэтому вы можете объявить необходимые вам зависимости в конструкторе посредника.
 
 <a name="middleware-and-responses"></a>
@@ -140,11 +139,10 @@ php artisan make:middleware EnsureTokenIsValid
 Если вы хотите назначить посредника (middleware) для определенных маршрутов, вы можете использовать метод `middleware` при определении маршрута:
 
     use App\Http\Middleware\EnsureTokenIsValid;
-    
+
     Route::get('/profile', function () {
         // ...
     })->middleware(EnsureTokenIsValid::class);
-
 
 Вы также можете назначить несколько middleware для маршрута, передав массив имен в метод `middleware`:
 
@@ -282,7 +280,7 @@ Laravel включает в себя предопределенные групп
         ]);
     })
 
-> [!NOTE]  
+> [!NOTE]
 > По умолчанию группы посредников `web` и `api` автоматически применяются к соответствующим файлам `routes/web.php` и `routes/api.php` вашего приложения с помощью файла `bootstrap/app.php`.
 
 <a name="middleware-aliases"></a>
@@ -368,7 +366,7 @@ Laravel включает в себя предопределенные групп
         public function handle(Request $request, Closure $next, string $role): Response
         {
             if (! $request->user()->hasRole($role)) {
-                // Перенаправление ...
+                // Перенаправление...
             }
 
             return $next($request);
@@ -376,7 +374,7 @@ Laravel включает в себя предопределенные групп
 
     }
 
-Параметры посредника можно указать при определении маршрута, разделив имя посредника и параметры символом `:`. 
+Параметры посредника можно указать при определении маршрута, разделив имя посредника и параметры символом `:`.
 
     use App\Http\Middleware\EnsureUserHasRole;
 
