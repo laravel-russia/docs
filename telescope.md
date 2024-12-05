@@ -4,7 +4,6 @@ git: bc56f6d5ad4a2d76cad5429426cb294b055b165d
 
 # Пакет Laravel Telescope
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -177,6 +176,7 @@ php artisan telescope:publish
 В то время как замыкание метода `filter` фильтрует данные для отдельных записей, вы можете использовать метод `filterBatch` для регистрации замыкания, которое фильтрует все данные для текущего запроса или консольной команды. Если замыкание возвращает `true`, то все записи будут записаны Telescope:
 
     use Illuminate\Support\Collection;
+    use Laravel\Telescope\IncomingEntry;
     use Laravel\Telescope\Telescope;
 
     /**
@@ -267,17 +267,6 @@ Telescope позволяет искать записи по «метке». Ча
         ...
     ],
 
-По умолчанию Telescope будет записывать только журналы на уровне `error` и выше. Однако вы можете изменить параметр `level` в файле конфигурации вашего приложения `config/telescope.php`, чтобы изменить это поведение:
-
-    'watchers' => [
-        Watchers\LogWatcher::class => [
-            'enabled' => env('TELESCOPE_LOG_WATCHER', true),
-            'level' => 'debug',
-        ],
-
-        // ...
-    ],
-
 <a name="dump-watcher"></a>
 ### Наблюдатель Dump
 
@@ -320,6 +309,17 @@ Telescope позволяет искать записи по «метке». Ча
 ### Наблюдатель Log
 
 Наблюдатель записывает данные всех [журналов](/docs/{{version}}/logging), созданных вашим приложением.
+
+По умолчанию Telescope будет записывать только журналы на уровне `error` и выше. Однако вы можете изменить параметр `level` в файле конфигурации вашего приложения `config/telescope.php`, чтобы изменить это поведение:
+
+    'watchers' => [
+        Watchers\LogWatcher::class => [
+            'enabled' => env('TELESCOPE_LOG_WATCHER', true),
+            'level' => 'debug',
+        ],
+
+        // ...
+    ],
 
 <a name="mail-watcher"></a>
 ### Наблюдатель Mail
