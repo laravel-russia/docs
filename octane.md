@@ -27,7 +27,7 @@ php artisan octane:install
 <a name="server-prerequisites"></a>
 ## Требования к серверу
 
-> [!WARNING]  
+> [!WARNING]
 > Laravel Octane требует [PHP 8.1+](https://php.net/releases/).
 
 <a name="frankenphp"></a>
@@ -36,7 +36,6 @@ php artisan octane:install
 [FrankenPHP](https://frankenphp.dev) — это сервер приложений PHP, написанный на Go, который поддерживает современные веб-функции, такие как ранние подсказки, Brotli и сжатие Zstandard. Когда вы устанавливаете Octane и выбираете FrankenPHP в качестве сервера, Octane автоматически загрузит и установит для вас двоичный файл FrankenPHP.
 
 <a name="frankenphp-via-laravel-sail"></a>
-
 #### FrankenPHP через Laravel Sail
 
 Если вы планируете разрабатывать ваше приложение, используя [Laravel Sail](/docs/{{version}}/sail), вы должны выполнить следующие команды для установки Octane и FrankenPHP:
@@ -68,16 +67,16 @@ services:
 
 ```yaml
 services:
-    laravel.test:
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-            - '443:443' # [tl! add]
-            - '443:443/udp' # [tl! add]
-        environment:
-            SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --host=localhost --port=443 --admin-port=2019 --https" # [tl! add]
-            XDG_CONFIG_HOME:  /var/www/html/config # [tl! add]
-            XDG_DATA_HOME:  /var/www/html/data # [tl! add]
+  laravel.test:
+    ports:
+        - '${APP_PORT:-80}:80'
+        - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        - '443:443' # [tl! add]
+        - '443:443/udp' # [tl! add]
+    environment:
+      SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --host=localhost --port=443 --admin-port=2019 --https" # [tl! add]
+      XDG_CONFIG_HOME:  /var/www/html/config # [tl! add]
+      XDG_DATA_HOME:  /var/www/html/data # [tl! add]
 ```
 
 Обычно следует получать доступ к вашему приложению через `https://localhost`, так как использование `https://127.0.0.1` требует дополнительной конфигурации и не рекомендуется.
@@ -185,7 +184,7 @@ pecl install openswoole
 <a name="swoole-via-laravel-sail"></a>
 #### Swoole через Laravel Sail
 
-> [!WARNING]  
+> [!WARNING]
 > Перед обслуживанием приложения Octane через Sail убедитесь, что у вас установлена последняя версия [Laravel Sail](/docs/{{version}}/sail), и выполните `./vendor/bin/sail build --no-cache` в корневом каталоге вашего приложения.
 
 В качестве альтернативы вы можете разработать приложение Octane на основе Swoole, используя [Laravel Sail](/docs/{{version}}/sail), официальную среду разработки на основе Docker для Laravel. Laravel Sail по умолчанию включает расширение Swoole. Однако вам все равно нужно будет настроить файл `docker-compose.yml`, используемый Sail.
@@ -201,7 +200,7 @@ services:
 
 Наконец, создайте свои образы Sail:
 
-```bash
+```shell
 ./vendor/bin/sail build --no-cache
 ```
 
@@ -387,6 +386,7 @@ Octane будет автоматически обрабатывать сброс
 
 ```php
 use App\Service;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * Регистрирует сервисы приложения.
@@ -593,6 +593,7 @@ Octane::tick('simple-ticker', fn () => ray('Ticking...'))
 ```php
 Cache::store('octane')->put('framework', 'Laravel', 30);
 ```
+
 > [!NOTE]
 > Максимальное количество записей, разрешенных в кэше Octane, может быть определено в файле конфигурации вашего приложения `octane`.
 
