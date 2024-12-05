@@ -4,7 +4,6 @@ git: 9f36b02f2c2968ad2c6945df79d9eaf31dfdd224
 
 # Тестирование · Начало работы
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -26,19 +25,14 @@ Laravel построен с учетом требований тестирова
 <a name="the-env-testing-environment-file"></a>
 #### Переменная окружения `.env.testing`
 
-Кроме того, вы можете создать файл `.env.testing` в корне вашего проекта. Этот файл будет использоваться вместо `.env` при запуске тестов PHPUnit или выполнении команд Artisan с параметром `--env=testing`.
-
-<a name="the-creates-application-trait"></a>
-#### Трейт `CreatesApplication`
-
-Laravel содержит трейт `CreatesApplication`, который применяется к базовому классу `TestCase` вашего приложения. Этот трейт содержит метод `createApplication`, который загружает приложение Laravel перед запуском ваших тестов. Важно, чтобы вы оставили этот трейт в его исходном месте, так как от него зависит некоторый функционал, например, функционал параллельного тестирования Laravel.
+Кроме того, вы можете создать файл `.env.testing` в корне вашего проекта. Этот файл будет использоваться вместо файла `.env` при запуске тестов Pest и PHPUnit или выполнении команд Artisan с опцией --env=testing.
 
 <a name="creating-tests"></a>
 ## Создание тестов
 
 Чтобы сгенерировать новый тест, используйте [Artisan](artisan)-команду `make:test`. Эта команда поместит новый класс теста в каталог `tests/Feature` вашего приложения:
 
- ```shell
+```shell
 php artisan make:test UserTest
 ```
 
@@ -48,34 +42,37 @@ php artisan make:test UserTest
 php artisan make:test UserTest --unit
 ```
 
-Если вы хотите создать тест [Pest PHP](https://pestphp.com), вы можете указать параметр `--pest` для команды `make:test`:
+> [!NOTE]
+> Тестовые заглушки можно настроить с помощью [публикации заготовок](/docs/{{version}}/artisan#stub-customization).
 
-```shell
-php artisan make:test UserTest --pest
-php artisan make:test UserTest --unit --pest
+После создания теста вы можете определить его, как обычно, используя Pest или PHPUnit. Чтобы запустить тесты, выполните команду `vendor/bin/pest`, `vendor/bin/phpunit` или `php artisan test` со своего терминала:
+
+```php tab=Pest
+<?php
+
+test('basic', function () {
+    expect(true)->toBeTrue();
+});
 ```
 
-> [!NOTE]
-> Заготовки тестов можно настроить с помощью [публикации заготовок](artisan#stub-customization).
+```php tab=PHPUnit
+<?php
 
-После того как тест был сгенерирован, вы можете определить методы тестирования, как обычно, используя [PHPUnit](https://phpunit.de). Чтобы запустить ваши тесты, выполните команду `vendor/bin/phpunit` или `php artisan test` из вашего терминала:
+namespace Tests\Unit;
 
-    <?php
+use PHPUnit\Framework\TestCase;
 
-    namespace Tests\Unit;
-
-    use PHPUnit\Framework\TestCase;
-
-    class ExampleTest extends TestCase
+class ExampleTest extends TestCase
+{
+    /**
+     * A basic test example.
+     */
+    public function test_basic_test(): void
     {
-        /**
-         * Отвлеченный пример модульного теста.
-         */
-        public function test_basic_test(): void
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertTrue(true);
     }
+}
+```
 
 > [!WARNING]
 > Если вы определяете свои собственные методы `setUp` / `tearDown` в тестовом классе, обязательно вызывайте соответствующие методы `parent::setUp()` / `parent::tearDown()` родительского класса. Обычно вы должны вызывать `parent::setUp()` в начале своего собственного метода `setUp`, а `parent::tearDown()` в конце вашего метода `tearDown`.
@@ -105,7 +102,6 @@ php artisan test
 php artisan test --testsuite=Feature --stop-on-failure
 ```
 
-<!--  -->
 <a name="running-tests-in-parallel"></a>
 ### Параллельное выполнение тестов
 
@@ -123,7 +119,7 @@ php artisan test --parallel
 php artisan test --parallel --processes=4
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > При параллельном запуске тестов некоторые параметры PHPUnit (такие, как `--do-not-cache-result`) могут быть недоступны.
 
 <a name="parallel-testing-and-databases"></a>
@@ -168,7 +164,7 @@ php artisan test --parallel --recreate-databases
                 // ...
             });
 
-            // Выполнится при создании тестовой базы данных ...
+            // Выполнится при создании тестовой базы данных...
             ParallelTesting::setUpTestDatabase(function (string $database, int $token) {
                 Artisan::call('db:seed');
             });
@@ -193,7 +189,7 @@ php artisan test --parallel --recreate-databases
 <a name="reporting-test-coverage"></a>
 ### Отчет о покрытии тестами
 
-> [!WARNING]  
+> [!WARNING]
 > Для использования этой функции требуется [Xdebug](https://xdebug.org) или [PCOV](https://pecl.php.net/package/pcov).
 
 При запуске тестов вашего приложения вам может потребоваться определить, действительно ли ваши тесты охватывают код приложения и насколько много кода приложения используется при выполнении ваших тестов. Для этого вы можете использовать опцию `--coverage` при вызове команды `test`:
@@ -205,8 +201,7 @@ php artisan test --coverage
 <a name="enforcing-a-minimum-coverage-threshold"></a>
 #### Установка минимального порога покрытия
 
-Вы можете использовать опцию `--min`, чтобы задать минимальный порог покрытия тестами для вашего приложения.
-Процесс завершит выполнение с ошибкой, если этот порог не будет достигнут:
+Вы можете использовать опцию `--min`, чтобы задать минимальный порог покрытия тестами для вашего приложения. Процесс завершит выполнение с ошибкой, если этот порог не будет достигнут:
 
 ```shell
 php artisan test --coverage --min=80.3
