@@ -4,7 +4,6 @@ git: 7bc9d62c85d5195d61e62e2d1ae403afa511c80d
 
 # HTML-шаблоны
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -126,7 +125,7 @@ php artisan make:view greeting
          */
         public function register(): void
         {
-            //
+            // ...
         }
 
         /**
@@ -154,6 +153,7 @@ php artisan make:view greeting
     use App\View\Composers\ProfileComposer;
     use Illuminate\Support\Facades;
     use Illuminate\Support\ServiceProvider;
+    use Illuminate\View\View;
 
     class AppServiceProvider extends ServiceProvider
     {
@@ -170,10 +170,10 @@ php artisan make:view greeting
          */
         public function boot(): void
         {
-            // Использование компоновщиков на основе классов ...
+            // Использование компоновщиков на основе классов...
             Facades\View::composer('profile', ProfileComposer::class);
 
-            // Использование анонимных компоновщиков ...
+            // Использование анонимных компоновщиков...
             Facades\View::composer('welcome', function (View $view) {
                 // ...
             });
@@ -183,7 +183,6 @@ php artisan make:view greeting
             });
         }
     }
-
 
 Теперь, когда мы зарегистрировали компоновщик, метод `compose` класса `App\View\Composers\ProfileComposer` будет выполняться каждый раз, когда отрисовывается шаблон профиля. Давайте посмотрим на пример класса компоновщика:
 
