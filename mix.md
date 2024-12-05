@@ -4,7 +4,6 @@ git: 46c2634ef5a4f15427c94a3157b626cf5bd3937f
 
 # Laravel Mix
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -16,6 +15,8 @@ git: 46c2634ef5a4f15427c94a3157b626cf5bd3937f
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css');
 ```
+
+Если вы когда-либо были сбиты с толку и не знали, как начать работу с веб-пакетом и компиляцией ресурсов, вам понравится Laravel Mix. Однако вам не обязательно использовать его при разработке приложения; вы можете использовать любой инструмент конвейера активов, который пожелаете, или даже не использовать его вообще.
 
 > [!NOTE]
 > В новых установках Laravel, Vite заменил Laravel Mix. Для просмотра документации по Mix, пожалуйста, посетите [официальный сайт Laravel Mix](https://laravel-mix.com/). Если вы хотите перейти на Vite, пожалуйста, ознакомьтесь с нашим [руководством по миграции на Vite](https://github.com/laravel/vite-plugin/blob/main/UPGRADE.md#migrating-from-laravel-mix-to-vite).
