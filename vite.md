@@ -4,16 +4,16 @@ git: f6715ca87507f0e5f8dc2ed862e0d47743359504
 
 # Сборка ресурсов (Vite)
 
+<a name="introduction"></a>
 ## Введение
 
 [Vite](https://vitejs.dev) - это современный инструмент сборки фронтенда, который обеспечивает чрезвычайно быстрое окружение разработки и собирает ваш код для продакшена. При создании приложений с использованием Laravel вы обычно используете Vite для сборки файлов CSS и JavaScript вашего приложения в готовые к продакшену ресурсы.
 
 Laravel интегрируется с Vite без проблем, предоставляя официальный плагин и директиву Blade для загрузки ваших ресурсов как для разработки, так и для продакшена.
 
-> [!NOTE]  
+> [!NOTE]
 > Вы используете Laravel Mix? Vite заменил Laravel Mix в новых установках Laravel. Для документации по Mix посетите веб-сайт [Laravel Mix](https://laravel-mix.com/). Если вы хотите перейти на Vite, ознакомьтесь с нашим [руководством по миграции](https://github.com/laravel/vite-plugin/blob/main/UPGRADE.md#migrating-from-laravel-mix-to-vite).
 
-<a name="vite-or-mix"></a>
 <a name="vite-or-mix"></a>
 #### Выбор между Vite и Laravel Mix
 
@@ -29,7 +29,7 @@ Vite также хорошо работает с традиционными пр
 <a name="installation"></a>
 ## Установка и настройка
 
-> [!NOTE]  
+> [!NOTE]
 > В следующей документации рассматривается процесс ручной установки и настройки плагина Laravel Vite. Однако стартовые комплекты Laravel уже включают в себя всю эту структуру и являются самым быстрым способом начать работу с Laravel и Vite.
 
 <a name="installing-node"></a>
@@ -169,6 +169,7 @@ export default defineConfig({
 ```
 
 Если изменения в файлах не отображаются в браузере при запущенном сервере разработки, вам также может потребоваться настроить опцию [`server.watch.usePolling`](https://vitejs.dev/config/server-options.html#server-watch) в Vite.
+
 <a name="loading-your-scripts-and-styles"></a>
 ### Загрузка ваших скриптов и стилей
 
@@ -299,16 +300,16 @@ export default defineConfig({
         vue({
             template: {
                 transformAssetUrls: {
-                    // Плагин Vue перепишет URL-адреса ресурсов, когда они 
-                    // будут использоваться в однофайловых компонентах, 
-                    // чтобы указывать на веб-сервер Laravel. Установка этого 
-                    // значения в `null` позволяет вместо этого плагину Laravel 
+                    // Плагин Vue перепишет URL-адреса ресурсов, когда они
+                    // будут использоваться в однофайловых компонентах,
+                    // чтобы указывать на веб-сервер Laravel. Установка этого
+                    // значения в `null` позволяет вместо этого плагину Laravel
                     // переписывать URL-адреса ресурсов, чтобы они указывали на сервер Vite.
                     base: null,
 
-                    // Плагин Vue будет анализировать абсолютные URL-адреса и рассматривать 
-                    // их как абсолютные пути к файлам на диске. Установка этого значения в 
-                    // `false` оставит абсолютные URL-адреса нетронутыми, чтобы они могли 
+                    // Плагин Vue будет анализировать абсолютные URL-адреса и рассматривать
+                    // их как абсолютные пути к файлам на диске. Установка этого значения в
+                    // `false` оставит абсолютные URL-адреса нетронутыми, чтобы они могли
                     // ссылаться на ресурсы в папке public, как ожидается.
                     includeAbsolute: false,
                 },
@@ -318,7 +319,7 @@ export default defineConfig({
 });
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Laravel, Vue и Vite. Посмотрите [Laravel Breeze](/docs/{{version}}/starter-kits#breeze-and-inertia) для самого быстрого способа начать работу с Laravel, Vue и Vite.
 
 <a name="react"></a>
@@ -356,7 +357,7 @@ export default defineConfig({
 
 Директива `@viteReactRefresh` должна быть вызвана перед директивой `@vite`.
 
-> [!NOTE]  
+> [!NOTE]
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Laravel, React и Vite. Ознакомьтесь с [Laravel Breeze](/docs/{{version}}/starter-kits#breeze-and-inertia) - самым быстрым способом начать работу с Laravel, React и Vite.
 
 <a name="inertia"></a>
@@ -381,7 +382,7 @@ createInertiaApp({
 
 Если вы используете функцию разделения кода Vite с Inertia, мы рекомендуем настроить [предварительную выборку актива](#asset-prefetching).
 
-> [!NOTE]  
+> [!NOTE]
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Laravel, Inertia и Vite. Ознакомьтесь с [Laravel Breeze](/docs/{{version}}/starter-kits#breeze-and-inertia) чтобы быстро начать работу с Laravel, Inertia и Vite.
 
 <a name="url-processing"></a>
@@ -418,6 +419,7 @@ resources/
 ## Working With Stylesheets
 
 Вы можете узнать больше о поддержке CSS в Vite в [документации Vite](https://vitejs.dev/guide/features.html#css). Если вы используете плагины PostCSS, такие как [Tailwind](https://tailwindcss.com), вы можете создать файл `postcss.config.js` в корне вашего проекта, и Vite автоматически его применит.
+
 ```js
 export default {
     plugins: {
@@ -427,7 +429,7 @@ export default {
 };
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Tailwind, PostCSS и Vite. Или, если вы хотите использовать Tailwind и Laravel без использования одного из наших стартовых наборов, ознакомьтесь с [руководством по установке Tailwind для Laravel](https://tailwindcss.com/docs/guides/laravel).
 
 <a name="working-with-blade-and-routes"></a>
@@ -457,6 +459,7 @@ import.meta.glob([
 ### Обновление при сохранении
 
 Когда ваше приложение построено с использованием традиционного рендеринга на стороне сервера с помощью Blade, Vite может улучшить ваш рабочий процесс разработки, автоматически обновляя браузер при внесении изменений в файлы представлений вашего приложения. Чтобы начать, просто укажите параметр `refresh` как `true`.
+
 ```js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
@@ -545,9 +548,12 @@ export default defineConfig({
 
 ```php
 <?php
+
 namespace App\Providers;
+
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -557,6 +563,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // ...
     }
+
     /**
      * Bootstrap any application services.
      */
@@ -643,6 +650,7 @@ import.meta.env.VITE_SENTRY_DSN_PUBLIC
 ```php tab=Pest
 test('without vite example', function () {
     $this->withoutVite();
+
     // ...
 });
 ```
@@ -723,7 +731,7 @@ node bootstrap/ssr/ssr.js
 php artisan inertia:start-ssr
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Стартовые наборы Laravel ([starter kits](/docs/{{version}}/starter-kits)) уже включают правильную конфигурацию Laravel, SSR Inertia и Vite. Ознакомьтесь с [Laravel Breeze](/docs/{{version}}/starter-kits#breeze-and-inertia) для самого быстрого способа начать работу с Laravel, SSR Inertia и Vite.
 
 <a name="script-and-style-attributes"></a>
@@ -777,7 +785,7 @@ Vite::useCspNonce($nonce);
 ```
 
 <a name="subresource-integrity-sri"></a>
-### Subresource Integrity (SRI) (Wелостность подресурсов)
+### Subresource Integrity (SRI) (Целостность подресурсов)
 
 Если ваш манифест Vite включает хеши `integrity` для ваших ресурсов, Laravel автоматически добавит атрибут `integrity` ко всем тегам script и style, которые он генерирует, чтобы обеспечить [целостность подресурсов](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity). По умолчанию Vite не включает хеш `integrity` в свой манифест, но вы можете включить его, установив плагин [`vite-plugin-manifest-sri`](https://www.npmjs.com/package/vite-plugin-manifest-sri) из NPM:
 
@@ -849,7 +857,7 @@ Vite::useStyleTagAttributes(fn (string $src, string $url, array|null $chunk, arr
 ]);
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Аргументы `$chunk` и `$manifest` будут равны `null`, если сервер разработки Vite запущен.
 
 <a name="advanced-customization"></a>
