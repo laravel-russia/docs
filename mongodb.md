@@ -4,7 +4,6 @@ git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 
 # MongoDB
 
-
 <a name="introduction"></a>
 ## Введение
 
@@ -63,7 +62,7 @@ MONGODB_DATABASE="laravel_app"
 composer require mongodb/laravel-mongodb
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Эта установка пакета завершится неудачно, если не установлено расширение PHP `mongodb`. Конфигурация PHP может различаться в CLI и веб-сервере, поэтому убедитесь, что расширение включено в обеих конфигурациях.
 
 <a name="configuration"></a>
