@@ -5,7 +5,7 @@ git: 696cad17f80605f1cf2ff68c97f60873500c55ca
 # Laravel Cashier (Paddle)
 
 <a name="introduction"></a>
-## Introduction
+## Введение
 
 > [!WARNING]
 > Эта документация предназначена для интеграции Cashier Paddle 2.x с Paddle Billing. Если вы все еще используете Paddle Classic, вам следует использовать [Cashier Paddle 1.x](https://github.com/laravel/cashier-paddle/tree/1.x).
