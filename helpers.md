@@ -1813,7 +1813,7 @@ return to_route('users.show', ['user' => 1], 302, ['X-Framework' => 'Laravel']);
 
 Функция `decrypt` [расшифровывает](/docs/{{version}}/encryption) предоставленное значение. Вы можете использовать эту функцию в качестве альтернативы фасаду `Crypt`.
 
-$password = decrypt($value);
+    $password = decrypt($value);
 
 <a name="method-dd"></a>
 #### `dd()`
