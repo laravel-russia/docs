@@ -1,5 +1,5 @@
 ---
-git: bf57399422909dce882226ede0a560d1fe3aa2ee
+git: a8861d2e1b82d8d0ef11ef8138af59d718bac386
 ---
 
 # Laravel Sail
@@ -470,10 +470,23 @@ sail share --subdomain=my-sail-site
 <a name="debugging-with-xdebug"></a>
 ## Отладка с Xdebug
 
-Laravel Sail содержит поддержку [Xdebug](https://xdebug.org/), популярного отладчика для PHP. Чтобы включить его, добавьте в `.env` параметр для [конфигурации Xdebug](https://xdebug.org/docs/step_debug#mode) и затем запустите Sail:
+Конфигурация Docker Laravel Sail включает поддержку [Xdebug](https://xdebug.org/), популярного и мощного отладчика для PHP. Чтобы включить Xdebug, убедитесь, что вы [опубликовали конфигурацию Sail](#sail-customization). Затем добавьте следующие переменные в файл `.env` вашего приложения для настройки Xdebug:
 
 ```ini
 SAIL_XDEBUG_MODE=develop,debug,coverage
+```
+
+Затем убедитесь, что ваш опубликованный файл `php.ini` содержит следующую конфигурацию, чтобы Xdebug активировался в указанных режимах:
+
+```ini
+[xdebug]
+xdebug.mode=${XDEBUG_MODE}
+```
+
+После изменения файла `php.ini` не забудьте пересобрать образы Docker, чтобы изменения в файле `php.ini` вступили в силу:
+
+```shell
+sail build --no-cache
 ```
 
 #### Настройка IP хоста для Linux
