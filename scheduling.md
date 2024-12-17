@@ -1,5 +1,5 @@
 ---
-git: d468548b1184fc289e09888881de4664f8936ec4
+git: ace0221459d884e41a90aa4c3a23cff35248a5d4
 ---
 
 # Планирование задач
@@ -504,19 +504,24 @@ php artisan schedule:work
              ->pingBefore($url)
              ->thenPing($url);
 
-Методы `pingBeforeIf` и `thenPingIf` могут использоваться для пингования по указанному URL, только если переданное условие `$condition` истинно:
-
-    Schedule::command('emails:send')
-             ->daily()
-             ->pingBeforeIf($condition, $url)
-             ->thenPingIf($condition, $url);
-
-Методы `pingOnSuccess` и `pingOnFailure` могут использоваться для пингования по-указанному URL только в случае успешного или неудачного выполнения задачи. Ошибка означает, что запланированная (Artisan или системная) команда завершилась ненулевым кодом возврата:
+Методы `pingOnSuccess` и `pingOnFailure` можно использовать для проверки связи с заданным URL-адресом только в случае успешного или неудачного выполнения задачи. Сбой означает, что запланированная Artisan или системная команда завершилась с ненулевым кодом выхода:
 
     Schedule::command('emails:send')
              ->daily()
              ->pingOnSuccess($successUrl)
              ->pingOnFailure($failureUrl);
+
+Методы `pingBeforeIf`, `thenPingIf`, `pingOnSuccessIf` и `pingOnFailureIf` могут использоваться для проверки связи с заданным URL-адресом только в том случае, если заданное условие `true`:
+
+    Schedule::command('emails:send')
+             ->daily()
+             ->pingBeforeIf($condition, $url)
+             ->thenPingIf($condition, $url);             
+
+    Schedule::command('emails:send')
+             ->daily()
+             ->pingOnSuccessIf($condition, $successUrl)
+             ->pingOnFailureIf($condition, $failureUrl);
 
 <a name="events"></a>
 ## События
