@@ -1,5 +1,5 @@
 ---
-git: 2eca63c072ec744450de8d45383a3e209205c51d
+git: f8931dd81ba4d3039c549b787130c1542991681c
 ---
 
 # Развертывание
@@ -66,7 +66,7 @@ server {
 
     error_page 404 /index.php;
 
-    location ~ \.php$ {
+    location ~ ^/index\.php(/|$) {
         fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
