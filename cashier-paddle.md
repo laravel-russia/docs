@@ -1,5 +1,5 @@
 ---
-git: 696cad17f80605f1cf2ff68c97f60873500c55ca
+git: e438d061210631c1a8f8a637d9c80b3d5c3a6e87
 ---
 
 # Laravel Cashier (Paddle)
@@ -398,7 +398,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 По умолчанию виджет будет отображаться с использованием стиля Paddle. Вы можете настроить виджет, добавив к компоненту [поддерживаемые атрибуты Paddle](https://developer.paddle.com/paddlejs/html-data-attributes), например атрибут `data-theme='light'`:
 
 ```html
-<x-paddle-button :url="$payLink" class="px-8 py-4" data-theme="light">
+<x-paddle-button :checkout="$checkout" class="px-8 py-4" data-theme="light">
     Subscribe
 </x-paddle-button>
 ```
