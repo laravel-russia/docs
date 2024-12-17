@@ -1,5 +1,5 @@
 ---
-git: bc56f6d5ad4a2d76cad5429426cb294b055b165d
+git: cf389d90871ca35d24b1fd1f8d728c3ffe085edd
 ---
 
 # Пакет Laravel Telescope
@@ -50,7 +50,7 @@ php artisan migrate
      */
     public function register(): void
     {
-        if ($this->app->environment('local')) {
+        if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
