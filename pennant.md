@@ -1,5 +1,5 @@
 ---
-git: fe38158e2fe3b32feb9f9ec238d0161373162f9c
+git: 933bda5f2aa87567d24096f8967a4c287ee6b9f3
 ---
 
 
@@ -789,7 +789,7 @@ Feature::for($users)->loadMissing([
 Вы можете загрузить все определенные функции, используя метод loadAll:
 
 ```php
-Feature::for($user)->loadAll();
+Feature::for($users)->loadAll();
 ```
 
 <a name="updating-values"></a>
