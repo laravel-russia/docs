@@ -1,5 +1,5 @@
 ---
-git: 65a9f2e285fad310d2a3de756877b375232ff9fc
+git: 519c46b94461471dcb4bf2f4692e4edb481b808c
 ---
 
 # HTTP-клиент
@@ -322,6 +322,16 @@ $response = Http::withHeaders([
     return Http::post(/* ... */)->throw(function (Response $response, RequestException $e) {
         // ...
     })->json();
+
+По умолчанию сообщения `RequestException` усекаются до 120 символов при логировании или в сообщении об ошибке. Чтобы настроить или отключить это поведение, вы можете использовать методы `truncateRequestExceptionsAt` и `dontTruncateRequestExceptions` при настройке поведения обработки исключений вашего приложения в файле `bootstrap/app.php`:
+
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Truncate request exception messages to 240 characters...
+        $exceptions->truncateRequestExceptionsAt(240);
+
+        // Disable request exception message truncation...
+        $exceptions->dontTruncateRequestExceptions();
+    })
 
 <a name="guzzle-middleware"></a>
 ### Guzzle Middleware
