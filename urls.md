@@ -1,5 +1,5 @@
 ---
-git: 89fca51366bd2495622ebf3c2f413793bc18e256
+git: 7e89b0d5ae05e39854aa7e78c44bdc9ff6de624d
 ---
 
 # Генерация URL-адресов
@@ -233,20 +233,9 @@ Laravel позволяет вам легко создавать «подписа
 
 ```php
 ->withMiddleware(function (Middleware $middleware) {
-    $middleware->priority([
-        \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
-        \Illuminate\Cookie\Middleware\EncryptCookies::class,
-        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
-        \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
-        \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
-        \Illuminate\Session\Middleware\AuthenticateSession::class,
-        \App\Http\Middleware\SetDefaultLocaleForUrls::class, // [tl! add]
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Illuminate\Auth\Middleware\Authorize::class,
-    ]);
+    $middleware->prependToPriorityList(
+        before: \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        prepend: \App\Http\Middleware\SetDefaultLocaleForUrls::class,
+    );
 })
 ```
