@@ -1,5 +1,5 @@
 ---
-git: e3cf0747f0c17032d9dcc324ac3bd5b47315e4dd
+git: 514b4f4783d8b519f51d5ee8083183fc4e1dde21
 ---
 
 # Построитель запросов
@@ -789,7 +789,7 @@ select * from users where name = 'John' and (votes > 100 or title = 'Admin')
 > Вы всегда должны группировать вызовы `orWhere`, чтобы избежать неожиданного поведения при применении [глобальных диапазонов](/docs/{{version}}/eloquent#query-scopes).
 
 <a name="advanced-where-clauses"></a>
-### Расширенные выражения Where
+## Расширенные выражения Where
 
 <a name="where-exists-clauses"></a>
 ### Выражения Where Exists
