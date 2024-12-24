@@ -1,5 +1,5 @@
 ---
-git: 2f56a79462e97db0fa5072c92d0bb1f1197eff2f
+git: 06bc7bd2acc706e564254994b1d3ed7baad8f5f2
 ---
 
 # Строки
@@ -619,6 +619,14 @@ Laravel включает в себя различные функции для р
     $matches = Str::is('baz*', 'foobar');
 
     // false
+
+Вы можете отключить чувствительность к регистру, установив для аргумента `ignoreCase` значение `true`:
+
+    use Illuminate\Support\Str;
+
+    $matches = Str::is('*.jpg', 'photo.JPG', ignoreCase: true);     
+
+    // true
 
 <a name="method-str-is-ascii"></a>
 #### `Str::isAscii()`
@@ -1298,15 +1306,6 @@ $repeat = Str::repeat($string, 5);
     $base64 = Str::toBase64('Laravel');
 
     // TGFyYXZlbA==
-
-<a name="method-str-to-html-string"></a>
-#### `Str::toHtmlString()`
-
-Метод `Str::toHtmlString` преобразует экземпляр строки в экземпляр `Illuminate\Support\HtmlString`, который может отображаться в шаблонах Blade:
-
-    use Illuminate\Support\Str;
-
-    $htmlString = Str::of('Nuno Maduro')->toHtmlString();
 
 <a name="method-str-transliterate"></a>
 #### `Str::transliterate()`
@@ -2715,7 +2714,7 @@ $repeated = Str::of('a')->repeat(5);
     // A Nice Title Uses The Correct Case
 
 <a name="method-fluent-str-to-base64"></a>
-#### `toBase64()`
+#### `toBase64`
 
 Метод `toBase64` преобразует переданную строку в Base64:
 
@@ -2724,6 +2723,15 @@ $repeated = Str::of('a')->repeat(5);
     $base64 = Str::of('Laravel')->toBase64();
 
     // TGFyYXZlbA==
+
+<a name="method-fluent-str-to-html-string"></a>
+#### `toHtmlString`
+
+Метод `toHtmlString` преобразует заданную строку в экземпляр `Illuminate\Support\HtmlString`, который не будет экранирован при визуализации в шаблонах Blade:
+
+    use Illuminate\Support\Str;
+
+    $htmlString = Str::of('Nuno Maduro')->toHtmlString();
 
 <a name="method-fluent-str-transliterate"></a>
 #### `transliterate`
