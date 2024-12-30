@@ -1,5 +1,5 @@
 ---
-git: 6d7a00b539d8281cc8d7037e82b978fec3c00866
+git: a40f7f46c186fa4ce16c40097e5773aacc9b6949
 ---
 
 # Пакет Laravel Sanctum
@@ -115,9 +115,13 @@ Sanctum позволяет вам назначать «полномочия» (a
 
     return $user->createToken('token-name', ['server:update'])->plainTextToken;
 
-При обработке входящего запроса, аутентифицированного Sanctum, вы можете определить, обладает ли токен указанными полномочиями, используя метод `tokenCan`:
+При обработке входящего запроса, аутентифицированного Sanctum, вы можете определить, обладает ли токен указанными полномочиями, используя методы `tokenCan` или `tokenCant`:
 
     if ($user->tokenCan('server:update')) {
+        // ...
+    }
+
+    if ($user->tokenCant('server:update')) {
         // ...
     }
 
