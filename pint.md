@@ -1,5 +1,5 @@
 ---
-git: 3dfff31349118d0a1a3e413336baf19b02ced97e
+git: ecae9ec0d8b7dd60bae30101d80cb26e21ee94bb
 ---
 
 # Laravel Pint
@@ -172,7 +172,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.3]
+        php: [8.4]
 
     steps:
       - name: Checkout code
@@ -193,6 +193,4 @@ jobs:
 
       - name: Commit linted files
         uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Fixes coding style"
 ```
