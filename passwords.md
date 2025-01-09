@@ -1,5 +1,5 @@
 ---
-git: d725349b2cc2eb421950001a2831336154843999
+git: c4b06525d9893aaa7d45c71e162945fde065238e
 ---
 
 # Сброс пароля
@@ -67,7 +67,7 @@ git: d725349b2cc2eb421950001a2831336154843999
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
+        return $status === Password::ResetLinkSent
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
     })->middleware('guest')->name('password.email');
@@ -130,7 +130,7 @@ git: d725349b2cc2eb421950001a2831336154843999
             }
         );
 
-        return $status === Password::PASSWORD_RESET
+        return $status === Password::PasswordReset
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     })->middleware('guest')->name('password.update');
