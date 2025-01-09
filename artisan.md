@@ -124,8 +124,7 @@ php artisan make:command SendEmails
          *
          * @var string
          */
-        protected $description = 'Send a marketing email to a user';
-
+        protected $description = 'Отправка маркетингового электронного письма пользователю';
 
         /**
          * Выполнить консольную команду.
@@ -144,13 +143,13 @@ php artisan make:command SendEmails
 
 Если из метода `handle` ничего не возвращается и команда выполняется успешно, команда завершится с кодом завершения `0`, что указывает на успех. Однако метод `handle` может дополнительно возвращать целое число, чтобы вручную указать код завершения команды:
 
-    $this->error('Something went wrong.');
+    $this->error('Что-то пошло не так.');
 
     return 1;
 
 Если вы хотите «не выполнить» команду любым методом внутри команды, вы можете использовать метод `fail`. Метод `fail` немедленно прекратит выполнение команды и вернет код завершения `1`:
 
-    $this->fail('Something went wrong.');
+    $this->fail('Что-то пошло не так.');
 
 <a name="closure-commands"></a>
 ### Анонимные команды
@@ -160,7 +159,7 @@ php artisan make:command SendEmails
 Несмотря на то, что файл `routes/console.php` не определяет HTTP-маршруты, он определяет консольные точки входа (маршруты) в ваше приложение. В этом файле вы можете определить все консольные команды на основе замыканий, используя метод `Artisan::command`. Метод `command` принимает два аргумента: [сигнатура команды](#defining-input-expectations) и замыкание, которое получает аргументы и параметры команды:
 
     Artisan::command('mail:send {user}', function (string $user) {
-        $this->info("Sending email to: {$user}!");
+        $this->info("Отправка электронной почты на: {$user}!");
     });
 
 Замыкание привязано к базовому экземпляру команды, поэтому у вас есть полный доступ ко всем вспомогательным методам, к которым вы обычно можете обращаться в команде, созданной с помощью класса.
@@ -184,7 +183,7 @@ php artisan make:command SendEmails
 
     Artisan::command('mail:send {user}', function (string $user) {
         // ...
-    })->purpose('Send a marketing email to a user');
+    })->purpose('Отправка маркетингового электронного письма пользователю');
 
 <a name="isolatable-commands"></a>
 ### Изолированные команды
@@ -225,7 +224,7 @@ php artisan mail:send 1 --isolated=12
 
 ```php
 /**
- * Get the isolatable ID for the command.
+ * Получите изолируемый идентификатор команды.
  */
 public function isolatableId(): string
 {
@@ -243,7 +242,7 @@ use DateTimeInterface;
 use DateInterval;
 
 /**
- * Determine when an isolation lock expires for the command.
+ * Определите, когда истекает срок действия блокировки изоляции для команды.
  */
 public function isolationLockExpiresAt(): DateTimeInterface|DateInterval
 {
@@ -370,8 +369,8 @@ php artisan mail:send --id=1 --id=2
      * @var string
      */
     protected $signature = 'mail:send
-                            {user : The ID of the user}
-                            {--queue : Whether the job should be queued}';
+                            {user : Идентификатор пользователя}
+                            {--queue : Должно ли задание быть поставлено в очередь}';
 
 <a name="prompting-for-missing-input"></a>
 ### Запрос отсутствующего ввода
@@ -400,21 +399,21 @@ php artisan mail:send --id=1 --id=2
 Если Laravel должен получить обязательный аргумент от пользователя, он автоматически запросит у пользователя этот аргумент, формулируя вопрос разумно с использованием имени или описания аргумента. Если вы хотите настроить вопрос, используемый для получения обязательного аргумента, реализуйте метод `promptForMissingArgumentsUsing`, возвращающий массив вопросов с ключами соответствующими именам аргументов:
 
     /**
-     * Prompt for missing input arguments using the returned questions.
+     * Подсказка об отсутствующих входных аргументах с помощью возвращаемых вопросов.
      *
      * @return array<string, string>
      */
     protected function promptForMissingArgumentsUsing(): array
     {
         return [
-            'user' => 'Which user ID should receive the mail?',
+            'user' => 'Какой идентификатор пользователя должен получать почту?',
         ];
     }
 
 Вы также можете указать текст заполнителя, используя кортеж, содержащий вопрос и заполнитель:
 
     return [
-        'user' => ['Which user ID should receive the mail?', 'E.g. 123'],
+        'user' => ['Which user ID should receive the mail?', 'Например: 123'],
     ];
 
 Если вы хотите полностью контролировать запрос, вы можете предоставить замыкание, которое будет запрашивать пользователя и возвращать его ответ:
@@ -426,8 +425,8 @@ php artisan mail:send --id=1 --id=2
 
     return [
         'user' => fn () => search(
-            label: 'Search for a user:',
-            placeholder: 'E.g. Taylor Otwell',
+            label: 'Найдите пользователя:',
+            placeholder: 'Например: Тейлор Отвелл',
             options: fn ($value) => strlen($value) > 0
                 ? User::where('name', 'like', "%{$value}%")->pluck('name', 'id')->all()
                 : []
@@ -451,7 +450,7 @@ php artisan mail:send --id=1 --id=2
     protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output): void
     {
         $input->setOption('queue', confirm(
-            label: 'Would you like to queue the mail?',
+            label: 'Хотите поставить почту в очередь?',
             default: $this->option('queue')
         ));
     }
@@ -478,10 +477,10 @@ php artisan mail:send --id=1 --id=2
 
 Параметры могут быть получены так же легко, как и аргументы, используя метод `option`. Чтобы получить все параметры в виде массива, вызовите метод `options`:
 
-    // Получение определенного параметра ...
+    // Получение определенного параметра...
     $queueName = $this->option('queue');
 
-    // Получение всех параметров в виде массива ...
+    // Получение всех параметров в виде массива...
     $options = $this->options();
 
 <a name="prompting-for-input"></a>
@@ -497,31 +496,31 @@ php artisan mail:send --id=1 --id=2
      */
     public function handle(): void
     {
-        $name = $this->ask('What is your name?');
+        $name = $this->ask('Как вас зовут?');
 
         // ...
     }
 
 Метод `ask` также принимает необязательный второй аргумент, который определяет значение по умолчанию, возвращаемое, если пользователь не предоставил ввод:
 
-    $name = $this->ask('What is your name?', 'Taylor');
+    $name = $this->ask('Как вас зовут?', 'Тейлор');
 
 Метод `secret` похож на `ask`, но ввод пользователя не будет виден ему в консоли при вводе. Этот метод полезен при запросе конфиденциальной информации, например, пароля:
 
-    $password = $this->secret('What is the password?');
+    $password = $this->secret('Какой пароль?');
 
 <a name="asking-for-confirmation"></a>
 #### Запрос подтверждения
 
 Если вам нужно получить от пользователя простое подтверждение «yes or no», то вы можете использовать метод `confirm`. По умолчанию этот метод возвращает значение `false`. Однако, если пользователь вводит `y` или `yes` в ответ на запрос, то метод возвращает `true`.
 
-    if ($this->confirm('Do you wish to continue?')) {
+    if ($this->confirm('Хотите продолжить?')) {
         // ...
     }
 
 По желанию можно указать, что запрос подтверждения должен по умолчанию возвращать `true`, передав `true` в качестве второго аргумента метода `confirm`:
 
-    if ($this->confirm('Do you wish to continue?', true)) {
+    if ($this->confirm('Хотите продолжить?', true)) {
         // ...
     }
 
@@ -530,11 +529,11 @@ php artisan mail:send --id=1 --id=2
 
 Метод `anticipate` используется для автоматического завершения возможных вариантов. Пользователь по-прежнему может дать любой ответ, независимо от подсказок автозавершения:
 
-    $name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
+    $name = $this->anticipate('Как вас зовут?', ['Тейлор', 'Дэйл']);
 
 В качестве альтернативы, вы можете передать замыкание в качестве второго аргумента метода `anticipate`. Замыкание будет вызываться каждый раз, когда пользователь вводит символ. Замыкание должно принимать строковый параметр, содержащий введенные пользователем данные, и возвращать массив вариантов для автозавершения:
 
-    $name = $this->anticipate('What is your address?', function (string $input) {
+    $name = $this->anticipate('Какой у вас адрес?', function (string $input) {
         // Вернуть варианты для автоматического завершения...
     });
 
@@ -544,16 +543,16 @@ php artisan mail:send --id=1 --id=2
 Если нужно предоставить пользователю предопределенный набор вариантов для выбора при задании вопроса, то используйте метод `choice`. Вы можете установить индекс массива для возвращаемого по умолчанию значения, если не выбран ни один из вариантов, передав индекс в качестве третьего аргумента метода:
 
     $name = $this->choice(
-        'What is your name?',
-        ['Taylor', 'Dayle'],
+        'Как вас зовут?',
+        ['Тейлор', 'Дэйл'],
         $defaultIndex
     );
 
 Кроме того, метод `choice` принимает необязательные четвертый и пятый аргументы для определения максимального количества попыток выбора действительного ответа и того, разрешен ли множественный выбор:
 
     $name = $this->choice(
-        'What is your name?',
-        ['Taylor', 'Dayle'],
+        'Как вас зовут?',
+        ['Тейлор', 'Дэйл'],
         $defaultIndex,
         $maxAttempts = null,
         $allowMultipleSelections = false
@@ -571,7 +570,7 @@ php artisan mail:send --id=1 --id=2
     {
         // ...
 
-        $this->info('The command was successful!');
+        $this->info('Команда выполнена успешно!');
     }
 
 Для отображения сообщения об ошибке используйте метод `error`. Текст сообщения об ошибке обычно отображается красным цветом:
@@ -580,7 +579,7 @@ php artisan mail:send --id=1 --id=2
 
 Вы можете использовать метод `line` для отображения простого неокрашенного текста:
 
-    $this->line('Display this on the screen');
+    $this->line('Отобразить это на экране');
 
 Вы можете использовать метод `newLine` для отображения пустой строки:
 
