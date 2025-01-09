@@ -1,5 +1,5 @@
 ---
-git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
+git: 390399dd7e7101a8cecc9b11d3bf1f5e1e6b6760
 ---
 
 # Очереди
@@ -2383,9 +2383,10 @@ $job->assertDoesntHaveChain();
 
 Иногда вам может потребоваться проверить, что задание в очереди [освобождается обратно в очередь](#manually-releasing-a-job). Или вам может потребоваться проверить, что задание удалилось само собой. Вы можете протестировать это взаимодействие с очередью, создав экземпляр задания и вызвав метод `withFakeQueueInteractions`.
 
-Как только взаимодействие задания с очередью будет сфальсифицировано, вы можете вызвать метод `handle` для задания. После вызова задания методы `assertReleased`, `assertDeleted`, `assertNotDeleted`, `assertFailed` и `assertNotFailed` могут использоваться для создания утверждений относительно взаимодействия задания с очередью:
+Как только взаимодействие задания с очередью будет сфальсифицировано, вы можете вызвать метод `handle` для задания. После вызова задания методы `assertReleased`, `assertDeleted`, `assertNotDeleted`, `assertFailed`, `assertFailedWith` и `assertNotFailed` могут использоваться для создания утверждений относительно взаимодействия задания с очередью:
 
 ```php
+use App\Exceptions\CorruptedAudioException;
 use App\Jobs\ProcessPodcast;
 
 $job = (new ProcessPodcast)->withFakeQueueInteractions();
@@ -2396,6 +2397,7 @@ $job->assertReleased(delay: 30);
 $job->assertDeleted();
 $job->assertNotDeleted();
 $job->assertFailed();
+$job->assertFailedWith(CorruptedAudioException::class);
 $job->assertNotFailed();
 ```
 
