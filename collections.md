@@ -792,7 +792,7 @@ git: 660e0c0b5d1a90c8d7e04b1711032d4499496ee2
 Если вы хотите прекратить итерацию по элементам, вы можете вернуть `false` из вашего замыкания:
 
     $collection->each(function (int $item, int $key) {
-        if (/* condition */) {
+        if (/* условие */) {
             return false;
         }
     });
@@ -3491,7 +3491,7 @@ $users->select(['name', 'role']);
     })->chunk(4)->map(function (array $lines) {
         return LogEntry::fromLines($lines);
     })->each(function (LogEntry $logEntry) {
-        // Process the log entry...
+        // Обработка записи журнала...
     });
 
 Или представьте, что вам нужно перебрать 10 000 моделей Eloquent. При использовании традиционных коллекций Laravel все 10 000 моделей Eloquent должны быть загружены в память одновременно:
