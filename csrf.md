@@ -16,7 +16,7 @@ git: ce7e2f4cbd61092f04d543a2c180f54cb94d0229
 
 Без защиты от CSRF вредоносный веб-сайт может создать HTML-форму, которая указывает на маршрут вашего приложения `/user/email` и отправляет собственный адрес электронной почты злоумышленника:
 
-```html
+```blade
 <form action="https://your-application.com/user/email" method="POST">
     <input type="email" value="malicious-email@example.com">
 </form>
@@ -49,11 +49,11 @@ Laravel автоматически генерирует «токен» CSRF дл
 
 Каждый раз, когда вы создаете HTML-форму «POST», «PUT», «PATCH» или «DELETE» в своем приложении, вы должны включать в форму скрытое поле `_token` CSRF, чтобы посредник CSRF мог проверить запрос. Для удобства вы можете использовать директиву Blade `@csrf` для создания скрытого поля ввода, содержащего токен:
 
-```html
+```blade
 <form method="POST" action="/profile">
     @csrf
 
-    <!-- Эквивалентно ... -->
+    <!-- Эквивалентно... -->
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 </form>
 ```
@@ -88,7 +88,7 @@ Laravel автоматически генерирует «токен» CSRF дл
 
 В дополнение к проверке токена CSRF в качестве параметра POST-запроса посредник `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken`, который по умолчанию включен в группу посредников `web`, также проверяет заголовок запроса `X-CSRF-TOKEN`. Вы можете, например, сохранить токен в HTML-теге `meta`:
 
-```html
+```blade
 <meta name="csrf-token" content="{{ csrf_token() }}">
 ```
 
