@@ -1,5 +1,5 @@
 ---
-git: 8c64a3b84e67f55673ce84024cd87e20335d7c76
+git: 81ea18410c5aa2a7c276c3c44e35306c1248b244
 ---
 
 # Laravel Reverb
@@ -42,7 +42,7 @@ REVERB_APP_SECRET=my-app-secret
 ```php
 'apps' => [
     [
-        'id' => 'my-app-id',
+        'app_id' => 'my-app-id',
         'allowed_origins' => ['laravel.com'],
         // ...
     ]
