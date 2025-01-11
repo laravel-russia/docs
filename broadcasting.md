@@ -349,7 +349,7 @@ npm run dev
     use Illuminate\Broadcasting\PrivateChannel;
 
     /**
-     * Get the channels the event should broadcast on.
+     * Получите каналы, на которых должно транслироваться событие.
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
@@ -502,7 +502,7 @@ Echo.private(`orders.${orderId}`)
 В качестве альтернативы вы можете настроить имя очереди, определив в методе `broadcastQueue` вашего события:
 
     /**
-     * The name of the queue on which to place the broadcasting job.
+     * Имя очереди, в которую следует поместить задание трансляции.
      */
     public function broadcastQueue(): string
     {
@@ -722,7 +722,7 @@ var socketId = Echo.socketId();
         use InteractsWithBroadcasting;
 
         /**
-         * Create a new event instance.
+         * Создайте новый экземпляр события.
          */
         public function __construct()
         {
@@ -1072,7 +1072,7 @@ $user->broadcastChannel()
 {
     "model": {
         "id": 1,
-        "title": "My first post"
+        "title": "Мой первый пост"
         ...
     },
     ...
@@ -1086,7 +1086,7 @@ $user->broadcastChannel()
 
 ```php
 /**
- * The model event's broadcast name.
+ * Имя трансляции события модели
  */
 public function broadcastAs(string $event): string|null
 {
@@ -1097,7 +1097,7 @@ public function broadcastAs(string $event): string|null
 }
 
 /**
- * Get the data to broadcast for the model.
+ * Получить данные трансляции для модели.
  *
  * @return array<string, mixed>
  */
