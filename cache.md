@@ -141,7 +141,7 @@ composer require aws/aws-sdk-php
 
     $value = Cache::store('file')->get('foo');
 
-    Cache::store('redis')->put('bar', 'baz', 600); // 10 Minutes
+    Cache::store('redis')->put('bar', 'baz', 600); // 10 Минут
 
 <a name="retrieving-items-from-the-cache"></a>
 ### Получение элементов из кеша
@@ -172,10 +172,10 @@ composer require aws/aws-sdk-php
 
 Методы `increment` и `decrement` могут использоваться для изменения значений целочисленных элементов в кеше. Оба метода принимают необязательный второй аргумент, указывающий величину увеличения или уменьшения значения элемента:
 
-    // Initialize the value if it does not exist...
+    // Инициализируем значение, если оно не существует...
     Cache::add('key', 0, now()->addHours(4));
 
-    // Increment or decrement the value...
+    // Увеличиваем или уменьшаем значение...
     Cache::increment('key');
     Cache::increment('key', $amount);
     Cache::decrement('key');
