@@ -179,7 +179,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```html
 <x-paddle-button :checkout="$checkout" class="px-8 py-4">
-    Buy Product
+    Купить продукт
 </x-paddle-button>
 ```
 
@@ -275,7 +275,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```html
 <x-paddle-button :checkout="$checkout" class="px-8 py-4">
-    Subscribe
+    Подписаться
 </x-paddle-button>
 ```
 
@@ -285,7 +285,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```blade
 @if ($user->subscribed())
-    <p>You are subscribed.</p>
+    <p>Вы подписаны.</p>
 @endif
 ```
 
@@ -293,11 +293,11 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```blade
 @if ($user->subscribedToProduct('pro_basic'))
-    <p>You are subscribed to our Basic product.</p>
+    <p>Вы подписаны на наш базовый продукт.</p>
 @endif
 
 @if ($user->subscribedToPrice('price_basic_monthly'))
-    <p>You are subscribed to our monthly Basic plan.</p>
+    <p>Вы подписаны на наш ежемесячный базовый план.</p>
 @endif
 ```
 
@@ -322,7 +322,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
         public function handle(Request $request, Closure $next): Response
         {
             if (! $request->user()?->subscribed()) {
-                // Redirect user to billing page and ask them to subscribe...
+                // Перенаправляем пользователя на страницу оплаты и просим его подписаться...
                 return redirect('/subscribe');
             }
 
@@ -391,7 +391,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```html
 <x-paddle-button :checkout="$checkout" class="px-8 py-4">
-    Subscribe
+    Подписаться
 </x-paddle-button>
 ```
 
@@ -399,7 +399,7 @@ CASHIER_CURRENCY_LOCALE=nl_BE
 
 ```html
 <x-paddle-button :checkout="$checkout" class="px-8 py-4" data-theme="light">
-    Subscribe
+    Подписаться
 </x-paddle-button>
 ```
 
@@ -439,7 +439,7 @@ $custom = $checkout->getCustomData();
     @if ($custom) data-custom-data='{{ json_encode($custom) }}' @endif
     @if ($returnUrl = $checkout->getReturnUrl()) data-success-url='{{ $returnUrl }}' @endif
 >
-    Buy Product
+    Купить продукт
 </a>
 ```
 
@@ -518,7 +518,6 @@ $options['settings']['frameInitialHeight'] = 366;
         return view('billing', ['checkout' => $checkout]);
     });
 
-Then, you may provide the checkout session to the [Paddle button](#overlay-checkout) or [inline checkout](#inline-checkout) Blade components.
 Затем вы можете предоставить сеанс оформления заказа компонентам Blade [кнопка Paddle](#overlay-checkout) или [встроенное оформление заказа](#inline-checkout).
 
 <a name="price-previews"></a>
@@ -668,11 +667,10 @@ Cashier позволяет вам определить некоторые пол
 
 ```blade
 <x-paddle-button :checkout="$checkout" class="px-8 py-4">
-    Subscribe
+    Подписаться
 </x-paddle-button>
 ```
 
-After the user has finished their checkout, a `subscription_created` webhook will be dispatched from Paddle. Cashier will receive this webhook and setup the subscription for your customer. In order to make sure all webhooks are properly received and handled by your application, ensure you have properly [setup webhook handling](#handling-paddle-webhooks).
 После того, как пользователь завершит оформление заказа, из Paddle будет отправлен вебхук `subscription_created`. Cashier получит этот вебхук и настроит подписку для вашего клиента. Чтобы убедиться, что все веб-хуки правильно принимаются и обрабатываются вашим приложением, убедитесь, что у вас правильно настроена [настройка обработки веб-хуков](#handling-paddle-webhooks).
 
 <a name="checking-subscription-status"></a>
@@ -710,7 +708,7 @@ After the user has finished their checkout, a `subscription_created` webhook wil
         public function handle(Request $request, Closure $next): Response
         {
             if ($request->user() && ! $request->user()->subscribed()) {
-                // This user is not a paying customer...
+                // Этот пользователь не является платящим клиентом...
                 return redirect('/billing');
             }
 
@@ -1140,19 +1138,17 @@ Paddle может уведомлять ваше приложение о разл
 
 По умолчанию этот контроллер автоматически обрабатывает отмену подписок со слишком большим количеством неудачных платежей, обновлений подписок и изменений способов оплаты; однако, как мы скоро обнаружим, вы можете расширить этот контроллер для обработки любого события веб-хука Paddle, которое вам нравится.
 
-To ensure your application can handle Paddle webhooks, be sure to [configure the webhook URL in the Paddle control panel](https://vendors.paddle.com/alerts-webhooks). By default, Cashier's webhook controller responds to the `/paddle/webhook` URL path. The full list of all webhooks you should enable in the Paddle control panel are:
 Чтобы ваше приложение могло обрабатывать веб-хуки Paddle, обязательно [настройте URL-адрес веб-перехватчика на панели управления Paddle](https://vendors.paddle.com/alerts-webhooks). По умолчанию контроллер веб-хука Cashier отвечает на URL-путь `/paddle/webhook`. Полный список всех веб-хуков, которые следует включить в панели управления Paddle:
 
-- Customer Updated
-- Transaction Completed
-- Transaction Updated
-- Subscription Created
-- Subscription Updated
-- Subscription Paused
-- Subscription Canceled
+- Клиент обновлен (Customer Updated)
+- Транзакция завершена (Transaction Completed)
+- Транзакция обновлена (Transaction Updated)
+- Подписка создана (Subscription Created)
+- Подписка обновлена (Subscription Updated)
+- Подписка приостановлена (Subscription Paused)
+- Подписка отменена (Subscription Canceled)
 
 > [!WARNING]
-> Make sure you protect incoming requests with Cashier's included [webhook signature verification](/docs/{{version}}/cashier-paddle#verifying-webhook-signatures) middleware.
 > Убедитесь, что вы защищаете входящие запросы с помощью включенного в Cashier посредника [проверки подписи веб-хука](/docs/{{version}}/cashier-paddle#verifying-webhook-signatures).
 
 <a name="webhooks-csrf-protection"></a>
@@ -1243,7 +1239,7 @@ CASHIER_WEBHOOK=https://example.com/my-paddle-webhook-url
 
 ```blade
 <x-paddle-button :checkout="$checkout" class="px-8 py-4">
-    Buy
+    Купить
 </x-paddle-button>
 ```
 
@@ -1288,7 +1284,7 @@ CASHIER_WEBHOOK=https://example.com/my-paddle-webhook-url
 
     $transaction = $user->transactions()->first();
 
-    // Credit a specific line item fully...
+    // Полностью кредитуем конкретную позицию...
     $response = $transaction->credit('Compensation', 'pri_123');
 
 Для получения дополнительной информации [см. документацию Paddle по кредитованию](https://developer.paddle.com/build/transactions/create-transaction-adjustments).
@@ -1311,14 +1307,14 @@ CASHIER_WEBHOOK=https://example.com/my-paddle-webhook-url
 
 При перечислении транзакций для клиента вы можете использовать методы экземпляра транзакции для отображения соответствующей платежной информации. Например, вы можете перечислить каждую транзакцию в таблице, чтобы пользователь мог легко загрузить любой из счетов:
 
-```html
+```blade
 <table>
     @foreach ($transactions as $transaction)
         <tr>
             <td>{{ $transaction->billed_at->toFormattedDateString() }}</td>
             <td>{{ $transaction->total() }}</td>
             <td>{{ $transaction->tax() }}</td>
-            <td><a href="{{ route('download-invoice', $transaction->id) }}" target="_blank">Download</a></td>
+            <td><a href="{{ route('download-invoice', $transaction->id) }}" target="_blank">Скачать</a></td>
         </tr>
     @endforeach
 </table>
@@ -1350,7 +1346,7 @@ CASHIER_WEBHOOK=https://example.com/my-paddle-webhook-url
 Оба эти метода вернут экземпляр `Laravel\Paddle\Payment`; однако `lastPayment` вернет `null`, если транзакции ещё не синхронизированы с помощью веб-хуков, а `nextPayment` вернет `null`, когда платежный цикл закончился (например, когда подписка была отменена):
 
 ```blade
-Next payment: {{ $nextPayment->amount() }} due on {{ $nextPayment->date()->format('d/m/Y') }}
+Следующий платеж: {{ $nextPayment->amount() }} срок погашения {{ $nextPayment->date()->format('d/m/Y') }}
 ```
 
 <a name="testing"></a>
