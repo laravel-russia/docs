@@ -137,7 +137,6 @@ public function test_console_command(): void
 }
 ```
 
-The `expectsOutputToContain` and `doesntExpectOutputToContain` methods may be used to make assertions against a portion of the output:
 Методы `expectsOutputToContain` и `doesntExpectOutputToContain` могут использоваться для создания утверждений относительно части вывода:
 
 ```php tab=Pest
