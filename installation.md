@@ -1,5 +1,5 @@
 ---
-git: e49f5b8d02f6c41ee5952e2630043173bd707dae
+git: 981c6152c4a49a0910d72577afc43025ca43602b
 ---
 
 # Установка
@@ -322,7 +322,7 @@ cd example-app
 <a name="choosing-your-sail-services"></a>
 ### Выбор сервисов Sail
 
-При создании нового приложения Laravel через Sail вы можете использовать переменную строки запроса `with` для выбора того, какие сервисы должны быть настроены в файле `docker-compose.yml` вашего нового приложения. Доступные сервисы включают `mysql`, `pgsql`, `mariadb`, `redis`, `memcached`, `meilisearch`, `typesense`, `minio`, `selenium` и `mailpit`:
+При создании нового приложения Laravel через Sail вы можете использовать переменную строки запроса `with` для выбора того, какие сервисы должны быть настроены в файле `docker-compose.yml` вашего нового приложения. Доступные сервисы включают `mysql`, `pgsql`, `mariadb`, `redis`, `valkey`, `memcached`, `meilisearch`, `typesense`, `minio`, `selenium` и `mailpit`:
 
 ```shell
 curl -s "https://laravel.build/example-app?with=mysql,redis" | bash
