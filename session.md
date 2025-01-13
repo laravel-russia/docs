@@ -1,5 +1,5 @@
 ---
-git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
+git: 74c3d3ac1f48a8ff8ac39bcbfe5fe8506c60c877
 ---
 
 # Сессия HTTP
@@ -243,11 +243,11 @@ Laravel автоматически пересоздает идентификат
 
     Route::post('/profile', function () {
         // ...
-    })->block($lockSeconds = 10, $waitSeconds = 10)
+    })->block($lockSeconds = 10, $waitSeconds = 10);
 
     Route::post('/order', function () {
         // ...
-    })->block($lockSeconds = 10, $waitSeconds = 10)
+    })->block($lockSeconds = 10, $waitSeconds = 10);
 
 Метод `block` принимает два необязательных аргумента. Первый аргумент, принимаемый методом `block` – это максимальное количество секунд, в течение которых блокировка сессии должна удерживаться, прежде чем она будет снята. Конечно, если выполнение запроса завершится до этого времени, блокировка будет снята раньше.
 
@@ -257,7 +257,7 @@ Laravel автоматически пересоздает идентификат
 
     Route::post('/profile', function () {
         // ...
-    })->block()
+    })->block();
 
 <a name="adding-custom-session-drivers"></a>
 ## Добавление пользовательских драйверов сессии
