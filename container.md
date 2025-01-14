@@ -306,14 +306,14 @@ Route::get('/user', function (#[CurrentUser] User $user) {
     class Config implements ContextualAttribute
     {
         /**
-         * Create a new attribute instance.
+         * Создаем новый экземпляр атрибута.
          */
         public function __construct(public string $key, public mixed $default = null)
         {
         }
 
         /**
-         * Resolve the configuration value.
+         * Разрешаем значение конфигурации.
          *
          * @param  self  $attribute
          * @param  \Illuminate\Contracts\Container\Container  $container
@@ -528,7 +528,7 @@ Route::get('/user', function (#[CurrentUser] User $user) {
     class PodcastStats
     {
         /**
-         * Generate a new podcast stats report.
+         * Создаем новый отчет о статистике подкаста.
          */
         public function generate(AppleMusic $apple): array
         {
