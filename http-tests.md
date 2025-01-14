@@ -13,7 +13,7 @@ Laravel предлагает гибкий API в составе вашего п�
 ```php tab=Pest
 <?php
 
-test('the application returns a successful response', function () {
+test('приложение возвращает успешный ответ', function () {
     $response = $this->get('/');
 
     $response->assertStatus(200);
@@ -53,7 +53,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('basic request', function () {
+test('основной запрос', function () {
     $response = $this->get('/');
 
     $response->assertStatus(200);
@@ -70,7 +70,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Базовый тестовый пример.
      */
     public function test_a_basic_request(): void
     {
@@ -94,7 +94,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('interacting with headers', function () {
+test('взаимодействие с заголовками', function () {
     $response = $this->withHeaders([
         'X-Header' => 'Value',
     ])->post('/user', ['name' => 'Sally']);
@@ -113,7 +113,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic functional test example.
+     * Пример базового функционального теста.
      */
     public function test_interacting_with_headers(): void
     {
@@ -134,7 +134,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('interacting with cookies', function () {
+test('взаимодействие с файлами cookie', function () {
     $response = $this->withCookie('color', 'blue')->get('/');
 
     $response = $this->withCookies([
@@ -177,7 +177,7 @@ Laravel предлагает несколько методов-хелперов 
 ```php tab=Pest
 <?php
 
-test('interacting with the session', function () {
+test('взаимодействие с сеансом', function () {
     $response = $this->withSession(['banned' => false])->get('/');
 
     //
@@ -209,7 +209,7 @@ class ExampleTest extends TestCase
 
 use App\Models\User;
 
-test('an action that requires authentication', function () {
+test('действие, требующее аутентификации', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)
@@ -255,7 +255,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('basic test', function () {
+test('базовый тест', function () {
     $response = $this->get('/');
 
     $response->dumpHeaders();
@@ -276,7 +276,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Базовый тестовый пример.
      */
     public function test_basic_test(): void
     {
@@ -296,7 +296,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('basic test', function () {
+test('базовый тест', function () {
     $response = $this->get('/');
 
     $response->ddHeaders();
@@ -317,7 +317,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Базовый тестовый пример.
      */
     public function test_basic_test(): void
     {
@@ -343,15 +343,15 @@ class ExampleTest extends TestCase
 use App\Exceptions\InvalidOrderException;
 use Illuminate\Support\Facades\Exceptions;
 
-test('exception is thrown', function () {
+test('выдается исключение', function () {
     Exceptions::fake();
 
     $response = $this->get('/order/1');
 
-    // Assert an exception was thrown...
+    // Утверждает, что было выброшено исключение...
     Exceptions::assertReported(InvalidOrderException::class);
 
-    // Assert against the exception...
+    // Утверждение об исключении...
     Exceptions::assertReported(function (InvalidOrderException $e) {
         return $e->getMessage() === 'The order was invalid.';
     });
@@ -370,7 +370,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Базовый тестовый пример.
      */
     public function test_exception_is_thrown(): void
     {
@@ -378,10 +378,10 @@ class ExampleTest extends TestCase
 
         $response = $this->get('/');
 
-        // Assert an exception was thrown...
+        // Утверждает, что было выброшено исключение...
         Exceptions::assertReported(InvalidOrderException::class);
 
-        // Assert against the exception...
+        // Утверждение об исключении...
         Exceptions::assertReported(function (InvalidOrderException $e) {
             return $e->getMessage() === 'The order was invalid.';
         });
@@ -431,7 +431,7 @@ Laravel также содержит несколько хелперов для �
 ```php tab=Pest
 <?php
 
-test('making an api request', function () {
+test('делаю запрос API', function () {
     $response = $this->postJson('/api/user', ['name' => 'Sally']);
 
     $response
@@ -452,7 +452,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic functional test example.
+     * Пример базового функционального теста.
      */
     public function test_making_an_api_request(): void
     {
@@ -488,7 +488,7 @@ $this->assertTrue($response['created']);
 ```php tab=Pest
 <?php
 
-test('asserting an exact json match', function () {
+test('утверждение точного совпадения JSON', function () {
     $response = $this->postJson('/user', ['name' => 'Sally']);
 
     $response
@@ -510,7 +510,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic functional test example.
+     * Пример базового функционального теста.
      */
     public function test_asserting_an_exact_json_match(): void
     {
@@ -533,7 +533,7 @@ class ExampleTest extends TestCase
 ```php tab=Pest
 <?php
 
-test('asserting a json path value', function () {
+test('утверждение значения пути json', function () {
     $response = $this->postJson('/user', ['name' => 'Sally']);
 
     $response
@@ -552,7 +552,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic functional test example.
+     * Пример базового функционального теста.
      */
     public function test_asserting_a_json_paths_value(): void
     {
@@ -577,7 +577,7 @@ Laravel предлагает способ последовательного т�
 ```php tab=Pest
 use Illuminate\Testing\Fluent\AssertableJson;
 
-test('fluent json', function () {
+test('свободное владение JSON', function () {
     $response = $this->getJson('/users/1');
 
     $response
@@ -596,7 +596,7 @@ test('fluent json', function () {
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * A basic functional test example.
+ * Пример базового функционального теста.
  */
 public function test_fluent_json(): void
 {
@@ -743,7 +743,7 @@ public function test_fluent_json(): void
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-test('avatars can be uploaded', function () {
+test('аватары можно загружать', function () {
     Storage::fake('avatars');
 
     $file = UploadedFile::fake()->image('avatar.jpg');
@@ -815,7 +815,7 @@ Laravel также позволяет отображать шаблоны без
 ```php tab=Pest
 <?php
 
-test('a welcome view can be rendered', function () {
+test('можно отобразить приветственный вид', function () {
     $view = $this->view('welcome', ['name' => 'Taylor']);
 
     $view->assertSee('Taylor');
@@ -852,10 +852,10 @@ class ExampleTest extends TestCase
 Некоторые шаблоны могут зависеть от ошибок, хранящихся в [глобальной коллекции ошибок Laravel](/docs/{{version}}/validation#quick-displaying-the-validation-errors). Чтобы добавить в эту коллекцию сообщения об ошибках, вы можете использовать метод `withViewErrors`:
 
     $view = $this->withViewErrors([
-        'name' => ['Please provide a valid name.']
+        'name' => ['Пожалуйста, укажите действительное имя.']
     ])->view('form');
 
-    $view->assertSee('Please provide a valid name.');
+    $view->assertSee('Пожалуйста, укажите действительное имя.');
 
 <a name="rendering-blade-and-components"></a>
 ### Отрисовка Blade и компоненты
@@ -1491,7 +1491,7 @@ class ExampleTest extends TestCase
 Или вы можете утверждать, что переданное поле имеет конкретное сообщение об ошибке валидации:
 
     $response->assertSessionHasErrors([
-        'name' => 'The given name was invalid.'
+        'name' => 'Указанное имя недействительно.'
     ]);
 
 > [!NOTE]
@@ -1519,7 +1519,7 @@ class ExampleTest extends TestCase
     $response->assertSessionDoesntHaveErrors($keys = [], $format = null, $errorBag = 'default');
 
 > [!NOTE]
-> Более общий метод [assertValid](#assert-valid)  может быть использован для проверки того, что ответ не содержит ошибок валидации, представленных в формате JSON **и** что ошибок не было сохранено в хранилище сессий.
+> Более общий метод [assertValid](#assert-valid) может быть использован для проверки того, что ответ не содержит ошибок валидации, представленных в формате JSON **и** что ошибок не было сохранено в хранилище сессий.
 
 <a name="assert-session-missing"></a>
 #### assertSessionMissing
@@ -1591,8 +1591,8 @@ class ExampleTest extends TestCase
 Вы также можете утверждать, что данный ключ имеет определенное сообщение об ошибке валидации. При этом вы можете предоставить все сообщение или только небольшую его часть:
 
     $response->assertInvalid([
-        'name' => 'The name field is required.',
-        'email' => 'valid email address',
+        'name' => 'Поле name является обязательным.',
+        'email' => 'Действующий электронный адрес',
     ]);
 
 <a name="assert-view-has"></a>
@@ -1705,6 +1705,6 @@ Laravel предоставляет два основных метода утве
 Также вы можете утверждать, что для указанного ключа есть определенное сообщение об ошибке валидации. При этом вы можете предоставить либо полное сообщение, либо только его небольшую часть:
 
     $response->assertInvalid([
-        'name' => 'The name field is required.',
-        'email' => 'valid email address',
+        'name' => 'Поле name обязательно.',
+        'email' => 'Действующий электронный адрес',
     ]);
