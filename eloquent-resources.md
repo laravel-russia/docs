@@ -592,7 +592,7 @@ php artisan make:resource UserCollection
 Метод `whenCounted` может быть использован для условного включения подсчета отношения в ответ вашего ресурса. Этот метод избегает лишнего включения атрибута, если подсчет отношения отсутствует:
 
     /**
-     * Transform the resource into an array.
+     * Преобразем ресурс в массив.
      *
      * @return array<string, mixed>
      */
