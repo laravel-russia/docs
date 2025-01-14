@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AddContext
 {
     /**
-     * Handle an incoming request.
+     * Обработка входящего запроса.
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -43,23 +43,23 @@ class AddContext
 Информация, добавленная в контекст, автоматически добавляется в виде метаданных ко всем [записям журнала](/docs/{{version}}/logging), которые записываются на протяжении всего запроса. Добавление контекста в виде метаданных позволяет отличать информацию, передаваемую в отдельные записи журнала, от информации, передаваемой через `Context`. Например, представьте, что мы пишем следующую запись в журнале:
 
 ```php
-Log::info('User authenticated.', ['auth_id' => Auth::id()]);
+Log::info('Пользователь прошел аутентификацию.', ['auth_id' => Auth::id()]);
 ```
 
 Запись в журнале будет содержать переданный `auth_id`, но запись также будет содержать `url` и `trace_id` контекста в качестве метаданных:
 
 ```
-User authenticated. {"auth_id":27} {"url":"https://example.com/login","trace_id":"e04e1a11-e75c-4db3-b5b5-cfef4ef56697"}
+Пользователь прошел аутентификацию. {"auth_id":27} {"url":"https://example.com/login","trace_id":"e04e1a11-e75c-4db3-b5b5-cfef4ef56697"}
 ```
 
 Информация, добавленная в контекст, также становится доступной для заданий, отправленных в очередь. Например, представьте, что мы отправляем задание `ProcessPodcast` в очередь после добавления некоторой информации в контекст:
 
 ```php
-// In our middleware...
+// В нашем посреднике...
 Context::add('url', $request->url());
 Context::add('trace_id', Str::uuid()->toString());
 
-// In our controller...
+// В нашем контроллере...
 ProcessPodcast::dispatch($podcast);
 ```
 
@@ -73,11 +73,11 @@ class ProcessPodcast implements ShouldQueue
     // ...
 
     /**
-     * Execute the job.
+     * Выполнение задания.
      */
     public function handle(): void
     {
-        Log::info('Processing podcast.', [
+        Log::info('Обработка подкаста.', [
             'podcast_id' => $this->podcast->id,
         ]);
 
@@ -89,7 +89,7 @@ class ProcessPodcast implements ShouldQueue
 Результирующая запись журнала будет содержать информацию, которая была добавлена ​​в контекст во время запроса, который первоначально отправил задание:
 
 ```
-Processing podcast. {"podcast_id":95} {"url":"https://example.com/login","trace_id":"e04e1a11-e75c-4db3-b5b5-cfef4ef56697"}
+Обработка подкаста. {"podcast_id":95} {"url":"https://example.com/login","trace_id":"e04e1a11-e75c-4db3-b5b5-cfef4ef56697"}
 ```
 
 Хотя мы сосредоточились на встроенных функциях контекста Laravel, связанных с ведением журнала, следующая документация покажет, как контекст позволяет вам обмениваться информацией через границу HTTP-запроса/задания в очереди и даже как добавлять [данные скрытого контекста](#hidden- контекст), который не записывается в записи журнала.
@@ -336,7 +336,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Context;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -362,7 +362,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Context;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
