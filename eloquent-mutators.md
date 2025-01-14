@@ -621,7 +621,7 @@ php artisan make:cast Json
         public function set(Model $model, string $key, mixed $value, array $attributes): array
         {
             if (! $value instanceof AddressValueObject) {
-                throw new InvalidArgumentException('The given value is not an Address instance.');
+                throw new InvalidArgumentException('Данное значение не является экземпляром адреса.');
             }
 
             return [
