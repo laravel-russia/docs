@@ -326,10 +326,10 @@ $response = Http::withHeaders([
 По умолчанию сообщения `RequestException` усекаются до 120 символов при логировании или в сообщении об ошибке. Чтобы настроить или отключить это поведение, вы можете использовать методы `truncateRequestExceptionsAt` и `dontTruncateRequestExceptions` при настройке поведения обработки исключений вашего приложения в файле `bootstrap/app.php`:
 
     ->withExceptions(function (Exceptions $exceptions) {
-        // Truncate request exception messages to 240 characters...
+        // Усекаем сообщения об исключениях запроса до 240 символов...
         $exceptions->truncateRequestExceptionsAt(240);
 
-        // Disable request exception message truncation...
+        // Отключаем усечение сообщения об исключении запроса...
         $exceptions->dontTruncateRequestExceptions();
     })
 
@@ -397,7 +397,7 @@ Http::globalResponseMiddleware(fn ($response) => $response->withHeader(
 use Illuminate\Support\Facades\Http;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -441,7 +441,7 @@ public function boot(): void
     return $responses['first']->ok();
 
 <a name="customizing-concurrent-requests"></a>
-#### Customizing Concurrent Requests
+#### Настройка параллельных запросов
 
 Метод `pool` не может быть объединен с другими методами HTTP-клиента, такими как `withHeaders` или `middleware`. Если вы хотите применить пользовательские заголовки или middleware к пулу запросов, вы должны настроить эти параметры для каждого запроса в пуле:
 
@@ -469,7 +469,7 @@ HTTP-клиент Laravel позволяет вам определять «ма�
 use Illuminate\Support\Facades\Http;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -596,10 +596,10 @@ $response = Http::github()->get('/');
         'github.com/*' => Http::response('ok'),
     ]);
 
-    // An "ok" response is returned...
+    // Возвращается ответ «ОК»...
     Http::get('https://github.com/laravel/framework');
 
-    // An exception is thrown...
+    // Выбрасывается исключение...
     Http::get('https://laravel.com');
 
 <a name="inspecting-requests"></a>
@@ -707,7 +707,7 @@ Laravel запускает три события в процессе отпра�
     class LogRequest
     {
         /**
-         * Handle the given event.
+         * Обработка данного события.
          */
         public function handle(RequestSending $event): void
         {
