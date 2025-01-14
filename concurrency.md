@@ -20,12 +20,12 @@ git: aac0a3fa319d0ac84d546957c4ca30ca0ec4c2df
 ```php
 'providers' => ServiceProvider::defaultProviders()->merge([
     /*
-     * Package Service Providers...
+     * Поставщики пакетных услуг...
      */
     Illuminate\Concurrency\ConcurrencyServiceProvider::class, // [tl! add]
 
     /*
-     * Application Service Providers...
+     * Поставщики услуг приложений...
      */
     App\Providers\AppServiceProvider::class,
     App\Providers\AuthServiceProvider::class,
