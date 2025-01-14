@@ -23,12 +23,12 @@ git: dc8015a44281e30a45bd98de4a5830b56d002392
     class UserFactory extends Factory
     {
         /**
-         * The current password being used by the factory.
+         * Текущий пароль, используемый на фабрике.
          */
         protected static ?string $password;
 
         /**
-         * Define the model's default state.
+         * Определение состояния модели по умолчанию.
          *
          * @return array<string, mixed>
          */
@@ -44,7 +44,7 @@ git: dc8015a44281e30a45bd98de4a5830b56d002392
         }
 
         /**
-         * Indicate that the model's email address should be unverified.
+         * Указываем, что адрес электронной почты модели не подтвержден.
          */
         public function unverified(): static
         {
@@ -129,7 +129,7 @@ php artisan make:factory PostFactory
     }
 
 <a name="trashed-state"></a>
-#### "Trashed" State
+#### Состояние "Trashed"
 
 Если ваша модель Eloquent поддерживает [программное удаление](/docs/{{version}}/eloquent#soft-deleting), вы можете вызвать встроенный метод состояния `trashed`  чтобы указать, что созданная модель уже должна быть "программно удалена". Вам не нужно ручным образом определять состояние `trashed` так как оно автоматически доступно для всех фабрик:
 
