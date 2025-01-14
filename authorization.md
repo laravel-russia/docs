@@ -272,7 +272,7 @@ php artisan make:policy PostPolicy --model=Post
     use Illuminate\Support\Facades\Gate;
 
     Gate::guessPolicyNamesUsing(function (string $modelClass) {
-        // Return the name of the policy class for the given model...
+        // Возвращаем имя класса политики для данной модели...
     });
 
 <a name="manually-registering-policies"></a>
@@ -285,7 +285,7 @@ php artisan make:policy PostPolicy --model=Post
     use Illuminate\Support\Facades\Gate;
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -602,7 +602,7 @@ Laravel содержит посредника, который может авт�
     use App\Models\Post;
 
     Route::put('/post/{post}', function (Post $post) {
-        // The current user may update the post...
+        // Текущий пользователь может обновить сообщение...
     })->can('update', 'post');
 
 <a name="middleware-actions-that-dont-require-models"></a>
@@ -619,7 +619,7 @@ Laravel содержит посредника, который может авт�
     use App\Models\Post;
 
     Route::post('/post', function () {
-        // The current user may create posts...
+        // Текущий пользователь может создавать сообщения...
     })->can('create', Post::class);
 
 <a name="via-blade-templates"></a>
@@ -731,7 +731,7 @@ class HandleInertiaRequests extends Middleware
     // ...
 
     /**
-     * Define the props that are shared by default.
+     * Определяем реквизиты, которые используются по умолчанию.
      *
      * @return array<string, mixed>
      */
