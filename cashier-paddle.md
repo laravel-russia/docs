@@ -1,5 +1,5 @@
 ---
-git: e438d061210631c1a8f8a637d9c80b3d5c3a6e87
+git: 6b78d379a055aefcd8e8ae8eed0bf7efac6f79f9
 ---
 
 # Laravel Cashier (Paddle)
@@ -512,7 +512,7 @@ $options['settings']['frameInitialHeight'] = 366;
     use Laravel\Paddle\Checkout;
 
     Route::get('/buy', function (Request $request) {
-        $checkout = Checkout::guest('pri_34567')
+        $checkout = Checkout::guest(['pri_34567'])
             ->returnTo(route('home'));
 
         return view('billing', ['checkout' => $checkout]);
