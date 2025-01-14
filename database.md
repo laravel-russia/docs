@@ -11,11 +11,11 @@ git: 88b6f0d99c9f89ca38266d9fa0c3b4ea3df3c85e
 
 <!-- <div class="content-list" markdown="1"> -->
 
-- MariaDB 10.3+ ([Version Policy](https://mariadb.org/about/#maintenance-policy))
-- MySQL 5.7+ ([Version Policy](https://en.wikipedia.org/wiki/MySQL#Release_history))
-- PostgreSQL 10.0+ ([Version Policy](https://www.postgresql.org/support/versioning/))
+- MariaDB 10.3+ ([Политика версий](https://mariadb.org/about/#maintenance-policy))
+- MySQL 5.7+ ([Политика версий](https://en.wikipedia.org/wiki/MySQL#Release_history))
+- PostgreSQL 10.0+ ([Политика версий](https://www.postgresql.org/support/versioning/))
 - SQLite 3.26.0+
-- SQL Server 2017+ ([Version Policy](https://docs.microsoft.com/en-us/lifecycle/products/?products=sql-server))
+- SQL Server 2017+ ([Политика версий](https://docs.microsoft.com/en-us/lifecycle/products/?products=sql-server))
 
 <!-- </div> -->
 
@@ -307,7 +307,7 @@ driver://username:password@host:port/database?options
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Register any application services.
+         * Регистрация любых служб приложения.
          */
         public function register(): void
         {
@@ -315,12 +315,12 @@ driver://username:password@host:port/database?options
         }
 
         /**
-         * Bootstrap any application services.
+         * Загрузка любых сервисов приложения.
          */
         public function boot(): void
         {
             DB::whenQueryingForLongerThan(500, function (Connection $connection, QueryExecuted $event) {
-                // Notify development team...
+                // Уведомить команду разработчиков...
             });
         }
     }
