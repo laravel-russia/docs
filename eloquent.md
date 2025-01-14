@@ -53,10 +53,10 @@ php artisan make:model Flight -crR
 # Создать модель и класс FlightPolicy class...
 php artisan make:model Flight --policy
 
-# Создать модель, миграцию, фабрику, наполнитель и контроллер ...
+# Создать модель, миграцию, фабрику, наполнитель и контроллер...
 php artisan make:model Flight -mfsc
 
-# Создать модель, миграцию, фабрику, наполнитель, политику, контроллер и запрос формы ...
+# Создать модель, миграцию, фабрику, наполнитель, политику, контроллер и запрос формы...
 php artisan make:model Flight --all
 php artisan make:model Flight -a
 
@@ -195,7 +195,7 @@ Eloquent требует, чтобы каждая модель имела по к
     use Ramsey\Uuid\Uuid;
 
     /**
-     * Generate a new UUID for the model.
+     * Создаем новый UUID для модели.
      */
     public function newUniqueId(): string
     {
@@ -203,7 +203,7 @@ Eloquent требует, чтобы каждая модель имела по к
     }
 
     /**
-     * Get the columns that should receive a unique identifier.
+     * Получаем столбцы, которым должен быть присвоен уникальный идентификатор.
      *
      * @return array<int, string>
      */
@@ -224,7 +224,7 @@ Eloquent требует, чтобы каждая модель имела по к
         // ...
     }
 
-    $article = Article::create(['title' => 'Traveling to Asia']);
+    $article = Article::create(['title' => 'Путешествие в Азию']);
 
     $article->id; // "01gd4d3tgrrfqeda94gdbtdk5c"
 
@@ -1048,7 +1048,7 @@ Eloquent содержит методы `isDirty`, `isClean` и `wasChanged` дл
 Помечая модели как `Prunable`, вы также можете определить метод `pruning` для модели. Этот метод будет вызван перед удалением модели. Этот метод может быть полезен для удаления любых дополнительных ресурсов, связанных с моделью, таких как хранимые файлы, до того, как модель будет окончательно удалена из базы данных:
 
     /**
-     * Prepare the model for pruning.
+     * Подготока модели к удалению.
      */
     protected function pruning(): void
     {
@@ -1100,7 +1100,7 @@ php artisan model:prune --pretend
         use MassPrunable;
 
         /**
-         * Get the prunable model query.
+         * Получаем запрос сокращаемой модели.
          */
         public function prunable(): Builder
         {
