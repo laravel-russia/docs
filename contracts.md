@@ -70,7 +70,7 @@ git: 87c1dc3bbb78949d35a1af957ba76c4469490baa
 В этой таблице содержится краткий справочник контрактов и эквивалентных им фасадов Laravel:
 
 | Контракт                                                                                                                                               | Фасад                     |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- |
 | [Illuminate\Contracts\Auth\Access\Authorizable](https://github.com/illuminate/contracts/blob/{{version}}/Auth/Access/Authorizable.php)                 |  &nbsp;                   |
 | [Illuminate\Contracts\Auth\Access\Gate](https://github.com/illuminate/contracts/blob/{{version}}/Auth/Access/Gate.php)                                 | `Gate`                    |
 | [Illuminate\Contracts\Auth\Authenticatable](https://github.com/illuminate/contracts/blob/{{version}}/Auth/Authenticatable.php)                         |  &nbsp;                   |
