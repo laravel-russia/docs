@@ -129,7 +129,7 @@ php artisan make:controller ProvisionServer --invokable
     use Illuminate\Http\Request;
 
     /**
-     * Get the middleware that should be assigned to the controller.
+     * Получение посредника, который должен быть назначен контроллеру.
      */
     public static function middleware(): array
     {
