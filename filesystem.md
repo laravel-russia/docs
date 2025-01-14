@@ -99,7 +99,7 @@ composer require league/flysystem-ftp "^3.0"
         'username' => env('FTP_USERNAME'),
         'password' => env('FTP_PASSWORD'),
 
-        // Optional FTP Settings...
+        // Дополнительные настройки FTP...
         // 'port' => env('FTP_PORT', 21),
         // 'root' => env('FTP_ROOT'),
         // 'passive' => true,
@@ -122,19 +122,19 @@ composer require league/flysystem-sftp-v3 "^3.0"
         'driver' => 'sftp',
         'host' => env('SFTP_HOST'),
 
-        // Settings for basic authentication...
+        // Настройки базовой аутентификации...
         'username' => env('SFTP_USERNAME'),
         'password' => env('SFTP_PASSWORD'),
 
-        // Settings for SSH key based authentication with encryption password...
+        // Настройки для аутентификации на основе ключей SSH с паролем шифрования...
         'privateKey' => env('SFTP_PRIVATE_KEY'),
         'passphrase' => env('SFTP_PASSPHRASE'),
 
-        // Settings for file / directory permissions...
+        // Настройки прав доступа к файлу/каталогу...
         'visibility' => 'private', // `private` = 0600, `public` = 0644
         'directory_visibility' => 'private', // `private` = 0700, `public` = 0755
 
-        // Optional SFTP Settings...
+        // Дополнительные настройки SFTP...
         // 'hostFingerprint' => env('SFTP_HOST_FINGERPRINT'),
         // 'maxTries' => 4,
         // 'passphrase' => env('SFTP_PASSPHRASE'),
@@ -344,7 +344,7 @@ $disk->put('image.jpg', $content);
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Bootstrap any application services.
+         * Загрузка любых сервисов приложения.
          */
         public function boot(): void
         {
@@ -548,8 +548,8 @@ MIME-тип файла можно получить с помощью метод�
 
     $file = $request->file('avatar');
 
-    $name = $file->hashName(); // Generate a unique, random name...
-    $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
+    $name = $file->hashName(); // Создать уникальное случайное имя...
+    $extension = $file->extension(); // Определяем расширение файла на основе MIME-типа файла...
 
 <a name="file-visibility"></a>
 ### Видимость файла
@@ -664,7 +664,7 @@ MIME-тип файла можно получить с помощью метод�
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-test('albums can be uploaded', function () {
+test('альбомы могут быть загружены', function () {
     Storage::fake('photos');
 
     $response = $this->json('POST', '/photos', [
