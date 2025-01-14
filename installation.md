@@ -43,7 +43,7 @@ Laravel объединяет лучшие пакеты в экосистеме P
 <a name="installing-php"></a>
 ### Установка PHP и установщика Laravel
 
-Прежде чем создавать свое первое приложение Laravel, убедитесь, что на вашем локальном компьютере установлены [PHP](https://php.net), [Composer](https://getcomposer.org) и [установщик Laravel](https:/ /github.com/laravel/installer). Кроме того, вам следует установить либо [Node и NPM](https://nodejs.org), либо [Bun](https://bun.sh/), чтобы вы могли скомпилировать ресурсы внешнего интерфейса вашего приложения.
+Прежде чем создавать свое первое приложение Laravel, убедитесь, что на вашем локальном компьютере установлены [PHP](https://php.net), [Composer](https://getcomposer.org) и [установщик Laravel](https://github.com/laravel/installer). Кроме того, вам следует установить либо [Node и NPM](https://nodejs.org), либо [Bun](https://bun.sh/), чтобы вы могли скомпилировать ресурсы внешнего интерфейса вашего приложения.
 
 Если на вашем локальном компьютере не установлены PHP и Composer, следующие команды установят PHP, Composer и установщик Laravel в macOS, Windows или Linux:
 
