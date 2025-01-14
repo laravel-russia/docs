@@ -43,7 +43,7 @@ php artisan make:listener
     class SendPodcastNotification
     {
         /**
-         * Handle the given event.
+         * Обработка данного события.
          */
         public function handle(PodcastProcessed $event): void
         {
@@ -54,7 +54,7 @@ php artisan make:listener
 Вы можете прослушивать несколько событий, используя типы объединения PHP:
 
     /**
-     * Handle the given event.
+     * Обработка данного события.
      */
     public function handle(PodcastProcessed|PodcastPublished $event): void
     {
@@ -113,7 +113,7 @@ php artisan event:list
     use Illuminate\Support\Facades\Event;
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -220,7 +220,7 @@ php artisan event:list
          */
         public function handle(OrderShipped $event): void
         {
-            // Доступ к заказу с помощью `$event->order` ...
+            // Доступ к заказу с помощью `$event->order`...
         }
     }
 
@@ -528,7 +528,7 @@ php artisan event:list
         {
             $order = Order::findOrFail($request->order_id);
 
-            // Логика отправки заказа ...
+            // Логика отправки заказа...
 
             OrderShipped::dispatch($order);
 
@@ -567,7 +567,7 @@ php artisan event:list
         use Dispatchable, InteractsWithSockets, SerializesModels;
 
         /**
-         * Create a new event instance.
+         * Создаем новый экземпляр события.
          */
         public function __construct(
             public Order $order,
@@ -693,7 +693,7 @@ use App\Events\OrderFailedToShip;
 use App\Events\OrderShipped;
 use Illuminate\Support\Facades\Event;
 
-test('orders can be shipped', function () {
+test('заказы могут быть отправлены', function () {
     Event::fake();
 
     // Выполните процесс доставки заказа...
@@ -725,7 +725,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * Test order shipping.
+     * Тест доставки заказа.
      */
     public function test_orders_can_be_shipped(): void
     {
@@ -770,7 +770,7 @@ class ExampleTest extends TestCase
 Если вы хотите подменить слушателей событий только для определенного набора событий, вы можете передать их в метод `fake` или `fakeFor`:
 
 ```php tab=Pest
-test('orders can be processed', function () {
+test('заказы могут быть обработаны', function () {
     Event::fake([
         OrderCreated::class,
     ]);
@@ -786,7 +786,7 @@ test('orders can be processed', function () {
 
 ```php tab=PHPUnit
 /**
- * Test order process.
+ * Тест обработки заказа.
  */
 public function test_orders_can_be_processed(): void
 {
@@ -821,7 +821,7 @@ use App\Events\OrderCreated;
 use App\Models\Order;
 use Illuminate\Support\Facades\Event;
 
-test('orders can be processed', function () {
+test('заказы могут быть обработаны', function () {
     $order = Event::fakeFor(function () {
         $order = Order::factory()->create();
 
@@ -848,7 +848,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * Test order process.
+     * Тест обработки заказа.
      */
     public function test_orders_can_be_processed(): void
     {
