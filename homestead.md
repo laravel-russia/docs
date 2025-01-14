@@ -683,7 +683,7 @@ Homestead включает поддержку пошаговой отладки 
 При отладке функциональных тестов, которые отправляют запросы к веб-серверу, проще автоматически запускать отладку, чем изменять тесты для прохождения через настраиваемый заголовок или файл cookie для запуска отладки. Чтобы заставить Xdebug запускаться автоматически, измените файл `/etc/php/7.x/fpm/conf.d/20-xdebug.ini` внутри виртуальной машины Homestead и добавьте следующую конфигурацию:
 
 ```ini
-; If Homestead.yaml contains a different subnet for the IP address, this address may be different...
+; Если Homestead.yaml содержит другую подсеть для IP-адреса, этот адрес может быть другим...
 xdebug.client_host = 192.168.10.1
 xdebug.mode = debug
 xdebug.start_with_request = yes
