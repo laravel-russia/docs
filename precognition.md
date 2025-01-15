@@ -54,7 +54,7 @@ const submit = () => form.submit();
 
 <template>
     <form @submit.prevent="submit">
-        <label for="name">Name</label>
+        <label for="name">Имя</label>
         <input
             id="name"
             v-model="form.name"
@@ -76,7 +76,7 @@ const submit = () => form.submit();
         </div>
 
         <button :disabled="form.processing">
-            Create User
+            Создать пользователя
         </button>
     </form>
 </template>
@@ -92,7 +92,7 @@ form.setValidationTimeout(3000);
 
 ```html
 <div v-if="form.validating">
-    Validating...
+    Проверка...
 </div>
 ```
 
@@ -152,7 +152,7 @@ form.setValidationTimeout(3000);
         onSuccess: (response) => nextStep(),
         onValidationError: (response) => /* ... */,
     })"
->Next Step</button>
+>Следующий шаг</button>
 ```
 
 Конечно, вы также можете выполнить код при получении ответа на отправку формы. Функция `submit` формы возвращает обещание(promise) запроса Axios. Это обеспечивает удобный способ доступа к данным ответа, сброса входных данных формы при успешной отправке или обработки неудачного запроса:
@@ -162,10 +162,10 @@ const submit = () => form.submit()
     .then(response => {
         form.reset();
 
-        alert('User created.');
+        alert('Пользователь создан.');
     })
     .catch(error => {
-        alert('An error occurred.');
+        alert('Произошла ошибка.');
     });
 ```
 
@@ -173,7 +173,7 @@ const submit = () => form.submit()
 
 ```html
 <button :disabled="form.processing">
-    Submit
+    Отправить
 </button>
 ```
 
@@ -252,7 +252,7 @@ export default function Form() {
 
     return (
         <form onSubmit={submit}>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Имя</label>
             <input
                 id="name"
                 value={form.data.name}
@@ -271,7 +271,7 @@ export default function Form() {
             {form.invalid('email') && <div>{form.errors.email}</div>}
 
             <button disabled={form.processing}>
-                Create User
+                Создать пользователя
             </button>
         </form>
     );
@@ -338,7 +338,7 @@ form.setValidationTimeout(3000);
         onSuccess: (response) => nextStep(),
         onValidationError: (response) => /* ... */,
     })}
->Next Step</button>
+>Следующий шаг</button>
 ```
 
 Конечно, вы также можете выполнять код после ответа на отправку формы. Функция `submit` формы возвращает promise запроса Axios. Это обеспечивает удобный способ доступа к данным ответа, сброса входных данных формы при успешной отправке или обработки неудачного запроса:
@@ -351,10 +351,10 @@ const submit = (e) => {
         .then(response => {
             form.reset();
 
-            alert('User created.');
+            alert('Пользователь создан.');
         })
         .catch(error => {
-            alert('An error occurred.');
+            alert('Произошла ошибка.');
         });
 };
 ```
@@ -363,7 +363,7 @@ const submit = (e) => {
 
 ```html
 <button disabled={form.processing}>
-    Submit
+    Отправить
 </button>
 ```
 
@@ -447,7 +447,7 @@ Alpine.start();
     }),
 }">
     @csrf
-    <label for="name">Name</label>
+    <label for="name">Имя</label>
     <input
         id="name"
         name="name"
@@ -470,7 +470,7 @@ Alpine.start();
     </template>
 
     <button :disabled="form.processing">
-        Create User
+        Создать пользователя
     </button>
 </form>
 ```
@@ -485,7 +485,7 @@ form.setValidationTimeout(3000);
 
 ```html
 <template x-if="form.validating">
-    <div>Validating...</div>
+    <div>Проверка...</div>
 </template>
 ```
 
@@ -531,14 +531,14 @@ form.setValidationTimeout(3000);
         onSuccess: (response) => nextStep(),
         onValidationError: (response) => /* ... */,
     })"
->Next Step</button>
+>Следующий шаг</button>
 ```
 
 Вы можете определить, выполняется ли запрос на отправку формы, проверив свойство `processing` формы:
 
 ```html
 <button :disabled="form.processing">
-    Submit
+    Отправить
 </button>
 ```
 
@@ -570,10 +570,10 @@ form.setValidationTimeout(3000);
                 .then(response => {
                     form.reset();
 
-                    alert('User created.')
+                    alert('Пользователь создан.')
                 })
                 .catch(error => {
-                    alert('An error occurred.');
+                    alert('Произошла ошибка.');
                 });
         },
     }"
@@ -625,7 +625,7 @@ use Illuminate\Validation\Rules\Password;
 class StoreUserRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Получите правила проверки, применимые к запросу.
      *
      * @return array
      */
@@ -653,7 +653,7 @@ class StoreUserRequest extends FormRequest
 
 ```php
 /**
- * Get the validation rules that apply to the request.
+ * Получите правила проверки, применимые к запросу.
  *
  * @return array
  */
@@ -696,7 +696,7 @@ use Illuminate\Http\Request;
 class InteractionMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Обработка входящего запроса.
      */
     public function handle(Request $request, Closure $next): mixed
     {
@@ -717,7 +717,7 @@ class InteractionMiddleware
 Кроме того, если вы хотите проверить, что предвиденный запрос был успешным, например, не возвращал никаких ошибок валидации, вы можете использовать метод `assertSuccessfulPrecognition` на ответе:
 
 ```php tab=Pest
-it('validates registration form with precognition', function () {
+it('проверяет регистрационную форму с помощью предвидения', function () {
     $response = $this->withPrecognition()
         ->post('/register', [
             'name' => 'Taylor Otwell',
