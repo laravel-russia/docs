@@ -214,7 +214,7 @@ php artisan make:notification InvoicePaid
     use Illuminate\Queue\Middleware\RateLimited;
 
     /**
-     * Get the middleware the notification job should pass through.
+     * Получение посредника, через которое должно пройти задание уведомления.
      *
      * @return array<int, object>
      */
@@ -253,7 +253,7 @@ php artisan make:notification InvoicePaid
         use Queueable;
 
         /**
-         * Create a new notification instance.
+         * Создание новый экземпляр уведомления.
          */
         public function __construct()
         {
@@ -324,11 +324,11 @@ php artisan make:notification InvoicePaid
         $url = url('/invoice/'.$this->invoice->id);
 
         return (new MailMessage)
-                    ->greeting('Hello!')
-                    ->line('One of your invoices has been paid!')
-                    ->lineIf($this->amount > 0, "Amount paid: {$this->amount}")
-                    ->action('View Invoice', $url)
-                    ->line('Thank you for using our application!');
+                    ->greeting('Привет!')
+                    ->line('Один из ваших счетов оплачен!')
+                    ->lineIf($this->amount > 0, "Выплаченная сумма: {$this->amount}")
+                    ->action('Посмотреть счет', $url)
+                    ->line('Благодарим вас за использование нашего приложения!');
     }
 
 > [!NOTE]
@@ -353,7 +353,7 @@ php artisan make:notification InvoicePaid
     {
         return (new MailMessage)
                     ->error()
-                    ->subject('Invoice Payment Failed')
+                    ->subject('Оплата счета не удалась')
                     ->line('...');
     }
 
@@ -457,7 +457,7 @@ php artisan make:notification InvoicePaid
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('Notification Subject')
+                    ->subject('Тема уведомления')
                     ->line('...');
     }
 
@@ -496,8 +496,8 @@ php artisan vendor:publish --tag=laravel-notifications
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Hello!')
-                    ->attach('/path/to/file');
+                    ->greeting('Привет!')
+                    ->attach('/путь/к/файлу');
     }
 
 > [!NOTE]
@@ -511,8 +511,8 @@ php artisan vendor:publish --tag=laravel-notifications
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Hello!')
-                    ->attach('/path/to/file', [
+                    ->greeting('Привет!')
+                    ->attach('/путь/к/файлу', [
                         'as' => 'name.pdf',
                         'mime' => 'application/pdf',
                     ]);
@@ -529,7 +529,7 @@ php artisan vendor:publish --tag=laravel-notifications
     {
         return (new InvoicePaidMailable($this->invoice))
                     ->to($notifiable->email)
-                    ->attachFromStorage('/path/to/file');
+                    ->attachFromStorage('/путь/к/файлу');
     }
 
 При необходимости к сообщению можно прикрепить несколько файлов, используя метод `attachMany`:
@@ -540,10 +540,10 @@ php artisan vendor:publish --tag=laravel-notifications
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Hello!')
+                    ->greeting('Привет!')
                     ->attachMany([
-                        '/path/to/forge.svg',
-                        '/path/to/vapor.svg' => [
+                        '/путь/к/forge.svg',
+                        '/путь/к/vapor.svg' => [
                             'as' => 'Logo.svg',
                             'mime' => 'image/svg+xml',
                         ],
@@ -561,7 +561,7 @@ php artisan vendor:publish --tag=laravel-notifications
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Hello!')
+                    ->greeting('Привет!')
                     ->attachData($this->pdf, 'name.pdf', [
                         'mime' => 'application/pdf',
                     ]);
@@ -578,7 +578,7 @@ php artisan vendor:publish --tag=laravel-notifications
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Comment Upvoted!')
+                    ->greeting('Проголосовал за!')
                     ->tag('upvote')
                     ->metadata('comment_id', $this->comment->id);
     }
@@ -685,7 +685,7 @@ php artisan make:notification InvoicePaid --markdown=mail.invoice.paid
         $url = url('/invoice/'.$this->invoice->id);
 
         return (new MailMessage)
-                    ->subject('Invoice Paid')
+                    ->subject('Счет оплачен')
                     ->markdown('mail.invoice.paid', ['url' => $url]);
     }
 
@@ -696,15 +696,15 @@ php artisan make:notification InvoicePaid --markdown=mail.invoice.paid
 
 ```blade
 <x-mail::message>
-# Invoice Paid
+# Счет оплачен
 
-Your invoice has been paid!
+Ваш счет оплачен!
 
 <x-mail::button :url="$url">
-View Invoice
+Посмотреть счет
 </x-mail::button>
 
-Thanks,<br>
+Спасибо,<br>
 {{ config('app.name') }}
 </x-mail::message>
 ```
@@ -716,7 +716,7 @@ Thanks,<br>
 
 ```blade
 <x-mail::button :url="$url" color="green">
-View Invoice
+Посмотреть счет
 </x-mail::button>
 ```
 
@@ -727,7 +727,7 @@ View Invoice
 
 ```blade
 <x-mail::panel>
-This is the panel content.
+Это содержимое панели.
 </x-mail::panel>
 ```
 
@@ -772,7 +772,7 @@ php artisan vendor:publish --tag=laravel-mail
     {
         return (new MailMessage)
                     ->theme('invoice')
-                    ->subject('Invoice Paid')
+                    ->subject('Счет оплачен')
                     ->markdown('mail.invoice.paid', ['url' => $url]);
     }
 
@@ -992,7 +992,7 @@ php artisan migrate
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-                    ->content('Your SMS message content');
+                    ->content('Содержание вашего SMS-сообщения');
     }
 
 <a name="unicode-content"></a>
@@ -1008,7 +1008,7 @@ php artisan migrate
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-                    ->content('Your unicode message')
+                    ->content('Ваше сообщение в Юникоде')
                     ->unicode();
     }
 
@@ -1025,7 +1025,7 @@ php artisan migrate
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-                    ->content('Your SMS message content')
+                    ->content('Содержание вашего SMS-сообщения')
                     ->from('15554443333');
     }
 
@@ -1043,7 +1043,7 @@ php artisan migrate
     {
         return (new VonageMessage)
                     ->clientReference((string) $notifiable->id)
-                    ->content('Your SMS message content');
+                    ->content('Содержание вашего SMS-сообщения');
     }
 
 <a name="routing-sms-notifications"></a>
@@ -1118,19 +1118,19 @@ composer require laravel/slack-notification-channel
     public function toSlack(object $notifiable): SlackMessage
     {
         return (new SlackMessage)
-                ->text('One of your invoices has been paid!')
-                ->headerBlock('Invoice Paid')
+                ->text('Один из ваших счетов оплачен!')
+                ->headerBlock('Счет оплачен')
                 ->contextBlock(function (ContextBlock $block) {
-                    $block->text('Customer #1234');
+                    $block->text('Клиент №1234');
                 })
                 ->sectionBlock(function (SectionBlock $block) {
-                    $block->text('An invoice has been paid.');
-                    $block->field("*Invoice No:*\n1000")->markdown();
-                    $block->field("*Invoice Recipient:*\ntaylor@laravel.com")->markdown();
+                    $block->text('Счет оплачен.');
+                    $block->field("*Номер счета:*\n1000")->markdown();
+                    $block->field("*Получатель счета:*\ntaylor@laravel.com")->markdown();
                 })
                 ->dividerBlock()
                 ->sectionBlock(function (SectionBlock $block) {
-                    $block->text('Congratulations!');
+                    $block->text('Поздравляем!');
                 });
     }
 
@@ -1143,7 +1143,7 @@ composer require laravel/slack-notification-channel
     use Illuminate\Support\Str;
 
     /**
-     * Get the Slack representation of the notification.
+     * Получение представление уведомления в Slack.
      */
     public function toSlack(object $notifiable): SlackMessage
     {
@@ -1154,14 +1154,14 @@ composer require laravel/slack-notification-channel
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "Team Announcement"
+                    "text": "Объявление команды"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "plain_text",
-                    "text": "We are hiring!"
+                    "text": "Мы нанимаем!"
                   }
                 }
               ]
@@ -1190,19 +1190,19 @@ composer require laravel/slack-notification-channel
     public function toSlack(object $notifiable): SlackMessage
     {
         return (new SlackMessage)
-                ->text('One of your invoices has been paid!')
-                ->headerBlock('Invoice Paid')
+                ->text('Один из ваших счетов оплачен!')
+                ->headerBlock('Счет оплачен')
                 ->contextBlock(function (ContextBlock $block) {
-                    $block->text('Customer #1234');
+                    $block->text('Клиент №1234');
                 })
                 ->sectionBlock(function (SectionBlock $block) {
-                    $block->text('An invoice has been paid.');
+                    $block->text('Счет оплачен.');
                 })
                 ->actionsBlock(function (ActionsBlock $block) {
-                     // ID defaults to "button_acknowledge_invoice"...
+                     // ID по умолчанию - «button_acknowledge_invoice»...
                     $block->button('Acknowledge Invoice')->primary();
 
-                    // Manually configure the ID...
+                    // Настраиваем идентификатор вручную...
                     $block->button('Deny')->danger()->id('deny_invoice');
                 });
     }
@@ -1224,22 +1224,22 @@ composer require laravel/slack-notification-channel
     public function toSlack(object $notifiable): SlackMessage
     {
         return (new SlackMessage)
-                ->text('One of your invoices has been paid!')
-                ->headerBlock('Invoice Paid')
+                ->text('Один из ваших счетов оплачен!')
+                ->headerBlock('Счет оплачен')
                 ->contextBlock(function (ContextBlock $block) {
-                    $block->text('Customer #1234');
+                    $block->text('Клиент №1234');
                 })
                 ->sectionBlock(function (SectionBlock $block) {
-                    $block->text('An invoice has been paid.');
+                    $block->text('Счет оплачен.');
                 })
                 ->actionsBlock(function (ActionsBlock $block) {
                     $block->button('Acknowledge Invoice')
                         ->primary()
                         ->confirm(
-                            'Acknowledge the payment and send a thank you email?',
+                            'Подтвердить платеж и отправить благодарственное письмо?',
                             function (ConfirmObject $dialog) {
-                                $dialog->confirm('Yes');
-                                $dialog->deny('No');
+                                $dialog->confirm('Да');
+                                $dialog->deny('Нет');
                             }
                         );
                 });
@@ -1371,7 +1371,7 @@ Laravel позволяет отправлять уведомления, испо
 use App\Notifications\OrderShipped;
 use Illuminate\Support\Facades\Notification;
 
-test('orders can be shipped', function () {
+test('заказы могут быть отправлены', function () {
     Notification::fake();
 
     // Выполняем доставку заказа...
@@ -1468,7 +1468,7 @@ class ExampleTest extends TestCase
     class CheckNotificationStatus
     {
         /**
-         * Handle the given event.
+         * Обработка данного события.
          */
         public function handle(NotificationSending $event): void
         {
