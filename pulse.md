@@ -63,7 +63,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -127,7 +127,7 @@ php artisan vendor:publish --tag=pulse-dashboard
 use Laravel\Pulse\Facades\Pulse;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -423,7 +423,7 @@ use Laravel\Pulse\Facades\Pulse;
 use Laravel\Pulse\Value;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -513,7 +513,7 @@ use Laravel\Pulse\Facades\Pulse;
 use Illuminate\Support\Facades\Log;
 
 Pulse::handleExceptionsUsing(function ($e) {
-    Log::debug('An exception happened in Pulse', [
+    Log::debug('Исключение произошло в Pulse', [
         'message' => $e->getMessage(),
         'stack' => $e->getTraceAsString(),
     ]);
@@ -694,9 +694,9 @@ Pulse::record('user_sale', $user->id, $sale->amount)
 > При создании пакета карточек, который захватывает идентификатор текущего аутентифицированного пользователя, следует использовать метод `Pulse::resolveAuthenticatedUserId()`, который учитывает любые [настройки пользовательского разрешения](#dashboard-resolving-users), примененные в приложении.
 
 <a name="custom-card-data-retrieval"></a>
-#### Retrieving Aggregate Data
+#### Получение агрегированных данных
 
-When extending Pulse's `Card` Livewire component, you may use the `aggregate` method to retrieve aggregated data for the period being viewed in the dashboard:
+При расширении Pulse компонентом `Card` Livewire вы можете использовать метод `aggregate` для получения агрегированных данных за период, просматриваемый на информационной панели:
 
 ```php
 class TopSellers extends Card
@@ -787,7 +787,7 @@ use Laravel\Pulse\Facades\Pulse;
 class Deployments
 {
     /**
-     * The events to listen for.
+     * События, которые стоит слушать.
      *
      * @var array<int, class-string>
      */
@@ -796,7 +796,7 @@ class Deployments
     ];
 
     /**
-     * Record the deployment.
+     * Запишите развертывание.
      */
     public function record(Deployment $event): void
     {
