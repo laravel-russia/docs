@@ -383,7 +383,7 @@ window.Echo = new Echo({
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => ['Предоставленные учетные данные неверны.'],
             ]);
         }
 
@@ -424,7 +424,7 @@ window.Echo = new Echo({
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
-test('task list can be retrieved', function () {
+test('список задач можно получить', function () {
     Sanctum::actingAs(
         User::factory()->create(),
         ['view-tasks']
