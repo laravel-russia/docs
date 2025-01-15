@@ -64,13 +64,13 @@ php artisan schedule:list
 
     Artisan::command('delete:recent-users', function () {
         DB::table('recent_users')->delete();
-    })->purpose('Delete recent users')->daily();
+    })->purpose('Удалить недавних пользователей')->daily();
 
 Если вам нужно передать аргументы команде закрытия, вы можете передать их методу `schedule`:
 
     Artisan::command('emails:send {user} {--force}', function ($user) {
         // ...
-    })->purpose('Send emails to the specified user')->schedule(['Taylor', '--force'])->daily();
+    })->purpose('Отправлять электронные письма указанному пользователю')->schedule(['Taylor', '--force'])->daily();
 
 <a name="scheduling-queued-jobs"></a>
 ### Планирование отправки заданий в очереди
