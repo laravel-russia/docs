@@ -50,7 +50,7 @@ php artisan make:test UserTest --unit
 ```php tab=Pest
 <?php
 
-test('basic', function () {
+test('базовый', function () {
     expect(true)->toBeTrue();
 });
 ```
@@ -65,7 +65,7 @@ use PHPUnit\Framework\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Базовый тестовый пример.
      */
     public function test_basic_test(): void
     {
