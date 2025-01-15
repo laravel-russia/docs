@@ -58,7 +58,7 @@ use Laravel\Pennant\Feature;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -105,7 +105,7 @@ use Illuminate\Support\Lottery;
 class NewApi
 {
     /**
-     * Resolve the feature's initial value.
+     * Определите начальное значение функции.
      */
     public function resolve(User $user): mixed
     {
@@ -141,7 +141,7 @@ namespace App\Features;
 class NewApi
 {
     /**
-     * The stored name of the feature.
+    * Сохраненное имя функции.
      *
      * @var string
      */
@@ -168,7 +168,7 @@ use Laravel\Pennant\Feature;
 class PodcastController
 {
     /**
-     * Display a listing of the resource.
+     * Отобразить список ресурсов.
      */
     public function index(Request $request): Response
     {
@@ -229,7 +229,7 @@ use Laravel\Pennant\Feature;
 class PodcastController
 {
     /**
-     * Display a listing of the resource.
+     * Отобразить список ресурсов.
      */
     public function index(Request $request): Response
     {
@@ -259,7 +259,7 @@ class PodcastController
     class PodcastController
     {
         /**
-         * Display a listing of the resource.
+         * Отобразить список ресурсов.
          */
         public function index(Request $request): Response
         {
@@ -343,13 +343,13 @@ $user->features()->unless('new-api',
 
 ```blade
 @feature('site-redesign')
-    <!-- 'site-redesign' is active -->
+    <!-- 'site-redesign' активен -->
 @else
-    <!-- 'site-redesign' is inactive -->
+    <!-- 'site-redesign' неактивен -->
 @endfeature
 
 @featureany(['site-redesign', 'beta'])
-    <!-- 'site-redesign' or `beta` is active -->
+    <!-- 'site-redesign' или `beta` активен -->
 @endfeatureany
 ```
 
@@ -378,7 +378,7 @@ use Illuminate\Http\Response;
 use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -411,7 +411,7 @@ use Illuminate\Support\Lottery;
 class NewApi
 {
     /**
-     * Run an always-in-memory check before the stored value is retrieved.
+     * Запустите проверку «всегда в памяти» перед извлечением сохраненного значения.
      */
     public function before(User $user): mixed
     {
@@ -421,7 +421,7 @@ class NewApi
     }
 
     /**
-     * Resolve the feature's initial value.
+     * Определите начальное значение функции.
      */
     public function resolve(User $user): mixed
     {
@@ -447,7 +447,7 @@ use Illuminate\Support\Facades\Config;
 class NewApi
 {
     /**
-     * Run an always-in-memory check before the stored value is retrieved.
+     * Запустите проверку «всегда в памяти» перед извлечением сохраненного значения.
      */
     public function before(User $user): mixed
     {
@@ -535,7 +535,7 @@ use Laravel\Pennant\Feature;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -600,7 +600,7 @@ use Laravel\Pennant\Contracts\FeatureScopeable;
 class User extends Model implements FeatureScopeable
 {
     /**
-     * Cast the object to a feature scope identifier for the given driver.
+     * Приведите объект к идентификатору области функций для данного драйвера.
      */
     public function toFeatureIdentifier(string $driver): mixed
     {
@@ -659,11 +659,11 @@ $color = Feature::value('purchase-button');
 
 ```blade
 @feature('purchase-button', 'blue-sapphire')
-    <!-- 'blue-sapphire' is active -->
+    <!-- 'blue-sapphire' активен -->
 @elsefeature('purchase-button', 'seafoam-green')
-    <!-- 'seafoam-green' is active -->
+    <!-- 'seafoam-green' активен -->
 @elsefeature('purchase-button', 'tart-orange')
-    <!-- 'tart-orange' is active -->
+    <!-- 'tart-orange' активен -->
 @endfeature
 ```
 
@@ -724,7 +724,7 @@ Feature::all();
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Bootstrap any application services.
+         * Загрузка любых сервисов приложения.
          */
         public function boot(): void
         {
@@ -802,10 +802,10 @@ Feature::for($users)->loadAll();
 ```php
 use Laravel\Pennant\Feature;
 
-// Activate the feature for the default scope...
+// Активируем функцию для области действия по умолчанию...
 Feature::activate('new-api');
 
-// Deactivate the feature for the given scope...
+// Деактивируем функцию для данной области действия...
 Feature::for($user->team)->deactivate('billing-v2');
 ```
 
@@ -853,10 +853,10 @@ Feature::deactivateForEveryone('new-api');
 Вы можете удалить все сохраненные значения для функции, используя метод `purge`:
 
 ```php
-// Purging a single feature...
+// Очистка одной функции...
 Feature::purge('new-api');
 
-// Purging multiple features...
+// Очистка нескольких функций...
 Feature::purge(['new-api', 'purchase-button']);
 ```
 
@@ -907,7 +907,7 @@ Feature::define('purchase-button', fn () => Arr::random([
 ```php tab=Pest
 use Laravel\Pennant\Feature;
 
-test('it can control feature values', function () {
+test('он может контролировать значения функций', function () {
     Feature::define('purchase-button', 'seafoam-green');
 
     expect(Feature::value('purchase-button'))->toBe('seafoam-green');
@@ -930,7 +930,7 @@ public function test_it_can_control_feature_values()
 ```php tab=Pest
 use Laravel\Pennant\Feature;
 
-test('it can control feature values', function () {
+test('он может контролировать значения функций', function () {
     Feature::define(NewApi::class, true);
 
     expect(Feature::value(NewApi::class))->toBeTrue();
@@ -1018,7 +1018,7 @@ use Laravel\Pennant\Feature;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Зарегистрируйте любые службы приложения.
      */
     public function register(): void
     {
@@ -1026,7 +1026,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -1106,12 +1106,12 @@ use Laravel\Pennant\Events\UnknownFeatureResolved;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
         Event::listen(function (UnknownFeatureResolved $event) {
-            Log::error("Resolving unknown feature [{$event->feature}].");
+            Log::error("Решение неизвестной функции [{$event->feature}].");
         });
     }
 }
@@ -1132,7 +1132,7 @@ use Illuminate\Support\Facades\Log;
 use Laravel\Pennant\Events\UnexpectedNullScopeEncountered;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
