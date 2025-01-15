@@ -95,7 +95,7 @@ git: bb4650831ec4567c07d72f7a9949a95f90c04035
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('message', 'Verification link sent!');
+        return back()->with('message', 'Ссылка для подтверждения отправлена!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 <a name="protecting-routes"></a>
@@ -123,7 +123,7 @@ git: bb4650831ec4567c07d72f7a9949a95f90c04035
     use Illuminate\Notifications\Messages\MailMessage;
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -131,9 +131,9 @@ git: bb4650831ec4567c07d72f7a9949a95f90c04035
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
-                ->subject('Verify Email Address')
-                ->line('Click the button below to verify your email address.')
-                ->action('Verify Email Address', $url);
+                ->subject('Подтвердите адрес электронной почты')
+                ->line('Нажмите кнопку ниже, чтобы подтвердить свой адрес электронной почты.')
+                ->action('Подтвердите адрес электронной почты', $url);
         });
     }
 
