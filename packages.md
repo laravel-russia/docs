@@ -275,7 +275,7 @@ public function boot(): void
 
 Это позволит использовать компоненты пакета с помощью синтаксиса `package-name::` их вендорного пространства имен:
 
-```html
+```blade
 <x-nightshade::calendar />
 <x-nightshade::color-picker />
 ```
@@ -335,7 +335,7 @@ Blade автоматически определит класс, связанны
 Команда Laravel [`optimize`](/docs/{{version}}/deployment#optimization) кэширует конфигурацию приложения, события, маршруты и представления. Используя метод `optimizes`, вы можете зарегистрировать собственные команды Artisan вашего пакета, которые должны вызываться при выполнении команд `optimize` и `optimize:clear`:
 
     /**
-     * Bootstrap any package services.
+     * Загрузка любых пакетных услуг.
      */
     public function boot(): void
     {
