@@ -34,12 +34,12 @@ Laravel включает простую в использовании абстр
         'send-message:'.$user->id,
         $perMinute = 5,
         function() {
-            // Send message...
+            // Отправляем сообщение...
         }
     );
 
     if (! $executed) {
-      return 'Too many messages sent!';
+      return 'Отправлено слишком много сообщений!';
     }
 
 При необходимости, вы можете добавить четвёртый аргумент к методу `attempt`, который представляет собой "скорость сброса", или количество секунд до обновления количества доступных попыток. К примеру, мы можем изменить вышеуказанный пример так, чтобы разрешить пять попыток каждые две минуты:
@@ -48,7 +48,7 @@ Laravel включает простую в использовании абстр
         'send-message:'.$user->id,
         $perTwoMinutes = 5,
         function() {
-            // Отправить сообщение...
+            // Отправляем сообщение...
         },
         $decayRate = 120,
     );
@@ -61,12 +61,12 @@ Laravel включает простую в использовании абстр
     use Illuminate\Support\Facades\RateLimiter;
 
     if (RateLimiter::tooManyAttempts('send-message:'.$user->id, $perMinute = 5)) {
-        return 'Too many attempts!';
+        return 'Слишком много попыток!';
     }
 
     RateLimiter::increment('send-message:'.$user->id);
 
-    // Send message...
+    // Отправляем сообщение...
 
 В качестве альтернативы вы можете использовать метод `remaining` для получения количества попыток, оставшихся для данного ключа. Если для данного ключа остались повторные попытки, вы можете вызвать метод `increment`, чтобы увеличить общее количество попыток:
 
@@ -75,7 +75,7 @@ Laravel включает простую в использовании абстр
     if (RateLimiter::remaining('send-message:'.$user->id, $perMinute = 5)) {
         RateLimiter::increment('send-message:'.$user->id);
 
-        // Send message...
+        // Отправляем сообщение...
     }
 
 Если вы хотите увеличить значение для определенного ключа более чем на единицу, вы можете указать желаемое число для метода `increment`:
@@ -92,12 +92,12 @@ Laravel включает простую в использовании абстр
     if (RateLimiter::tooManyAttempts('send-message:'.$user->id, $perMinute = 5)) {
         $seconds = RateLimiter::availableIn('send-message:'.$user->id);
 
-        return 'You may try again in '.$seconds.' seconds.';
+        return 'Вы можете повторить попытку через '.$seconds.' секунд.';
     }
 
     RateLimiter::increment('send-message:'.$user->id);
 
-    // Send message...
+    // Отправляем сообщение...
 
 <a name="clearing-attempts"></a>
 ### Очистка счетчика попыток
