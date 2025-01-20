@@ -101,7 +101,7 @@ Laravel следует стандарту кодирования [PSR-2](https:/
 Ниже приведен пример валидного блока документации Laravel. Обратите внимание, что за атрибутом `@param` идут два пробела, тип аргумента, еще два пробела и, наконец, имя переменной:
 
     /**
-     * Register a binding with the container.
+     * Регистрация привязки к контейнеру.
      *
      * @param  string|array  $abstract
      * @param  \Closure|string|null  $concrete
@@ -118,7 +118,7 @@ Laravel следует стандарту кодирования [PSR-2](https:/
 Когда атрибуты `@param` или `@return` являются избыточными из-за использования нативных типов, их можно удалить:
 
     /**
-     * Execute the job.
+     * Выполнение задания.
      */
     public function handle(AudioProcessor $processor): void
     {
@@ -128,7 +128,7 @@ Laravel следует стандарту кодирования [PSR-2](https:/
 Однако, когда нативный тип является обобщенным, укажите его через использование атрибутов `@param` или `@return`:
 
     /**
-     * Get the attachments for the message.
+     * Получение вложения к сообщению.
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
