@@ -21,7 +21,7 @@ use App\Service;
 use Mockery;
 use Mockery\MockInterface;
 
-test('something can be mocked', function () {
+test('что-то может быть имитировано', function () {
     $this->instance(
         Service::class,
         Mockery::mock(Service::class, function (MockInterface $mock) {
@@ -108,7 +108,7 @@ public function test_something_can_be_mocked(): void
 
 use Illuminate\Support\Facades\Cache;
 
-test('get index', function () {
+test('получить индекс', function () {
     Cache::shouldReceive('get')
                 ->once()
                 ->with('key')
@@ -157,7 +157,7 @@ class UserControllerTest extends TestCase
 
 use Illuminate\Support\Facades\Cache;
 
-test('values are be stored in cache', function () {
+test('значения сохраняются в кеше', function () {
     Cache::spy();
 
     $response = $this->get('/');
@@ -189,8 +189,8 @@ public function test_values_are_be_stored_in_cache(): void
 При тестировании вам может иногда потребоваться изменить время, возвращаемое такими помощниками, как `now` или `Illuminate\Support\Carbon::now()`. К счастью, базовый класс тестирования функций Laravel включает помощников, которые позволяют вам управлять текущим временем:
 
 ```php tab=Pest
-test('time can be manipulated', function () {
-    // Travel into the future...
+test('временем можно манипулировать', function () {
+    // Путешествие в будущее...
     $this->travel(5)->milliseconds();
     $this->travel(5)->seconds();
     $this->travel(5)->minutes();
@@ -199,13 +199,13 @@ test('time can be manipulated', function () {
     $this->travel(5)->weeks();
     $this->travel(5)->years();
 
-    // Travel into the past...
+    // Путешествие в прошлое...
     $this->travel(-5)->hours();
 
-    // Travel to an explicit time...
+    // Перемещение в явное время...
     $this->travelTo(now()->subHours(6));
 
-    // Return back to the present time...
+    // Возвращаемся в настоящее время...
     $this->travelBack();
 });
 ```
@@ -213,7 +213,7 @@ test('time can be manipulated', function () {
 ```php tab=PHPUnit
 public function test_time_can_be_manipulated(): void
 {
-    // Travel into the future...
+    // Путешествие в будущее...
     $this->travel(5)->milliseconds();
     $this->travel(5)->seconds();
     $this->travel(5)->minutes();
@@ -222,13 +222,13 @@ public function test_time_can_be_manipulated(): void
     $this->travel(5)->weeks();
     $this->travel(5)->years();
 
-    // Travel into the past...
+    // Путешествие в прошлое...
     $this->travel(-5)->hours();
 
-    // Travel to an explicit time...
+    // Перемещение в явное время...
     $this->travelTo(now()->subHours(6));
 
-    // Return back to the present time...
+    // Возвращаемся в настоящее время...
     $this->travelBack();
 }
 ```
@@ -236,23 +236,23 @@ public function test_time_can_be_manipulated(): void
 Вы также можете предоставить замыкание для различных методов путешествия во времени. Замыкание будет вызвано с замороженным временем в указанное время. После выполнения замыкания время возобновится как обычно:
 
     $this->travel(5)->days(function () {
-        // Test something five days into the future...
+        // Тестируем что-то через пять дней...
     });
 
     $this->travelTo(now()->subDays(10), function () {
-        // Test something during a given moment...
+        // Тестируем что-то в данный момент...
     });
 
 Метод `freezeTime` может быть использован для замораживания текущего времени. Аналогично, метод `freezeSecond` заморозит текущее время, но в начале текущей секунды:
 
     use Illuminate\Support\Carbon;
 
-    // Freeze time and resume normal time after executing closure...
+    // Остановка времени и возобновление нормального времени после выполнения замыкания...
     $this->freezeTime(function (Carbon $time) {
         // ...
     });
 
-    // Freeze time at the current second and resume normal time after executing closure...
+    // Остановка времени на текущей секунде и возобновление нормального времени после выполнения замыкания...
     $this->freezeSecond(function (Carbon $time) {
         // ...
     })
@@ -262,7 +262,7 @@ public function test_time_can_be_manipulated(): void
 ```php tab=Pest
 use App\Models\Thread;
 
-test('forum threads lock after one week of inactivity', function () {
+test('темы на форуме блокируются после недели бездействия', function () {
     $thread = Thread::factory()->create();
 
     $this->travel(1)->week();
