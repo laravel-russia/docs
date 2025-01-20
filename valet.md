@@ -332,10 +332,10 @@ valet set-ngrok-token YOUR_TOKEN_HERE
 Для решения этой проблемы вы можете использовать команду `proxy` для создания прокси. Например, вы можете проксировать весь трафик с `http://elasticsearch.test` на `http://127.0.0.1:9200`:
 
 ```shell
-# Proxy over HTTP...
+# Прокси через HTTP...
 valet proxy elasticsearch http://127.0.0.1:9200
 
-# Proxy over TLS + HTTP/2...
+# Прокси через TLS + HTTP/2...
 valet proxy elasticsearch http://127.0.0.1:9200 --secure
 ```
 
@@ -370,7 +370,7 @@ valet proxies
 Например, допустим, мы пишем `WordPressValetDriver`. Наш метод `serves` может выглядеть примерно так:
 
     /**
-     * Determine if the driver serves the request.
+     * Определим, обслуживает ли драйвер запрос.
      */
     public function serves(string $sitePath, string $siteName, string $uri): bool
     {
@@ -383,7 +383,7 @@ valet proxies
 Метод `isStaticFile` должен определить, относится ли входящий запрос к «статическому» файлу, такому как изображение или таблица стилей. Если файл является статическим, метод должен вернуть полный путь к этому файлу на диске. Если входящий запрос не относится к статическому файлу, метод должен вернуть `false`:
 
     /**
-     * Determine if the incoming request is for a static file.
+     * Определим, относится ли входящий запрос к статическому файлу.
      *
      * @return string|false
      */
@@ -405,7 +405,7 @@ valet proxies
 Метод `frontControllerPath` должен вернуть полный путь к "front controller" вашего приложения, который обычно является файлом "index.php" или его эквивалентом:
 
     /**
-     * Get the fully resolved path to the application's front controller.
+     * Получите полностью разрешенный путь к фронт-контроллеру приложения.
      */
     public function frontControllerPath(string $sitePath, string $siteName, string $uri): string
     {
@@ -422,7 +422,7 @@ valet proxies
     class LocalValetDriver extends LaravelValetDriver
     {
         /**
-         * Determine if the driver serves the request.
+         * Определите, обслуживает ли драйвер запрос.
          */
         public function serves(string $sitePath, string $siteName, string $uri): bool
         {
@@ -430,7 +430,7 @@ valet proxies
         }
 
         /**
-         * Get the fully resolved path to the application's front controller.
+         * Получите полностью разрешенный путь к фронт-контроллеру приложения.
          */
         public function frontControllerPath(string $sitePath, string $siteName, string $uri): string
         {
@@ -444,7 +444,7 @@ valet proxies
 <div class="overflow-auto">
 
 | Команда                   | Описание                                                                                                                                |
-|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `valet list`              | Отображает список всех команд Valet.                                                                                                    |
 | `valet diagnose`          | Выводит диагностику для помощи в отладке Valet.                                                                                         |
 | `valet directory-listing` | Определяет поведение отображения содержимого каталога. По умолчанию "выключено", что приводит к отображению страницы 404 для каталогов. |
