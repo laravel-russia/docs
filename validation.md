@@ -186,7 +186,7 @@ Laravel содержит удобные правила валидации, пр�
 ```blade
 <!-- /resources/views/post/create.blade.php -->
 
-<label for="title">Post Title</label>
+<label for="title">Название сообщения</label>
 
 <input
     id="title"
@@ -330,7 +330,7 @@ php artisan make:request StorePostRequest
     use Illuminate\Validation\Validator;
 
     /**
-     * Get the "after" validation callables for the request.
+     * Получите вызываемые объекты проверки «после» для запроса.
      */
     public function after(): array
     {
@@ -354,7 +354,7 @@ use App\Validation\ValidateUserStatus;
 use Illuminate\Validation\Validator;
 
 /**
- * Get the "after" validation callables for the request.
+ * Получите вызываемые объекты проверки «после» для запроса.
  */
 public function after(): array
 {
@@ -595,16 +595,16 @@ public function after(): array
 При необходимости вы можете предоставить собственные сообщения об ошибках, которые должен использовать экземпляр валидатора вместо сообщений об ошибках по умолчанию, предоставляемых Laravel. Есть несколько способов указать собственные сообщения. Во-первых, вы можете передать собственные сообщения в качестве третьего аргумента методу `Validator::make`:
 
     $validator = Validator::make($input, $rules, $messages = [
-        'required' => 'The :attribute field is required.',
+        'required' => 'Поле :attribute является обязательным.',
     ]);
 
 В этом примере заполнитель `:attribute` будет заменен фактическим именем проверяемого поля. Вы также можете использовать другие заполнители в сообщениях валидатора. Например:
 
     $messages = [
-        'same' => 'The :attribute and :other must match.',
-        'size' => 'The :attribute must be exactly :size.',
-        'between' => 'The :attribute value :input is not between :min - :max.',
-        'in' => 'The :attribute must be one of the following types: :values',
+        'same' => ':attribute и :other должны совпадать.',
+        'size' => ':attribute должен быть точно :size.',
+        'between' => 'Значение :attribute :input не находится между :min - :max.',
+        'in' => ':attribute должен быть одним из следующих типов: :values',
     ];
 
 <a name="specifying-a-custom-message-for-a-given-attribute"></a>
@@ -613,7 +613,7 @@ public function after(): array
 По желанию можно указать собственное сообщение об ошибке только для определенного атрибута. Вы можете сделать это, используя «точечную нотацию». Сначала укажите имя атрибута, а затем правило:
 
     $messages = [
-        'email.required' => 'We need to know your email address!',
+        'email.required' => 'Нам нужно знать ваш адрес электронной почты!',
     ];
 
 <a name="specifying-custom-attribute-values"></a>
@@ -622,7 +622,7 @@ public function after(): array
 Многие сообщения об ошибках встроенных правил валидации Laravel содержат заполнитель `:attribute`, который заменяется именем проверяемого поля или атрибута. Чтобы указать собственные значения, используемые для замены этих заполнителей для конкретных полей, вы можете передать массив ваших атрибутов в качестве четвертого аргумента методу `Validator::make`:
 
     $validator = Validator::make($input, $rules, $messages, [
-        'email' => 'email address',
+        'email' => 'Адрес электронной почты',
     ]);
 
 <a name="performing-additional-validation"></a>
@@ -637,7 +637,7 @@ public function after(): array
     $validator->after(function ($validator) {
         if ($this->somethingElseIsInvalid()) {
             $validator->errors()->add(
-                'field', 'Something is wrong with this field!'
+                'field', 'Что-то не так с этим полем!'
             );
         }
     });
@@ -680,12 +680,12 @@ $validator->after([
 
 Кроме того, экземпляр `Illuminate\Support\ValidatedInput` может быть проитерирован и доступен как массив:
 
-    // Validated data may be iterated...
+    // Проверенные данные можно повторять...
     foreach ($request->safe() as $key => $value) {
         // ...
     }
 
-    // Validated data may be accessed as an array...
+    // Доступ к проверенным данным можно получить как массив...
     $validated = $request->safe();
 
     $email = $validated['email'];
@@ -764,8 +764,8 @@ $validator->after([
 
     'custom' => [
         'email' => [
-            'required' => 'We need to know your email address!',
-            'max' => 'Your email address is too long!'
+            'required' => 'Нам нужно знать ваш адрес электронной почты!',
+            'max' => 'Ваш адрес электронной почты слишком длинный!'
         ],
     ],
 
@@ -793,14 +793,14 @@ $validator->after([
 Если это правило валидации не будет пройдено, то будет выдано следующее сообщение об ошибке:
 
 ```none
-The credit card number field is required when payment type is cc.
+Поле номера кредитной карты является обязательным, если тип платежа — cc.
 ```
 
 Вместо того чтобы отображать `cc` в качестве значения типа платежа, вы можете указать более удобное для пользователя представление значения в вашем языковом файле `lang/xx/validation.php`, определив массив `values`:
 
     'values' => [
         'payment_type' => [
-            'cc' => 'credit card'
+            'cc' => 'кредитная карта'
         ],
     ],
 
@@ -810,7 +810,7 @@ The credit card number field is required when payment type is cc.
 После определения этого значения правило валидации выдаст следующее сообщение об ошибке:
 
 ```none
-The credit card number field is required when payment type is credit card.
+Поле номера кредитной карты является обязательным, если тип оплаты — кредитная карта.
 ```
 
 <a name="available-validation-rules"></a>
@@ -2035,7 +2035,7 @@ Rule::enum(ServerStatus::class)
         'photos' => [
             [
                 'name' => 'BeachVacation.jpg',
-                'description' => 'A photo of my beach vacation!',
+                'description' => 'Фото моего пляжного отдыха!',
             ],
             [
                 'name' => 'GrandCanyon.jpg',
@@ -2168,7 +2168,7 @@ File::image()
 use Illuminate\Validation\Rules\Password;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -2266,7 +2266,7 @@ php artisan make:rule Uppercase
     class Uppercase implements DataAwareRule, ValidationRule
     {
         /**
-         * All of the data under validation.
+         * Все данные находятся на проверке.
          *
          * @var array<string, mixed>
          */
@@ -2275,7 +2275,7 @@ php artisan make:rule Uppercase
         // ...
 
         /**
-         * Set the data under validation.
+         * Установите данные для проверки.
          *
          * @param  array<string, mixed>  $data
          */
@@ -2300,7 +2300,7 @@ php artisan make:rule Uppercase
     class Uppercase implements ValidationRule, ValidatorAwareRule
     {
         /**
-         * The validator instance.
+         * Экземпляр валидатора.
          *
          * @var \Illuminate\Validation\Validator
          */
@@ -2309,7 +2309,7 @@ php artisan make:rule Uppercase
         // ...
 
         /**
-         * Set the current validator.
+         * Установите текущий валидатор.
          */
         public function setValidator(Validator $validator): static
         {
