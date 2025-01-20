@@ -383,7 +383,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/import', function () {
     Process::run('bash import.sh');
 
-    return 'Import complete!';
+    return 'Импорт завершен!';
 });
 ```
 
@@ -396,15 +396,15 @@ use Illuminate\Process\PendingProcess;
 use Illuminate\Contracts\Process\ProcessResult;
 use Illuminate\Support\Facades\Process;
 
-test('process is invoked', function () {
+test('процесс вызывается', function () {
     Process::fake();
 
     $response = $this->get('/import');
 
-    // Simple process assertion...
+    // Простое утверждение процесса...
     Process::assertRan('bash import.sh');
 
-    // Or, inspecting the process configuration...
+    // Или проверка конфигурации процесса...
     Process::assertRan(function (PendingProcess $process, ProcessResult $result) {
         return $process->command === 'bash import.sh' &&
                $process->timeout === 60;
@@ -430,10 +430,10 @@ class ExampleTest extends TestCase
 
         $response = $this->get('/import');
 
-        // Simple process assertion...
+        // Простое утверждение процесса...
         Process::assertRan('bash import.sh');
 
-        // Or, inspecting the process configuration...
+        // Или проверка конфигурации процесса...
         Process::assertRan(function (PendingProcess $process, ProcessResult $result) {
             return $process->command === 'bash import.sh' &&
                    $process->timeout === 60;
@@ -447,8 +447,8 @@ class ExampleTest extends TestCase
 ```php
 Process::fake([
     '*' => Process::result(
-        output: 'Test output',
-        errorOutput: 'Test error output',
+        output: 'Тестовый вывод',
+        errorOutput: 'Тестовый вывод ошибки',
         exitCode: 1,
     ),
 ]);
@@ -464,10 +464,10 @@ Process::fake([
 ```php
 Process::fake([
     'cat *' => Process::result(
-        output: 'Test "cat" output',
+        output: 'Тестовый вывод «cat»',
     ),
     'ls *' => Process::result(
-        output: 'Test "ls" output',
+        output: 'Тестовый вывод «ls»',
     ),
 ]);
 ```
@@ -476,8 +476,8 @@ Process::fake([
 
 ```php
 Process::fake([
-    'cat *' => 'Test "cat" output',
-    'ls *' => 'Test "ls" output',
+    'cat *' => 'Тестовый вывод «cat»',
+    'ls *' => 'Тестовый вывод «ls»',
 ]);
 ```
 
@@ -489,8 +489,8 @@ Process::fake([
 ```php
 Process::fake([
     'ls *' => Process::sequence()
-                ->push(Process::result('First invocation'))
-                ->push(Process::result('Second invocation')),
+                ->push(Process::result('Первый вызов'))
+                ->push(Process::result('Второй вызов')),
 ]);
 ```
 
@@ -513,18 +513,18 @@ Route::get('/import', function () {
         Log::info($process->latestErrorOutput());
     }
 
-    return 'Done';
+    return 'Сделано';
 });
 ```
 
-To properly fake this process, we need to be able to describe how many times the `running` method should return `true`. In addition, we may want to specify multiple lines of output that should be returned in sequence. To accomplish this, we can use the `Process` facade's `describe` method:
+Чтобы правильно имитировать этот процесс, нам нужно описать, сколько раз метод `running` должен возвращать `true`. Кроме того, мы можем захотеть указать несколько строк вывода, которые должны возвращаться последовательно. Для этого мы можем использовать метод `describe` фасада `Process`:
 
 ```php
 Process::fake([
     'bash import.sh' => Process::describe()
-            ->output('First line of standard output')
-            ->errorOutput('First line of error output')
-            ->output('Second line of standard output')
+            ->output('Первая строка стандартного вывода')
+            ->errorOutput('Первая строка вывода ошибки')
+            ->output('Вторая строка стандартного вывода')
             ->exitCode(0)
             ->iterations(3),
 ]);
@@ -608,11 +608,11 @@ Process::assertRanTimes(function (PendingProcess $process, ProcessResult $result
     Process::preventStrayProcesses();
 
     Process::fake([
-        'ls *' => 'Test output...',
+        'ls *' => 'Тестовый вывод...',
     ]);
 
-    // Fake response is returned...
+    // Возвращается ложный ответ...
     Process::run('ls -la');
 
-    // An exception is thrown...
+    // Выбрасывается исключение...
     Process::run('bash import.sh');
