@@ -38,17 +38,17 @@ composer require laravel/prompts
 ```php
 use function Laravel\Prompts\text;
 
-$name = text('What is your name?');
+$name = text('Как вас зовут?');
 ```
 
 Вы также можете добавить плейсхолдер, значение по умолчанию и информационную подсказку:
 
 ```php
 $name = text(
-    label: 'What is your name?',
-    placeholder: 'E.g. Taylor Otwell',
+    label: 'Как вас зовут?',
+    placeholder: 'Например: Тейлор Отвелл',
     default: $user?->name,
-    hint: 'This will be displayed on your profile.'
+    hint: 'Это будет отображаться в вашем профиле.'
 );
 ```
 
@@ -59,7 +59,7 @@ $name = text(
 
 ```php
 $name = text(
-    label: 'What is your name?',
+    label: 'Как вас зовут?',
     required: true
 );
 ```
@@ -68,8 +68,8 @@ $name = text(
 
 ```php
 $name = text(
-    label: 'What is your name?',
-    required: 'Your name is required.'
+    label: 'Как вас зовут?',
+    required: 'Требуется ваше имя.'
 );
 ```
 
@@ -80,10 +80,10 @@ $name = text(
 
 ```php
 $name = text(
-    label: 'What is your name?',
+    label: 'Как вас зовут?',
     validate: fn (string $value) => match (true) {
-        strlen($value) < 3 => 'The name must be at least 3 characters.',
-        strlen($value) > 255 => 'The name must not exceed 255 characters.',
+        strlen($value) < 3 => 'Имя должно состоять минимум из 3 символов.',
+        strlen($value) > 255 => 'Имя не должно превышать 255 символов.',
         default => null
     }
 );
@@ -95,7 +95,7 @@ $name = text(
 
 ```php
 $name = text(
-    label: 'What is your name?',
+    label: 'Как вас зовут?',
     validate: ['name' => 'required|max:255|unique:users']
 );
 ```
@@ -108,16 +108,16 @@ $name = text(
 ```php
 use function Laravel\Prompts\textarea;
 
-$story = textarea('Tell me a story.');
+$story = textarea('Расскажи мне историю.');
 ```
 
 Вы также можете включить текст-заполнитель, значение по умолчанию и информационную подсказку:
 
 ```php
 $story = textarea(
-    label: 'Tell me a story.',
-    placeholder: 'This is a story about...',
-    hint: 'This will be displayed on your profile.'
+    label: 'Расскажи мне историю.',
+    placeholder: 'Это история о...',
+    hint: 'Это будет отображаться в вашем профиле.'
 );
 ```
 
@@ -128,7 +128,7 @@ $story = textarea(
 
 ```php
 $story = textarea(
-    label: 'Tell me a story.',
+    label: 'Расскажи мне историю.',
     required: true
 );
 ```
@@ -137,8 +137,8 @@ $story = textarea(
 
 ```php
 $story = textarea(
-    label: 'Tell me a story.',
-    required: 'A story is required.'
+    label: 'Расскажи мне историю.',
+    required: 'Требуется история.'
 );
 ```
 
@@ -149,10 +149,10 @@ $story = textarea(
 
 ```php
 $story = textarea(
-    label: 'Tell me a story.',
+    label: 'Расскажи мне историю.',
     validate: fn (string $value) => match (true) {
-        strlen($value) < 250 => 'The story must be at least 250 characters.',
-        strlen($value) > 10000 => 'The story must not exceed 10,000 characters.',
+        strlen($value) < 250 => 'В рассказе должно быть не менее 250 символов.',
+        strlen($value) > 10000 => 'Рассказ не должен превышать 10 000 символов.',
         default => null
     }
 );
@@ -164,7 +164,7 @@ $story = textarea(
 
 ```php
 $story = textarea(
-    label: 'Tell me a story.',
+    label: 'Расскажи мне историю.',
     validate: ['story' => 'required|max:10000']
 );
 ```
@@ -177,16 +177,16 @@ $story = textarea(
 ```php
 use function Laravel\Prompts\password;
 
-$password = password('What is your password?');
+$password = password('Какой у вас пароль?');
 ```
 
 Вы также можете включить плейсхолдер и информационную подсказку:
 
 ```php
 $password = password(
-    label: 'What is your password?',
-    placeholder: 'password',
-    hint: 'Minimum 8 characters.'
+    label: 'Какой у вас пароль?',
+    placeholder: 'пароль',
+    hint: 'Минимум 8 символов.'
 );
 ```
 
@@ -197,7 +197,7 @@ $password = password(
 
 ```php
 $password = password(
-    label: 'What is your password?',
+    label: 'Какой у вас пароль?',
     required: true
 );
 ```
@@ -206,8 +206,8 @@ $password = password(
 
 ```php
 $password = password(
-    label: 'What is your password?',
-    required: 'The password is required.'
+    label: 'Какой у вас пароль?',
+    required: 'Требуется пароль.'
 );
 ```
 
@@ -218,9 +218,9 @@ $password = password(
 
 ```php
 $password = password(
-    label: 'What is your password?',
+    label: 'Какой у вас пароль?',
     validate: fn (string $value) => match (true) {
-        strlen($value) < 8 => 'The password must be at least 8 characters.',
+        strlen($value) < 8 => 'Пароль должен состоять не менее 8 символов.',
         default => null
     }
 );
@@ -232,7 +232,7 @@ $password = password(
 
 ```php
 $password = password(
-    label: 'What is your password?',
+    label: 'Какой у вас пароль?',
     validate: ['password' => 'min:8']
 );
 ```
@@ -245,18 +245,18 @@ $password = password(
 ```php
 use function Laravel\Prompts\confirm;
 
-$confirmed = confirm('Do you accept the terms?');
+$confirmed = confirm('Вы принимаете условия?');
 ```
 
 Вы также можете включить значение по умолчанию, настраиваемые названия для меток "Да" и "Нет" и информационную подсказку:
 
 ```php
 $confirmed = confirm(
-    label: 'Do you accept the terms?',
+    label: 'Вы принимаете условия?',
     default: false,
-    yes: 'I accept',
-    no: 'I decline',
-    hint: 'The terms must be accepted to continue.'
+    yes: 'Я принимаю',
+    no: 'Я отказываюсь',
+    hint: 'Чтобы продолжить, необходимо принять условия.'
 );
 ```
 
@@ -267,7 +267,7 @@ $confirmed = confirm(
 
 ```php
 $confirmed = confirm(
-    label: 'Do you accept the terms?',
+    label: 'Вы принимаете условия?',
     required: true
 );
 ```
@@ -276,8 +276,8 @@ $confirmed = confirm(
 
 ```php
 $confirmed = confirm(
-    label: 'Do you accept the terms?',
-    required: 'You must accept the terms to continue.'
+    label: 'Вы принимаете условия?',
+    required: 'Вы должны принять условия, чтобы продолжить.'
 );
 ```
 
@@ -290,7 +290,7 @@ $confirmed = confirm(
 use function Laravel\Prompts\select;
 
 $role = select(
-    label: 'What role should the user have?',
+    label: 'Какая роль должна быть у пользователя?',
     options: ['Member', 'Contributor', 'Owner']
 );
 ```
@@ -299,10 +299,10 @@ $role = select(
 
 ```php
 $role = select(
-    label: 'What role should the user have?',
+    label: 'Какая роль должна быть у пользователя?',
     options: ['Member', 'Contributor', 'Owner'],
     default: 'Owner',
-    hint: 'The role may be changed at any time.'
+    hint: 'Роль может быть изменена в любой момент.'
 );
 ```
 
@@ -310,11 +310,11 @@ $role = select(
 
 ```php
 $role = select(
-    label: 'What role should the user have?',
+    label: 'Какая роль должна быть у пользователя?',
     options: [
-        'member' => 'Member',
-        'contributor' => 'Contributor',
-        'owner' => 'Owner',
+        'member' => 'Участник',
+        'contributor' => 'Автор',
+        'owner' => 'Владелец',
     ],
     default: 'owner'
 );
@@ -324,7 +324,7 @@ $role = select(
 
 ```php
 $role = select(
-    label: 'Which category would you like to assign?',
+    label: 'Какую категорию вы хотели бы присвоить?',
     options: Category::pluck('name', 'id'),
     scroll: 10
 );
@@ -337,15 +337,15 @@ $role = select(
 
 ```php
 $role = select(
-    label: 'What role should the user have?',
+    label: 'Какая роль должна быть у пользователя?',
     options: [
-        'member' => 'Member',
-        'contributor' => 'Contributor',
-        'owner' => 'Owner',
+        'member' => 'Учаастник',
+        'contributor' => 'Автор',
+        'owner' => 'Владелец',
     ],
     validate: fn (string $value) =>
         $value === 'owner' && User::where('role', 'owner')->exists()
-            ? 'An owner already exists.'
+            ? 'Владелец уже существует.'
             : null
 );
 ```
@@ -361,7 +361,7 @@ $role = select(
 use function Laravel\Prompts\multiselect;
 
 $permissions = multiselect(
-    label: 'What permissions should be assigned?',
+    label: 'Какие разрешения следует назначить?',
     options: ['Read', 'Create', 'Update', 'Delete']
 );
 ```
@@ -372,10 +372,10 @@ $permissions = multiselect(
 use function Laravel\Prompts\multiselect;
 
 $permissions = multiselect(
-    label: 'What permissions should be assigned?',
+    label: 'Какие разрешения следует назначить?',
     options: ['Read', 'Create', 'Update', 'Delete'],
     default: ['Read', 'Create'],
-    hint: 'Permissions may be updated at any time.'
+    hint: 'Разрешения могут быть обновлены в любое время.'
 );
 ```
 
@@ -383,12 +383,12 @@ $permissions = multiselect(
 
 ```php
 $permissions = multiselect(
-    label: 'What permissions should be assigned?',
+    label: 'Какие разрешения следует назначить?',
     options: [
-        'read' => 'Read',
-        'create' => 'Create',
-        'update' => 'Update',
-        'delete' => 'Delete',
+        'read' => 'Читать',
+        'create' => 'Создавать',
+        'update' => 'Обновлять',
+        'delete' => 'Удалить',
     ],
     default: ['read', 'create']
 );
@@ -398,7 +398,7 @@ $permissions = multiselect(
 
 ```php
 $categories = multiselect(
-    label: 'What categories should be assigned?',
+    label: 'Какие категории следует присвоить?',
     options: Category::pluck('name', 'id'),
     scroll: 10
 );
@@ -411,7 +411,7 @@ $categories = multiselect(
 
 ```php
 $categories = multiselect(
-    label: 'What categories should be assigned?',
+    label: 'Какие категории следует присвоить?',
     options: Category::pluck('name', 'id'),
     required: true
 );
@@ -421,9 +421,9 @@ $categories = multiselect(
 
 ```php
 $categories = multiselect(
-    label: 'What categories should be assigned?',
+    label: 'Какие категории следует присвоить?',
     options: Category::pluck('name', 'id'),
-    required: 'You must select at least one category'
+    required: 'Вы должны выбрать хотя бы одну категорию'
 );
 ```
 
@@ -434,15 +434,15 @@ $categories = multiselect(
 
 ```php
 $permissions = multiselect(
-    label: 'What permissions should the user have?',
+    label: 'Какие разрешения должен иметь пользователь?',
     options: [
-        'read' => 'Read',
-        'create' => 'Create',
-        'update' => 'Update',
-        'delete' => 'Delete',
+        'read' => 'Читать',
+        'create' => 'Создавать',
+        'update' => 'Обновлять',
+        'delete' => 'Удалить',
     ],
     validate: fn (array $values) => ! in_array('read', $values)
-        ? 'All users require the read permission.'
+        ? 'Всем пользователям требуется разрешение на чтение.'
         : null
 );
 ```
@@ -457,14 +457,14 @@ $permissions = multiselect(
 ```php
 use function Laravel\Prompts\suggest;
 
-$name = suggest('What is your name?', ['Taylor', 'Dayle']);
+$name = suggest('Как вас зовут?', ['Taylor', 'Dayle']);
 ```
 
 В качестве альтернативы, вы можете передать замыкание вторым аргументом в функцию `suggest`. Замыкание будет вызываться каждый раз, когда пользователь вводит символ. Замыкание должно принимать строку, содержащую ввод пользователя до этого момента, и возвращать массив вариантов для автозаполнения:
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
+    label: 'Как вас зовут?',
     options: fn ($value) => collect(['Taylor', 'Dayle'])
         ->filter(fn ($name) => Str::contains($name, $value, ignoreCase: true))
 )
@@ -474,11 +474,11 @@ $name = suggest(
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
-    options: ['Taylor', 'Dayle'],
-    placeholder: 'E.g. Taylor',
+    label: 'Как вас зовут?',
+    options: ['Тейлор', 'Дэйл'],
+    placeholder: 'Например: Тейлор',
     default: $user?->name,
-    hint: 'This will be displayed on your profile.'
+    hint: 'Это будет отображаться в вашем профиле.'
 );
 ```
 
@@ -489,8 +489,8 @@ $name = suggest(
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
-    options: ['Taylor', 'Dayle'],
+    label: 'Как вас зовут?',
+    options: ['Тейлор', 'Дэйл'],
     required: true
 );
 ```
@@ -499,9 +499,9 @@ $name = suggest(
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
-    options: ['Taylor', 'Dayle'],
-    required: 'Your name is required.'
+    label: 'Как вас зовут?',
+    options: ['Тейлор', 'Дэйл'],
+    required: 'Требуется ваше имя.'
 );
 ```
 
@@ -512,11 +512,11 @@ $name = suggest(
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
-    options: ['Taylor', 'Dayle'],
+    label: 'Как вас зовут?',
+    options: ['Тейлор', 'Дэйл'],
     validate: fn (string $value) => match (true) {
-        strlen($value) < 3 => 'The name must be at least 3 characters.',
-        strlen($value) > 255 => 'The name must not exceed 255 characters.',
+        strlen($value) < 3 => 'Имя должно состоять минимум из 3 символов.',
+        strlen($value) > 255 => 'Имя не должно превышать 255 символов.',
         default => null
     }
 );
@@ -528,8 +528,8 @@ $name = suggest(
 
 ```php
 $name = suggest(
-    label: 'What is your name?',
-    options: ['Taylor', 'Dayle'],
+    label: 'Как вас зовут?',
+    options: ['Тейлор', 'Дэйл'],
     validate: ['name' => 'required|min:3|max:255']
 );
 ```
@@ -543,7 +543,7 @@ $name = suggest(
 use function Laravel\Prompts\search;
 
 $id = search(
-    label: 'Search for the user that should receive the mail',
+    label: 'Найдите пользователя, который должен получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : []
@@ -558,7 +558,7 @@ $id = search(
 $names = collect(['Taylor', 'Abigail']);
 
 $selected = search(
-    label: 'Search for the user that should receive the mail',
+    label: 'Найдите пользователя, который должен получать почту',
     options: fn (string $value) => $names
         ->filter(fn ($name) => Str::contains($name, $value, ignoreCase: true))
         ->values()
@@ -570,12 +570,12 @@ $selected = search(
 
 ```php
 $id = search(
-    label: 'Search for the user that should receive the mail',
-    placeholder: 'E.g. Taylor Otwell',
+    label: 'Найдите пользователя, который должен получать почту',
+    placeholder: 'Например: Тейлор Отвелл',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
-    hint: 'The user will receive an email immediately.'
+    hint: 'Пользователь немедленно получит электронное письмо.'
 );
 ```
 
@@ -583,7 +583,7 @@ $id = search(
 
 ```php
 $id = search(
-    label: 'Search for the user that should receive the mail',
+    label: 'Найдите пользователя, который должен получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
@@ -598,7 +598,7 @@ $id = search(
 
 ```php
 $id = search(
-    label: 'Search for the user that should receive the mail',
+    label: 'Найдите пользователя, который должен получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
@@ -606,7 +606,7 @@ $id = search(
         $user = User::findOrFail($value);
 
         if ($user->opted_out) {
-            return 'This user has opted-out of receiving mail.';
+            return 'Этот пользователь отказался от получения почты.';
         }
     }
 );
@@ -623,7 +623,7 @@ $id = search(
 use function Laravel\Prompts\multisearch;
 
 $ids = multisearch(
-    'Search for the users that should receive the mail',
+    'Поиск пользователей, которые должны получать почту',
     fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : []
@@ -638,7 +638,7 @@ $ids = multisearch(
 $names = collect(['Taylor', 'Abigail']);
 
 $selected = multisearch(
-    label: 'Search for the users that should receive the mail',
+    label: 'Поиск пользователей, которые должны получать почту',
     options: fn (string $value) => $names
         ->filter(fn ($name) => Str::contains($name, $value, ignoreCase: true))
         ->values()
@@ -650,12 +650,12 @@ $selected = multisearch(
 
 ```php
 $ids = multisearch(
-    label: 'Search for the users that should receive the mail',
-    placeholder: 'E.g. Taylor Otwell',
+    label: 'Поиск пользователей, которые должны получать почту',
+    placeholder: 'Например: Тейлор Отвелл',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
-    hint: 'The user will receive an email immediately.'
+    hint: 'Пользователь немедленно получит электронное письмо.'
 );
 ```
 
@@ -663,7 +663,7 @@ $ids = multisearch(
 
 ```php
 $ids = multisearch(
-    label: 'Search for the users that should receive the mail',
+    label: 'Поиск пользователей, которые должны получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
@@ -678,7 +678,7 @@ $ids = multisearch(
 
 ```php
 $ids = multisearch(
-    label: 'Search for the users that should receive the mail',
+    label: 'Поиск пользователей, которые должны получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
@@ -690,11 +690,11 @@ $ids = multisearch(
 
 ```php
 $ids = multisearch(
-    label: 'Search for the users that should receive the mail',
+    label: 'Поиск пользователей, которые должны получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
-    required: 'You must select at least one user.'
+    required: 'Вы должны выбрать хотя бы одного пользователя.'
 );
 ```
 
@@ -705,7 +705,7 @@ $ids = multisearch(
 
 ```php
 $ids = multisearch(
-    label: 'Search for the users that should receive the mail',
+    label: 'Поиск пользователей, которые должны получать почту',
     options: fn (string $value) => strlen($value) > 0
         ? User::whereLike('name', "%{$value}%")->pluck('name', 'id')->all()
         : [],
@@ -729,7 +729,7 @@ $ids = multisearch(
 ```php
 use function Laravel\Prompts\pause;
 
-pause('Press ENTER to continue.');
+pause('Нажмите ENTER, чтобы продолжить.');
 ```
 
 <a name="transforming-input-before-validation"></a>
@@ -739,11 +739,11 @@ pause('Press ENTER to continue.');
 
 ```php
 $name = text(
-    label: 'What is your name?',
+    label: 'Как вас зовут?',
     transform: fn (string $value) => trim($value),
     validate: fn (string $value) => match (true) {
-        strlen($value) < 3 => 'The name must be at least 3 characters.',
-        strlen($value) > 255 => 'The name must not exceed 255 characters.',
+        strlen($value) < 3 => 'Имя должно состоять минимум из 3 символов.',
+        strlen($value) > 255 => 'Имя не должно превышать 255 символов.',
         default => null
     }
 );
@@ -758,9 +758,9 @@ $name = text(
 use function Laravel\Prompts\form;
 
 $responses = form()
-    ->text('What is your name?', required: true)
-    ->password('What is your password?', validate: ['password' => 'min:8'])
-    ->confirm('Do you accept the terms?')
+    ->text('Как вас зовут?', required: true)
+    ->password('Какой у вас пароль?', validate: ['password' => 'min:8'])
+    ->confirm('Вы принимаете условия?')
     ->submit();
 ```
 
@@ -771,13 +771,13 @@ use App\Models\User;
 use function Laravel\Prompts\form;
 
 $responses = form()
-    ->text('What is your name?', required: true, name: 'name')
+    ->text('Как вас зовут?', required: true, name: 'name')
     ->password(
-        label: 'What is your password?',
+        label: 'Какой у вас пароль?',
         validate: ['password' => 'min:8'],
         name: 'password'
     )
-    ->confirm('Do you accept the terms?')
+    ->confirm('Вы принимаете условия?')
     ->submit();
 
 User::create([
@@ -795,13 +795,13 @@ use function Laravel\Prompts\form;
 use function Laravel\Prompts\outro;
 
 $responses = form()
-    ->text('What is your name?', required: true, name: 'name')
+    ->text('Как вас зовут?', required: true, name: 'name')
     ->add(function ($responses) {
-        return text("How old are you, {$responses['name']}?");
+        return text("Сколько тебе лет, {$responses['name']}?");
     }, name: 'age')
     ->submit();
 
-outro("Your name is {$responses['name']} and you are {$responses['age']} years old.");
+outro("Ваше имя {$responses['name']} и вам {$responses['age']} лет.");
 ```
 
 <a name="informational-messages"></a>
@@ -812,7 +812,7 @@ outro("Your name is {$responses['name']} and you are {$responses['age']} years o
 ```php
 use function Laravel\Prompts\info;
 
-info('Package installed successfully.');
+info('Пакет успешно установлен.');
 ```
 
 <a name="tables"></a>
@@ -838,7 +838,7 @@ table(
 use function Laravel\Prompts\spin;
 
 $response = spin(
-    message: 'Fetching response...',
+    message: 'Получение ответа...',
     callback: fn () => Http::get('http://example.com')
 );
 ```
@@ -855,7 +855,7 @@ $response = spin(
 use function Laravel\Prompts\progress;
 
 $users = progress(
-    label: 'Updating users',
+    label: 'Обновление пользователей',
     steps: User::all(),
     callback: fn ($user) => $this->performTask($user)
 );
@@ -867,23 +867,23 @@ $users = progress(
 
 ```php
 $users = progress(
-    label: 'Updating users',
+    label: 'Обновление пользователей',
     steps: User::all(),
     callback: function ($user, $progress) {
         $progress
-            ->label("Updating {$user->name}")
-            ->hint("Created on {$user->created_at}");
+            ->label("Обновление {$user->name}")
+            ->hint("Создано {$user->created_at}");
 
         return $this->performTask($user);
     },
-    hint: 'This may take some time.'
+    hint: 'Это может занять некоторое время.'
 );
 ```
 
 Иногда вам может потребоваться больше ручного контроля над тем, как продвигается полоса прогресса. Сначала определите общее количество шагов, через которые будет проходить процесс. Затем продвигайте полосу прогресса с помощью метода `advance` после обработки каждого элемента:
 
 ```php
-$progress = progress(label: 'Updating users', steps: 10);
+$progress = progress(label: 'Обновление пользователей', steps: 10);
 
 $users = User::all();
 
