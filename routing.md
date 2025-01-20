@@ -90,10 +90,12 @@ php artisan install:api
 
 Помните, что любые HTML-формы, указывающие на маршруты `POST`, `PUT`, `PATCH` или `DELETE`, которые определены в файле маршрутов `web`, должны включать поле токена CSRF. В противном случае запрос будет отклонен. Вы можете прочитать больше о защите от CSRF в [документации CSRF](/docs/{{version}}/csrf):
 
-    <form method="POST" action="/profile">
-        @csrf
-        ...
-    </form>
+```blade
+<form method="POST" action="/profile">
+    @csrf
+    ...
+</form>
+```
 
 <a name="redirect-routes"></a>
 ### Маршруты перенаправлений
@@ -839,17 +841,21 @@ protected function boot(): void
 
 HTML-формы не поддерживают действия `PUT`, `PATCH` или `DELETE`. Таким образом, при определении маршрутов `PUT`, `PATCH` или `DELETE`, которые вызываются из HTML-формы, вам нужно будет добавить в форму скрытое поле `_method`. Значение, отправленное с полем `_method`, будет использоваться как метод HTTP-запроса:
 
-    <form action="/example" method="POST">
-        <input type="hidden" name="_method" value="PUT">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    </form>
+```blade
+<form action="/example" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+</form>
+```
 
 Для удобства вы можете использовать директиву `@method` [шаблонизатора Blade](/docs/{{version}}/blade) для создания поля ввода `_method`:
 
-    <form action="/example" method="POST">
-        @method('PUT')
-        @csrf
-    </form>
+```blade
+<form action="/example" method="POST">
+    @method('PUT')
+    @csrf
+</form>
+```
 
 <a name="accessing-the-current-route"></a>
 ## Доступ к текущему маршруту
