@@ -68,7 +68,7 @@ git: 1a3d112255c8d0da2cbc10ebe581deebdd172ae2
 ```php tab=Pest
 use Illuminate\Support\Facades\Cache;
 
-test('basic example', function () {
+test('базовый пример', function () {
     Cache::shouldReceive('get')
          ->with('key')
          ->andReturn('value');
@@ -83,7 +83,7 @@ test('basic example', function () {
 use Illuminate\Support\Facades\Cache;
 
 /**
- * A basic functional test example.
+ * Пример базового функционального теста.
  */
 public function test_basic_example(): void
 {
@@ -236,7 +236,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('podcast can be published', function () {
+test('подкаст может быть опубликован', function () {
     $podcast = Podcast::factory()->create();
 
     Publisher::shouldReceive('publish')->once()->with($podcast);
@@ -260,7 +260,7 @@ class PodcastTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A test example.
+     * Тестовый пример.
      */
     public function test_podcast_can_be_published(): void
     {
