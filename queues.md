@@ -151,7 +151,7 @@ php artisan make:job ProcessPodcast
          */
         public function handle(AudioProcessor $processor): void
         {
-            // Обработка загруженного подкаста ...
+            // Обработка загруженного подкаста...
         }
     }
 
@@ -198,7 +198,7 @@ php artisan make:job ProcessPodcast
     use Illuminate\Queue\Attributes\WithoutRelations;
 
     /**
-     * Create a new job instance.
+     * Создайте новый экземпляр задания.
      */
     public function __construct(
         #[WithoutRelations]
@@ -441,7 +441,7 @@ Laravel позволяет вам обеспечить конфиденциал�
 Если вы не хотите, чтобы задание возвращалось в очередь, если оно ограничено по частоте, вы можете использовать метод `dontRelease`:
 
     /**
-     * Get the middleware the job should pass through.
+     * Получить посредника, через которое должно пройти задание.
      *
      * @return array<int, object>
      */
@@ -499,7 +499,7 @@ Laravel включает посредника `Illuminate\Queue\Middleware\Witho
 Посредник `WithoutOverlapping` работает благодаря функции атомарной блокировки Laravel. Но иногда ваше задание может неожиданно завершиться неудачей или таймаутом таким образом, что блокировка не будет освобождена. Поэтому вы можете явно определить время истечения блокировки с помощью метода `expireAfter`. Например, в приведенном ниже примере Laravel даст указание освободить блокировку `WithoutOverlapping` через три минуты после начала обработки задания:
 
     /**
-     * Get the middleware the job should pass through.
+     * Получить посредника, через которого должно пройти задание.
      *
      * @return array<int, object>
      */
@@ -608,7 +608,7 @@ Laravel содержит посредника `Illuminate\Queue\Middleware\Throt
     use Illuminate\Queue\Middleware\ThrottlesExceptions;
 
     /**
-     * Get the middleware the job should pass through.
+     * Получить посредника, через которого должно пройти задание.
      *
      * @return array<int, object>
      */
@@ -625,7 +625,7 @@ Laravel содержит посредника `Illuminate\Queue\Middleware\Throt
     use Illuminate\Queue\Middleware\ThrottlesExceptions;
 
     /**
-     * Get the middleware the job should pass through.
+     * Получить посредника, через которого должно пройти задание.
      *
      * @return array<int, object>
      */
@@ -647,8 +647,8 @@ Laravel содержит посредника `Illuminate\Queue\Middleware\Throt
     use Illuminate\Queue\Middleware\Skip;
 
     /**
-    * Get the middleware the job should pass through.
-    */
+     * Получить посредника, через которого должно пройти задание.
+     */
     public function middleware(): array
     {
         return [
@@ -661,8 +661,8 @@ Laravel содержит посредника `Illuminate\Queue\Middleware\Throt
     use Illuminate\Queue\Middleware\Skip;
 
     /**
-    * Get the middleware the job should pass through.
-    */
+     * Получить посредника, через которого должно пройти задание.
+     */
     public function middleware(): array
     {
         return [
@@ -882,16 +882,16 @@ Laravel содержит посредника `Illuminate\Queue\Middleware\Throt
 
 ```php
 /**
- * Execute the job.
+ * Выполнение задания.
  */
 public function handle(): void
 {
     // ...
 
-    // Prepend to the current chain, run job immediately after current job...
+    // Добавляем в начало текущей цепочки, запускаем задание сразу после текущего задания...
     $this->prependToChain(new TranscribePodcast);
 
-    // Append to the current chain, run job at end of chain...
+    // Добавляем к текущей цепочке, запускаем задание в конце цепочки...
     $this->appendToChain(new TranscribePodcast);
 }
 ```
@@ -1176,7 +1176,7 @@ php artisan queue:work --timeout=30
 
 ```php
 /**
- * Indicate if the job should be marked as failed on timeout.
+ * Укажите, должно ли задание быть помечено как не выполненное по тайм-ауту.
  *
  * @var bool
  */
@@ -1483,7 +1483,7 @@ php artisan migrate
     use Illuminate\Queue\Middleware\SkipIfBatchCancelled;
 
     /**
-     * Get the middleware the job should pass through.
+     * Получение посредника, через которое должно пройти задание.
      */
     public function middleware(): array
     {
@@ -1592,7 +1592,7 @@ composer require aws/aws-sdk-php
     'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     'table' => 'job_batches',
     'ttl_attribute' => 'ttl',
-    'ttl' => 60 * 60 * 24 * 7, // 7 days...
+    'ttl' => 60 * 60 * 24 * 7, // 7 дней...
 ],
 ```
 
@@ -1699,7 +1699,7 @@ php artisan queue:work --stop-when-empty
 Параметр `--max-time` обработчика может использоваться, чтобы дать ему указание обрабатывать задания в течение заданного количества секунд, а затем выйти. Этот параметр может быть полезен в сочетании с [Supervisor](#supervisor-configuration), чтобы ваши рабочие процессы автоматически перезапускались после обработки заданий в течение заданного времени, освобождая любую занятую ими память:
 
 ```shell
-# Process jobs for one hour and then exit...
+# Обработка заданий в течение часа, а затем выход...
 php artisan queue:work --max-time=3600
 ```
 
@@ -1926,7 +1926,7 @@ php artisan queue:work redis --tries=3 --backoff=3
          */
         public function handle(AudioProcessor $processor): void
         {
-            // Process uploaded podcast...
+            // Обработка загруженного подкаста...
         }
 
         /**
@@ -2129,7 +2129,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -2159,27 +2159,27 @@ use App\Jobs\FinalJob;
 use App\Jobs\ShipOrder;
 use Illuminate\Support\Facades\Queue;
 
-test('orders can be shipped', function () {
+test('заказы могут быть отправлены', function () {
     Queue::fake();
 
-    // Perform order shipping...
+    // Выполняем доставку заказа...
 
-    // Assert that no jobs were pushed...
+    // Утверждаем, что ни одно задание не было перенесено...
     Queue::assertNothingPushed();
 
-    // Assert a job was pushed to a given queue...
+    // Утверждаем, что задание было помещено в заданную очередь...
     Queue::assertPushedOn('queue-name', ShipOrder::class);
 
-    // Assert a job was pushed twice...
+    // Утверждаем, что задание было отправлено дважды...
     Queue::assertPushed(ShipOrder::class, 2);
 
-    // Assert a job was not pushed...
+    // Утверждаем, что задание не было отправлено...
     Queue::assertNotPushed(AnotherJob::class);
 
-    // Assert that a Closure was pushed to the queue...
+    // Утверждаем, что замыкание было помещено в очередь...
     Queue::assertClosurePushed();
 
-    // Assert the total number of jobs that were pushed...
+    // Утверждаем общее количество отправленных заданий...
     Queue::assertCount(3);
 });
 ```
@@ -2201,24 +2201,24 @@ class ExampleTest extends TestCase
     {
         Queue::fake();
 
-        // Perform order shipping...
+        // Выполняем доставку заказа...
 
-        // Assert that no jobs were pushed...
+        // Утверждаем, что ни одно задание не было перенесено...
         Queue::assertNothingPushed();
 
-        // Assert a job was pushed to a given queue...
+        // Утверждаем, что задание было помещено в заданную очередь...
         Queue::assertPushedOn('queue-name', ShipOrder::class);
 
-        // Assert a job was pushed twice...
+        // Утверждаем, что задание было отправлено дважды...
         Queue::assertPushed(ShipOrder::class, 2);
 
-        // Assert a job was not pushed...
+        // Утверждаем, что задание не было отправлено...
         Queue::assertNotPushed(AnotherJob::class);
 
-        // Assert that a Closure was pushed to the queue...
+        // Утверждаем, что замыкание было помещено в очередь...
         Queue::assertClosurePushed();
 
-        // Assert the total number of jobs that were pushed...
+        // Утверждаем общее количество отправленных заданий...
         Queue::assertCount(3);
     }
 }
@@ -2236,14 +2236,14 @@ class ExampleTest extends TestCase
 Если вам нужно имитировать только определенные задания, позволяя другим заданиям выполняться нормально, вы можете передать имена классов заданий, которые следует имитировать, методу `fake`:
 
 ```php tab=Pest
-test('orders can be shipped', function () {
+test('заказы могут быть отправлены', function () {
     Queue::fake([
         ShipOrder::class,
     ]);
 
-    // Perform order shipping...
+    // Выполняем доставку заказа...
 
-    // Assert a job was pushed twice...
+    // Утверждаем, что задание было отправлено дважды...
     Queue::assertPushed(ShipOrder::class, 2);
 });
 ```
@@ -2255,9 +2255,9 @@ public function test_orders_can_be_shipped(): void
         ShipOrder::class,
     ]);
 
-    // Perform order shipping...
+    // Выполняем доставку заказа...
 
-    // Assert a job was pushed twice...
+    // Утверждаем, что задание было отправлено дважды...
     Queue::assertPushed(ShipOrder::class, 2);
 }
 ```
