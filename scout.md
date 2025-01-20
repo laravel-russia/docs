@@ -238,7 +238,7 @@ Todo::search('Groceries')->options([
         {
             $array = $this->toArray();
 
-            // Customize the data array...
+            // Настраиваем массив данных...
 
             return $array;
         }
@@ -273,7 +273,7 @@ use App\Models\Flight;
         User::class => [
             'filterableAttributes'=> ['id', 'name', 'email'],
             'sortableAttributes' => ['created_at'],
-            // Other settings fields...
+            // Другие поля настроек...
         ],
         Flight::class => [
             'filterableAttributes'=> ['id', 'destination'],
@@ -349,7 +349,7 @@ php artisan scout:sync-index-settings
         use Searchable;
 
         /**
-         * Get the engine used to index the model.
+         * Используйте движок для индексации модели.
          */
         public function searchableUsing(): Engine
         {
@@ -374,7 +374,7 @@ SCOUT_IDENTIFY=true
 <a name="database-engine"></a>
 ### Драйвер базы данных
 
->[!WARNING]
+> [!WARNING]
 > В настоящее время драйвер базы данных поддерживает MySQL и PostgreSQL.
 
 Если ваше приложение взаимодействует с небольшими или средними базами данных или имеет легкую нагрузку, вам может быть удобнее начать с драйвера "database" Scout. Драйвер будет использовать запросы "where like" и полнотекстовые индексы при фильтрации результатов из вашей существующей базы данных для определения применимых результатов поиска для вашего запроса.
@@ -398,7 +398,7 @@ use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 
 /**
- * Get the indexable data array for the model.
+ * Получите индексируемый массив данных для модели.
  *
  * @return array<string, mixed>
  */
@@ -515,7 +515,7 @@ php artisan scout:flush "App\Models\Post"
 
     $order = Order::find(1);
 
-    // Update the order...
+    // Обновляем заказ...
 
     $order->save();
 
@@ -539,7 +539,7 @@ php artisan scout:flush "App\Models\Post"
     use Illuminate\Database\Eloquent\Collection;
 
     /**
-     * Modify the collection of models being made searchable.
+     * Измените коллекцию моделей, которые будут доступны для поиска.
      */
     public function makeSearchableUsing(Collection $models): Collection
     {
@@ -581,7 +581,7 @@ php artisan scout:flush "App\Models\Post"
     use App\Models\Order;
 
     Order::withoutSyncingToSearch(function () {
-        // Perform model actions...
+        // Выполняем действия модели...
     });
 
 <a name="conditionally-searchable-model-instances"></a>
@@ -674,7 +674,7 @@ Scout позволяет добавлять в поисковые запросы
 
 Получив результаты, вы можете отобразить результаты и отобразить ссылки на страницы с помощью [Blade](/docs/{{version}}/blade), как если бы вы разбили на страницы обычный запрос Eloquent:
 
-```html
+```blade
 <div class="container">
     @foreach ($orders as $order)
         {{ $order->price }}
