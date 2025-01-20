@@ -310,14 +310,14 @@ Horizon позволяет назначать “теги” (tags) задани
         use Queueable;
 
         /**
-         * Create a new job instance.
+         * Создаем новый экземпляр задания.
          */
         public function __construct(
             public Video $video,
         ) {}
 
         /**
-         * Execute the job.
+         * Выполнение задания.
          */
         public function handle(): void
         {
@@ -342,7 +342,7 @@ Horizon позволяет назначать “теги” (tags) задани
     class RenderVideo implements ShouldQueue
     {
         /**
-         * Get the tags that should be assigned to the job.
+         * Получаем теги, которые должны быть назначены заданию.
          *
          * @return array<int, string>
          */
@@ -360,7 +360,7 @@ Horizon позволяет назначать “теги” (tags) задани
     class SendRenderNotifications implements ShouldQueue
     {
         /**
-         * Get the tags that should be assigned to the listener.
+         * Получаем теги, которые должны быть назначены прослушивателю.
          *
          * @return array<int, string>
          */
