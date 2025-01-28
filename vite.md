@@ -202,7 +202,7 @@ export default defineConfig({
 ```blade
 <!doctype html>
 <head>
-    {{-- Given build path is relative to public path. --}}
+    {{-- Указанный путь сборки относится к общедоступному пути. --}}
 
     @vite('resources/js/app.js', 'vendor/courier/build')
 </head>
@@ -237,10 +237,10 @@ export default defineConfig({
 Или выполнить команду `build`, которая версионирует и соберет ресурсы вашего приложения, подготовив их к развертыванию в производственной среде:
 
 ```shell
-# Run the Vite development server...
+# Запускаем сервер разработки Vite...
 npm run dev
 
-# Build and version the assets for production...
+# Сборка и версия ресурсов для производства...
 npm run build
 ```
 
@@ -526,7 +526,7 @@ export default defineConfig({
 Часто в JavaScript-приложениях создают [псевдонимы](#aliases) для часто используемых каталогов. Однако, вы также можете создавать псевдонимы для использования в Blade, используя метод `macro` класса `Illuminate\Support\Facades\Vite`. Обычно "макросы" определяются в методе `boot` [сервис-провайдера](/docs/{{version}}/providers):
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -557,7 +557,7 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Зарегистрируйте любые службы приложения.
      */
     public function register(): void
     {
@@ -565,7 +565,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Загрузка любых сервисов приложения.
      */
     public function boot(): void
     {
@@ -578,7 +578,7 @@ class AppServiceProvider extends ServiceProvider
 
 ```php
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложений.
  */
 public function boot(): void
 {
@@ -590,7 +590,7 @@ public function boot(): void
 
 ```php
 /**
- * Bootstrap any application services.
+ * Загрузка любых сервисов приложения.
  */
 public function boot(): void
 {
@@ -648,7 +648,7 @@ import.meta.env.VITE_SENTRY_DSN_PUBLIC
 Если вы предпочитаете использовать имитацию Vite во время тестирования, вы можете вызвать метод `withoutVite`, который доступен для всех тестов, расширяющих класс `TestCase` Laravel:
 
 ```php tab=Pest
-test('without vite example', function () {
+test('пример без vite', function () {
     $this->withoutVite();
 
     // ...
@@ -755,7 +755,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AddContentSecurityPolicyHeaders
 {
     /**
-     * Handle an incoming request.
+     * Обработка входящего запроса.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
@@ -833,9 +833,9 @@ Vite::useIntegrityKey(false);
 use Illuminate\Support\Facades\Vite;
 
 Vite::useScriptTagAttributes([
-    'data-turbo-track' => 'reload', // Specify a value for the attribute...
-    'async' => true, // Specify an attribute without a value...
-    'integrity' => false, // Exclude an attribute that would otherwise be included...
+    'data-turbo-track' => 'reload', // Укажите значение атрибута...
+    'async' => true, // Укажите атрибут без значения...
+    'integrity' => false, // Исключить атрибут, который в противном случае был бы включен...
 ]);
 
 Vite::useStyleTagAttributes([
@@ -871,11 +871,11 @@ Vite::useStyleTagAttributes(fn (string $src, string $url, array|null $chunk, arr
     {{-- ... --}}
 
     {{
-        Vite::useHotFile(storage_path('vite.hot')) // Customize the "hot" file...
-            ->useBuildDirectory('bundle') // Customize the build directory...
-            ->useManifestFilename('assets.json') // Customize the manifest filename...
-            ->withEntryPoints(['resources/js/app.js']) // Specify the entry points...
-            ->createAssetPathsUsing(function (string $path, ?bool $secure) { // Customize the backend path generation for built assets...
+        Vite::useHotFile(storage_path('vite.hot')) // Настройте «горячий» файл...
+            ->useBuildDirectory('bundle') // Настройте каталог сборки...
+            ->useManifestFilename('assets.json') // Настройте имя файла манифеста...
+            ->withEntryPoints(['resources/js/app.js']) // Укажите точки входа...
+            ->createAssetPathsUsing(function (string $path, ?bool $secure) { // Настройте создание внутреннего пути для созданных активов...
                 return "https://cdn.example.com/{$path}";
             })
     }}
@@ -891,13 +891,13 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            hotFile: 'storage/vite.hot', // Customize the "hot" file...
-            buildDirectory: 'bundle', // Customize the build directory...
-            input: ['resources/js/app.js'], // Specify the entry points...
+            hotFile: 'storage/vite.hot', // Настройте «горячий» файл...
+            buildDirectory: 'bundle', // Настройте каталог сборки...
+            input: ['resources/js/app.js'], // Укажите точки входа...
         }),
     ],
     build: {
-      manifest: 'assets.json', // Customize the manifest filename...
+      manifest: 'assets.json', // Настройте имя файла манифеста...
     },
 });
 ```
@@ -936,6 +936,6 @@ export default defineConfig({
 Теперь, когда Vite обслуживает ресурсы, он будет выводить URL-адреса, указывающие на сервер разработки Vite:
 
 ```html
-- <img src="/@imagetools/f0b2f404b13f052c604e632f2fb60381bf61a520"><!-- [tl! remove] -->
-+ <img src="http://[::1]:5173/@imagetools/f0b2f404b13f052c604e632f2fb60381bf61a520"><!-- [tl! add] -->
+ - <img src="/@imagetools/f0b2f404b13f052c604e632f2fb60381bf61a520"><!-- [tl! remove] -->
+ + <img src="http://[::1]:5173/@imagetools/f0b2f404b13f052c604e632f2fb60381bf61a520"><!-- [tl! add] -->
 ```
