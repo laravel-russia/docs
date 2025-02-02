@@ -255,7 +255,7 @@ axios.get('/oauth/clients')
 
 ```js
 const data = {
-    name: 'Client Name',
+    name: 'Имя клиента',
     redirect: 'http://example.com/callback'
 };
 
@@ -264,7 +264,7 @@ axios.post('/oauth/clients', data)
         console.log(response.data);
     })
     .catch (response => {
-        // List errors on response...
+        // Список ошибок в ответе...
     });
 ```
 
@@ -275,7 +275,7 @@ axios.post('/oauth/clients', data)
 
 ```js
 const data = {
-    name: 'New Client Name',
+    name: 'Новое имя клиента',
     redirect: 'http://example.com/callback'
 };
 
@@ -284,7 +284,7 @@ axios.put('/oauth/clients/' + clientId, data)
         console.log(response.data);
     })
     .catch (response => {
-        // List errors on response...
+        // Список ошибок в ответе...
     });
 ```
 
@@ -454,10 +454,10 @@ axios.delete('/oauth/tokens/' + tokenId);
     $tokenRepository = app(TokenRepository::class);
     $refreshTokenRepository = app(RefreshTokenRepository::class);
 
-    // Revoke an access token...
+    // Отзываем токен доступа...
     $tokenRepository->revokeAccessToken($tokenId);
 
-    // Revoke all of the token's refresh tokens...
+    // Отменяем все токены обновления токена...
     $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
 
 <a name="purging-tokens"></a>
@@ -472,10 +472,10 @@ php artisan passport:purge
 # Удалить токены срок действия которых истек более чем на 6 часов назад...
 php artisan passport:purge --hours=6
 
-# Удалить только отозванные токены и коды авторизации ...
+# Удалить только отозванные токены и коды авторизации...
 php artisan passport:purge --revoked
 
-# Удалить только просроченные токены и коды авторизации ...
+# Удалить только просроченные токены и коды авторизации...
 php artisan passport:purge --expired
 ```
 
@@ -821,11 +821,11 @@ PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET="unhashed-client-secret-value"
 
     $user = User::find(1);
 
-    // Создание токена без области действия ...
-    $token = $user->createToken('Token Name')->accessToken;
+    // Создание токена без области действия...
+    $token = $user->createToken('Имя токена')->accessToken;
 
-    // Создание токена с областью ...
-    $token = $user->createToken('My Token', ['place-orders'])->accessToken;
+    // Создание токена с областью...
+    $token = $user->createToken('Мой токен', ['place-orders'])->accessToken;
 
 <a name="personal-access-tokens-json-api"></a>
 #### JSON API
@@ -865,7 +865,7 @@ axios.get('/oauth/personal-access-tokens')
 
 ```js
 const data = {
-    name: 'Token Name',
+    name: 'Имя токена',
     scopes: []
 };
 
@@ -874,7 +874,7 @@ axios.post('/oauth/personal-access-tokens', data)
         console.log(response.data.accessToken);
     })
     .catch (response => {
-        // List errors on response...
+        // Список ошибок в ответе...
     });
 ```
 
@@ -956,8 +956,8 @@ axios.delete('/oauth/personal-access-tokens/' + tokenId);
     public function boot(): void
     {
         Passport::tokensCan([
-            'place-orders' => 'Place orders',
-            'check-status' => 'Check order status',
+            'place-orders' => 'Размещение заказов',
+            'check-status' => 'Проверка статуса заказа',
         ]);
     }
 
@@ -969,8 +969,8 @@ axios.delete('/oauth/personal-access-tokens/' + tokenId);
     use Laravel\Passport\Passport;
 
     Passport::tokensCan([
-        'place-orders' => 'Place orders',
-        'check-status' => 'Check order status',
+        'place-orders' => 'Размещение заказов',
+        'check-status' => 'Проверка статуса заказа',
     ]);
 
     Passport::setDefaultScope([
@@ -1005,7 +1005,7 @@ axios.delete('/oauth/personal-access-tokens/' + tokenId);
 
 Если вы выдаете токены личного доступа с помощью метода `createToken` модели `App\Models\User`, вы можете передать массив желаемых областей в качестве второго аргумента метода:
 
-    $token = $user->createToken('My Token', ['place-orders'])->accessToken;
+    $token = $user->createToken('Мой токен', ['place-orders'])->accessToken;
 
 <a name="checking-scopes"></a>
 ### Проверка областей
@@ -1139,7 +1139,7 @@ Passport вызывает события при выдаче токенов до
 use App\Models\User;
 use Laravel\Passport\Passport;
 
-test('servers can be created', function () {
+test('серверы можно создавать', function () {
     Passport::actingAs(
         User::factory()->create(),
         ['create-servers']
@@ -1174,7 +1174,7 @@ public function test_servers_can_be_created(): void
 use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
 
-test('orders can be retrieved', function () {
+test('заказы можно получить', function () {
     Passport::actingAsClient(
         Client::factory()->create(),
         ['check-status']
