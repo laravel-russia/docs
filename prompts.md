@@ -388,7 +388,7 @@ $permissions = multiselect(
         'read' => 'Читать',
         'create' => 'Создавать',
         'update' => 'Обновлять',
-        'delete' => 'Удалить',
+        'delete' => 'Удалять',
     ],
     default: ['read', 'create']
 );
@@ -439,7 +439,7 @@ $permissions = multiselect(
         'read' => 'Читать',
         'create' => 'Создавать',
         'update' => 'Обновлять',
-        'delete' => 'Удалить',
+        'delete' => 'Удалять',
     ],
     validate: fn (array $values) => ! in_array('read', $values)
         ? 'Всем пользователям требуется разрешение на чтение.'
