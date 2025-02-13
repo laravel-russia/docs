@@ -16,7 +16,7 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 Иногда необходимо перенаправить пользователя в его предыдущее местоположение, например, когда отправленная форма недействительна. Это можно сделать с помощью глобальной вспомогательной функции `back`. Поскольку эта функция использует [сессии](/docs/{{version}}/session), убедитесь, что маршрут, вызывающий функцию `back`, использует группу посредников` web` или применяет все необходимые посредники сессии:
 
     Route::post('/user/profile', function () {
-        // Validate the request...
+        // Валидируем запрос...
 
         return back()->withInput();
     });
@@ -30,7 +30,7 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 
 Если ваш маршрут имеет параметры, вы можете передать их в качестве второго аргумента методу `route`:
 
-    // For a route with the following URI: profile/{id}
+    // Для маршрута со следующим URI: profile/{id}
 
     return redirect()->route('profile', ['id' => 1]);
 
@@ -43,7 +43,7 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 
 Если вы перенаправляете на маршрут с параметром "ID", который заполняется из модели Eloquent, вы можете передать саму модель. ID будет извлечен автоматически:
 
-    // For a route with the following URI: profile/{id}
+    // Для маршрута со следующим URI: profile/{id}
 
     return redirect()->route('profile', [$user]);
 
@@ -78,9 +78,9 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 Перенаправление на новый URL-адрес и [передача данных в сеанс](/docs/{{version}}/session#flash-data) обычно выполняются одновременно. Обычно это делается после успешного выполнения действия, когда вы отправляете сообщение об успешном завершении сеанса. Для удобства вы можете создать экземпляр `RedirectResponse` и передать данные в сеанс в цепочке методов:
 
     Route::post('/user/profile', function () {
-        // Update the user's profile...
+        // Обновляем профиль пользователя...
 
-        return redirect('/dashboard')->with('status', 'Profile updated!');
+        return redirect('/dashboard')->with('status', 'Профиль обновлен!');
     });
 
 Вы можете использовать метод `withInput`, предоставляемый экземпляром `RedirectResponse`, для передачи входных данных текущего запроса в сеанс перед перенаправлением пользователя на новый URL. После того как данные были переданы в сеанс, вы можете легко [получить их](/docs/{{version}}/requests#retrieving-old-input) во время следующего запроса:
@@ -89,8 +89,10 @@ git: 0f8a126e2be5693b10e97c3ffac98b0aea4915e8
 
 После перенаправления вы можете отобразить всплывающее сообщение [сеанса](/docs/{{version}}/session). Например, используя [синтаксис Blade](/docs/{{version}}/blade):
 
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+```blade
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+```
