@@ -41,7 +41,7 @@ class ExampleTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic functional test example.
+     * Пример базового функционального теста.
      */
     public function test_basic_example(): void
     {
@@ -98,16 +98,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('orders can be created', function () {
-    // Run the DatabaseSeeder...
+test('заказы могут быть созданы', function () {
+    // Запускаем DatabaseSeeder...
     $this->seed();
 
-    // Run a specific seeder...
+    // Запускаем конкретный seeder...
     $this->seed(OrderStatusSeeder::class);
 
     // ...
 
-    // Run an array of specific seeders...
+    // Запускаем массив определенных seeder'ов...
     $this->seed([
         OrderStatusSeeder::class,
         TransactionStatusSeeder::class,
@@ -131,19 +131,19 @@ class ExampleTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test creating a new order.
+     * Тестирование создания нового заказа.
      */
     public function test_orders_can_be_created(): void
     {
-        // Run the DatabaseSeeder...
+        // Запускаем DatabaseSeeder...
         $this->seed();
 
-        // Run a specific seeder...
+        // Запускаем конкретный seeder...
         $this->seed(OrderStatusSeeder::class);
 
         // ...
 
-        // Run an array of specific seeders...
+        // Запускаем массив определенных seeder'ов...
         $this->seed([
             OrderStatusSeeder::class,
             TransactionStatusSeeder::class,
